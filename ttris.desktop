@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=t-tris
+Exec=ttris
+Icon=assets/ttris.png
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true

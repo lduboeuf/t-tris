@@ -1,0 +1,5 @@
+var MAX_CELL = 12;
+var TOOLBAR_HEIGHT = 1;
+var CONTROLLER_HEIGHT = 3;
+var SCORE = 10;
+var REDUCED_TIME = 100;

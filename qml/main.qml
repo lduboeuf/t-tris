@@ -1,0 +1,78 @@
+import QtQuick 2.0
+import QtQuick.Controls 2.2
+
+
+ApplicationWindow {
+    id: window
+    visible: true
+    width: 360
+    height: 520
+
+
+    background:  Image {
+        id: background
+        source: "/assets/background.jpg"
+        fillMode: Image.PreserveAspectCrop
+    }
+
+
+    Column {
+        spacing:16
+        anchors.centerIn: parent
+        width:parent.width * 0.6
+
+        MenuButton {
+            name: qsTr("New Game")
+            onClicked:{
+                pageStack.push("qrc:/qml/GameBoard.qml", StackView.Immediate);
+            }
+        }
+        MenuButton {
+            name: qsTr("Show Scores")
+            onClicked:{
+                pageStack.push("qrc:/qml/ScorePage.qml");
+            }
+        }
+        MenuButton {
+            name: qsTr("Options")
+            onClicked:{
+                pageStack.push("qrc:/qml/Options.qml");
+            }
+        }
+        MenuButton {
+            id: btnQuit
+            name: qsTr("Quit")
+            onClicked:{
+                Qt.quit();
+            }
+        }
+    }
+
+
+//        GameOver{
+//            id: gameOverOverlay
+
+//            onRejected: {
+//                 Tetris.startNewGame();
+//            }
+
+//            onAccepted: {
+//                pageStack.pop(null)
+//            }
+
+//            Component.onCompleted: {
+//                gameOverOverlay.open()
+//            }
+//        }
+
+
+
+    StackView{
+        id: pageStack
+        anchors.fill: parent
+        initialItem: Item{}
+        onCurrentItemChanged: {
+                currentItem.forceActiveFocus() //force focus on Page (fix issue with keyboard event on Gameboard)
+        }
+    }
+}
