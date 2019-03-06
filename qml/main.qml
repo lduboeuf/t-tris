@@ -1,13 +1,17 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
+import QtQuick.Window 2.2
 
 
 ApplicationWindow {
     id: window
     visible: true
+    visibility: (Screen.devicePixelRatio > 2) ? Window.FullScreen : Window.AutomaticVisibility
+
     width: 360
     height: 520
 
+    color:"black"
 
     background:  Image {
         id: background
