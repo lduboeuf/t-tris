@@ -38,8 +38,6 @@ Page {
     }
 
 
-    //SystemPalette { id: activePalette }
-
     header:ToolBar {
         id:toolBar
 
@@ -126,10 +124,6 @@ Page {
 
     background: Image {
         id: background
-        //anchors.fill: parent
-        //anchors.top: parent.top
-        //anchors.bottom: parent.bottom
-
         source: "/assets/background.jpg"
         fillMode: Image.PreserveAspectCrop
     }
@@ -143,9 +137,17 @@ Page {
 
     Item {
         id: gameCanvas
-        property int score: 0
+        property int score: -1
         property int blockSize: parent.width / Config.MAX_CELL;
         property int level: 1
+
+        onScoreChanged: {
+            if (gameCanvas.score===0){
+                playStartSound.play()
+            }
+        }
+
+        onLevelChanged: playNextLevel.play()
 
         anchors.fill: parent
 
@@ -156,47 +158,15 @@ Page {
 
     }
 
-//    MouseArea{
-//        anchors.fill: gameCanvas
-//        anchors.margins: 5
-//        onClicked: {
-//            if(timer.running)
-//                Tetris.onKeyHandler(Constant.KEY_DOWN)
-//        }
-//    }
 
     SwipeArea {
             id: mouse
             anchors.fill: gameCanvas
             anchors.margins: 5
 
-
-
             onSwipe: {
                 if(!timer.running) return
-                var key
-                switch (direction) {
-                case "left":
-                    key = Constant.KEY_LEFT
-                    break
-                case "right":
-                    key = Constant.KEY_RIGHT
-                    break
-
-                case "up":
-                    key = Constant.KEY_UP
-                    break
-                case "down":
-                    key = Constant.KEY_DOWN
-                    break
-
-                case "none": //like a click
-                    key = Constant.KEY_UP
-                    break
-                }
-
-                Tetris.onKeyHandler(key)
-
+                Tetris.onKeyHandler(action)
 
             }
 
@@ -222,13 +192,8 @@ Page {
             }
         }
 
-        property int toolBtnWidth: Math.round(screenGame.width / 3)
-
         RowLayout{
             anchors.fill: parent
-            //height: btnLeft.height *2
-
-
 
             ToolButton {
                 id: btnLeft
@@ -326,26 +291,21 @@ Page {
         id: nameInputDialog
         anchors.centerIn: parent
         z: 100
-
-        //        onClosed: {
-        //            if (nameInputDialog.inputText != "")
-        //                SameGame.saveHighScore(nameInputDialog.inputText);
-        //        }
     }
 
-//    GameOver{
-//        id: gameOverOverlay
-//        anchors.centerIn: parent
-//        //z: 200
+    GameOver{
+        id: gameOverOverlay
+        anchors.centerIn: parent
 
-//        onRestart: {
-//             Tetris.startNewGame();
-//        }
+        onVisibleChanged: {
+            if (visible) playGameOverSound.play()
+        }
 
-//        Component.onCompleted: {
-//            gameOverOverlay.show()
-//        }
-//    }
+        onRestart: {
+            Tetris.startNewGame();
+        }
+
+    }
 
 
     SoundEffect {
@@ -361,8 +321,13 @@ Page {
         source: "/sound/game_over.wav"
     }
     SoundEffect {
-        id: playOtherSound
-        source: "/sound/other.wav"
+        id: playStartSound
+        source: "/sound/start.wav"
+    }
+
+    SoundEffect {
+        id: playNextLevel
+        source: "/sound/cymbals.wav"
     }
 
 

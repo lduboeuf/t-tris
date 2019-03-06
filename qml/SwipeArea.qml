@@ -1,68 +1,78 @@
 import QtQuick 2.0
-
+import "Constant.js" as Constant
 
 MouseArea {
     property point origin
-    property bool ready: false
-    property bool toDo:true
-    property int step: 2
+    property real xStep: parent.width / Constant.MAX_COLUMN_DEFAULT
+    property int currentPos: 0
+    property var lastSwipeDownActionDate: Date.now()
+    property var lastSwipeUpActionDate: Date.now()
+
+    readonly property  int  minActionInterval: 300 //minimum time in ms between 2 actions
     signal move(int x, int y)
-    signal swipe(string direction)
+    signal swipe(int action)
+
 
     onPressed: {
         drag.axis = Drag.XAndYAxis
         origin = Qt.point(mouse.x, mouse.y)
+        currentPos = Math.round(mouse.x / xStep)
     }
 
     onPositionChanged: {
-        //we take only one of two event
-        if (!toDo){
-            toDo = true
-            return
-        }
-
-        toDo = false
-
-
         switch (drag.axis) {
         case Drag.XAndYAxis:
+
             if (Math.abs(mouse.x - origin.x) > 16) {
                 drag.axis = Drag.XAxis
-                swipe(mouse.x - origin.x < 0 ? "left" : "right")
             }
             else if (Math.abs(mouse.y - origin.y) > 16) {
                 drag.axis = Drag.YAxis
-                swipe(mouse.y - origin.y < 0 ? "up" : "down")
             }
             break
+
         case Drag.XAxis:
-            //move(mouse.x - origin.x, 0)
 
-             swipe(mouse.x - origin.x < 0 ? "left" : "right")
-
-
+            var nbSteps = Math.round(mouse.x / xStep)
+            if (nbSteps > currentPos)
+                swipe(Constant.KEY_RIGHT)
+            else if (nbSteps < currentPos)
+                swipe(Constant.KEY_LEFT)
+            currentPos = nbSteps
 
             break
         case Drag.YAxis:
-            //move(0, mouse.y - origin.y)
-            swipe(mouse.y - origin.y < 0 ? "up" : "down")
+
+
+
+            if (mouse.y - origin.y < 0){
+                if (lastSwipeUpActionDate + minActionInterval < Date.now() ) {
+                    swipe(Constant.KEY_UP)
+                    lastSwipeUpActionDate = Date.now()
+                }
+            }else{
+                //protect from unintended down actions
+                if (lastSwipeDownActionDate + minActionInterval < Date.now() ){
+                    swipe(Constant.KEY_DOWN)
+                    lastSwipeDownActionDate = Date.now()
+                }
+            }
+
+
             break
         }
     }
 
     onReleased: {
-        switch (drag.axis) {
-        case Drag.XAndYAxis: //a click
-            //canceled(mouse)
-            swipe("none")
-            break
-        case Drag.XAxis:
 
-            swipe(mouse.x - origin.x < 0 ? "left" : "right")
-            break
-        case Drag.YAxis:
-            swipe(mouse.y - origin.y < 0 ? "up" : "down")
-            break
+        if (lastSwipeUpActionDate + minActionInterval >= Date.now() ) return
+
+        if (drag.axis===Drag.XAndYAxis){
+            swipe(Constant.KEY_UP) //like a click
+            lastSwipeUpActionDate = Date.now()
         }
+
     }
+
+
 }

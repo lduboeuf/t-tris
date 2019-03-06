@@ -55,7 +55,7 @@ function startNewGame() {
 
     Utils.createBlock( defaultOriginX, defaultOriginY,
                       newType, Constant.ORIENTATION_DEFAULT);
-    Sound.apply(Constant.NEW_LEVEL_SOUND);
+    //Sound.apply(Constant.NEW_LEVEL_SOUND);
     timer.start();
 }
 
@@ -94,7 +94,7 @@ function onKeyHandler(key){
             newYOnKeyHandle -=1;
             break;
         case Constant.KEY_PAUSE:
-            if(gameState == Constant.PAUSING_STATE){
+            if(gameState === Constant.PAUSING_STATE){
                 gameState = Constant.PLAYING_STATE;
                 timer.start();
                 nameInputDialog.hide()
@@ -119,7 +119,7 @@ function onKeyHandler(key){
  ***********************************/
 
 function controllerGame(column, row, type, orientation){
-    if(gameState == Constant.PLAYING_STATE){
+    if(gameState === Constant.PLAYING_STATE){
         if(canMoveTo(column, row, type, orientation)){
             Utils.deleteBlock(originX, originY, typeBlock, orientationBlock);
             Utils.createBlock(column, row, type, orientation);
@@ -127,8 +127,9 @@ function controllerGame(column, row, type, orientation){
             Utils.changeStateOfCells(originX, originY, typeBlock, orientationBlock);
             if(isGameOver()){
                 gameState = Constant.GAMEOVER_STATE;
-                Sound.apply(Constant.GAME_OVER_SOUND);
-                nameInputDialog.show(qsTr("GAME OVER"));
+                //Sound.apply(Constant.GAME_OVER_SOUND);
+                gameOverOverlay.show()
+                //nameInputDialog.show(qsTr("GAME OVER"));
                 Utils.saveHighScore("ABC")
             } else {                
                 checkFullRow();

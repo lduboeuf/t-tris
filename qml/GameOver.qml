@@ -3,62 +3,52 @@ import QtQuick.Controls 2.2
 import QtGraphicalEffects 1.0
 
 
-Dialog {
-    id: confirmationDialog
 
-    x: (parent.width - width) / 2
-    y: (parent.height - height) / 2
+
+Item {
+    id: container
     width: 200
     height: 100
-    opacity: 0.6
-    parent: ApplicationWindow.overlay
-
-    modal: true
-    title: qsTr("GAME OVER")
-    standardButtons: Dialog.Abort | Dialog.Retry
 
 
-    Column {
-        //spacing: 20
-        anchors.fill: parent
-        Label {
-            text: ""
-        }
+    signal restart
 
+    function show() {
+        container.visible = true;
     }
 
-}
+    visible: false
+
+    Rectangle{
+        anchors.fill: parent
+        color: "white"
+        opacity: 0.2
+    }
 
 
+    Column{
+        id: content
+        //anchors.topMargin: 12
+        spacing: 12
+        anchors.centerIn: parent
+        //anchors.horizontalCenter: parent.horizontalCenter
+        //anchors.fill: parent
 
-//Item {
-//    id: container
-//    width: 200
-//    height: 100
+        Text {
+            id: dialogText
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "white"
+            text: qsTr("GAME OVER")
+        }
 
-//    opacity: 0.2
-
-//    signal restart
-
-//    function show() {
-//        container.visible = true;
-//    }
-
-//    visible: false
-
-
-
-//    Column{
-//        id: content
-//        anchors.centerIn: parent
-//        //anchors.fill: parent
-
-//        Text {
-//            id: dialogText
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            color: "white"
-//            text: qsTr("GAME OVER")
-//        }
+        Button{
+            id: retryBtn
+            text: qsTr("Retry")
+            onClicked: {
+                restart()
+                container.visible = false;
+            }
+        }
 
 //        Item {
 //            anchors.horizontalCenter: parent.horizontalCenter
@@ -90,10 +80,10 @@ Dialog {
 //            }
 //        }
 
-//    }
+    }
 
 
 
 
 
-//}
+}

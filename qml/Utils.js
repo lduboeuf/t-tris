@@ -124,11 +124,11 @@ function createBlock(column, row, type, orientation)
     Tetris.typeBlock = type;
     Tetris.orientationBlock = orientation;
     var cell = Qt.createComponent("Cell.qml");
-    if(cell.status == Component.Ready){
+    if(cell.status === Component.Ready){
         var maxCell = Utils.getMaxCellFromType(type);
         for (var point = 0; point < maxCell; point++) {
             var dynamicObject = cell.createObject(gameCanvas);
-            if (dynamicObject == null) {
+            if (dynamicObject === null) {
                 console.log("error creating block");
                 console.log(cell.errorString());
                 return false;
@@ -312,7 +312,7 @@ function canGoDown(column, row){
         }
 
         if(board[Utils.index(column + x, row + y)] != null &&
-                board[Utils.index(column + x, row + y)].type == Constant.CLOCKING_CELL){
+                board[Utils.index(column + x, row + y)].type === Constant.CLOCKING_CELL){
             return false;
         }
     }

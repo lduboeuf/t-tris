@@ -49,23 +49,6 @@ ApplicationWindow {
     }
 
 
-//        GameOver{
-//            id: gameOverOverlay
-
-//            onRejected: {
-//                 Tetris.startNewGame();
-//            }
-
-//            onAccepted: {
-//                pageStack.pop(null)
-//            }
-
-//            Component.onCompleted: {
-//                gameOverOverlay.open()
-//            }
-//        }
-
-
 
     StackView{
         id: pageStack
