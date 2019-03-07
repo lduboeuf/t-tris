@@ -85,7 +85,8 @@ function moveDownAllRow(rowNum, delta){
         if(particle != null){
             Utils.createBlock(i, rowNum + delta, Constant.CELL_FIGURE, 0)
             Utils.changeStateOfCells(i, rowNum + delta, Constant.CELL_FIGURE, 0, particle.cellColor)
-            delete particle
+            Tetris.board[Utils.index(i, rowNum)].destroy();
+            Tetris.board[Utils.index(i, rowNum)] = null;
         }
     }
 }
