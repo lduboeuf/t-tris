@@ -8,10 +8,15 @@ Rectangle {
     property bool fixed: true
     property alias text: dialogText.text
 
+    onTextChanged: {
+        console.log("text:" + text)
+        visible = (text.length>0)
+    }
+
     width: dialogText.width + 20
     height: dialogText.height + 20
-    visible: text.length > 0
     opacity: 0.4
+    visible: false
 
 
     Text {
@@ -30,10 +35,6 @@ Rectangle {
                 visible = false
            }
     }
-
-
-
-
 
 
 }

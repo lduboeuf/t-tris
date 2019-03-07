@@ -1,11 +1,11 @@
 var list_figure = new Array(Constant.MAX_FIGURE)
 
 list_figure[Constant.CELL_FIGURE] = [
-                             {
-                                  "x":  0,
-                                  "y":  0
-                             }
-                          ];
+            {
+                "x":  0,
+                "y":  0
+            }
+        ];
 
 list_figure[Constant.LEFT_ANGLE_FIGURE] = [
             {
