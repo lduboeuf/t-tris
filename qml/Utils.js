@@ -79,16 +79,18 @@ function removeFullRow(rowNum){
 
 function moveDownAllRow(rowNum, delta){
     for(var i=0; i<Tetris.maxColumn; i++){
-        if(Tetris.board[Utils.index(i, rowNum)] != null){
+
+        var particle = Tetris.board[Utils.index(i, rowNum)]
+
+        if(particle != null){
             Utils.createBlock(i, rowNum + delta, Constant.CELL_FIGURE, 0)
-            Utils.changeStateOfCells(i, rowNum + delta, Constant.CELL_FIGURE, 0)
-            Tetris.board[Utils.index(i, rowNum)].destroy();
-            Tetris.board[Utils.index(i, rowNum)] = null;
+            Utils.changeStateOfCells(i, rowNum + delta, Constant.CELL_FIGURE, 0, particle.cellColor)
+            delete particle
         }
     }
 }
 
-function changeStateOfCells(column, row, type, orientation){
+function changeStateOfCells(column, row, type, orientation, color){
     var maxCell = Utils.getMaxCellFromType(type);
     for (var point = 0; point < maxCell; point++) {
     //    console.debug("(x,y) = ("+ column+ " , "+ row+" )  -- type,orient:  " + type + " -- "+ orientation);
@@ -97,7 +99,7 @@ function changeStateOfCells(column, row, type, orientation){
 
         if(Tetris.board[Utils.index(column + x, row + y)] != null){
             Tetris.board[Utils.index(column + x, row + y)].type = Constant.CLOCKING_CELL;
-            Tetris.board[Utils.index(column + x, row + y)].cellColor = "red";
+            Tetris.board[Utils.index(column + x, row + y)].cellColor = color;
         }
     }
     return true;
@@ -138,6 +140,7 @@ function createBlock(column, row, type, orientation)
             if(availablePosition(column + x, row + y)){
                 dynamicObject.x = (column + x) * Tetris.blockSize;
                 dynamicObject.y = (row + y) * Tetris.blockSize;
+                dynamicObject.spawned = true; //for object animation, see Cell.qml
                 dynamicObject.width = Tetris.blockSize;
                 dynamicObject.height = Tetris.blockSize;
                 dynamicObject.cellColor = Tetris.color;
@@ -159,12 +162,12 @@ function getColorOfCell(){
     return Constant.color[Math.floor(Math.random()*3)];
 }
 
-function setIntervalTimer(newTimer){
-    screenGame.intervalTimer = newTimer;
-    if(newTimer < 10){
-        screenGame.intervalTimer = 10;
-    }
-}
+//function setIntervalTimer(newTimer){
+//    boardGame.intervalTimer = newTimer;
+//    if(newTimer < 10){
+//        boardGame.intervalTimer = 10;
+//    }
+//}
 
 function drawNextFigure(column, row, type){
     var cell = Qt.createComponent("Cell.qml");
@@ -208,7 +211,7 @@ function saveHighScore(name) {
     //OfflineStorage
     var db = LocalStorage.openDatabaseSync("TetrisScores", "1.0", "Local Tetris High Scores",100);
     var dataStr = "INSERT INTO Scores VALUES(?, ?, ?)";
-    var data = [name, gameCanvas.score, gameCanvas.level];
+    var data = [name, boardGame.score, boardGame.level];
     db.transaction(
         function(tx) {
             tx.executeSql('CREATE TABLE IF NOT EXISTS Scores(name TEXT, score NUMBER, level NUMBER)');
@@ -217,20 +220,19 @@ function saveHighScore(name) {
     );
 }
 
-function showHighScore(level){
+function showHighScore(){
     var db = LocalStorage.openDatabaseSync("TetrisScores", "1.0", "Local Tetris High Scores",100);
     db.transaction(
         function(tx) {
               tx.executeSql('CREATE TABLE IF NOT EXISTS Scores(name TEXT, score NUMBER, level NUMBER)');
             //Only show results for the current grid size
-             var rs = tx.executeSql('SELECT * FROM Scores WHERE level = "level" ORDER BY score desc LIMIT 10');
-            var r = "\nHIGH SCORES \n\n"
+             var rs = tx.executeSql('SELECT * FROM Scores ORDER BY score desc LIMIT 10');
+            scores.clear()
             for(var i = 0; i < rs.rows.length; i++){
-                r += rs.rows.item(i).name +' got '
-                    + rs.rows.item(i).score + ' points in '
-                    + rs.rows.item(i).level + ' \n';
+                scores.append({date: rs.rows.item(i).name, score: rs.rows.item(i).score, level: rs.rows.item(i).level})
+
             }
-            dialog.show(r);
+            //dialog.show(r);
         }
     );
 }
@@ -289,18 +291,25 @@ function checkFullRow(){
             Utils.moveDownAllRow(i, delta);
         }
     }
-    gameCanvas.score += (delta*10);
-    updateIntervalTimer(gameCanvas.level, gameCanvas.score, lastScore)
-
-}
-
-function updateIntervalTimer(level, currScore, lScore){
-    if(currScore - lScore > Config.SCORE){
-        lastScore = currScore;
-        timer.interval = timer.interval - Config.REDUCED_TIME;
-        gameCanvas.level++
+    boardGame.score += (delta*10);
+    //check for new Level ?
+    if(boardGame.score - lastScore > Config.SCORE){
+        lastScore = boardGame.score;
+        boardGame.level++;
+        //timer.interval = timer.interval - Config.REDUCED_TIME;
+        //boardGame.state = Constant.STATE_NEW_LEVEL
     }
+    //updateIntervalTimer(boardGame.level, boardGame.score, lastScore)
+
 }
+
+//function updateIntervalTimer(level, currScore, lScore){
+//    if(currScore - lScore > Config.SCORE){
+//        lastScore = currScore;
+//        //timer.interval = timer.interval - Config.REDUCED_TIME;
+//        boardGame.state = Constant.STATE_NEW_LEVEL
+//    }
+//}
 
 function canGoDown(column, row){
     var maxCell = Utils.getMaxCellFromType(typeBlock);
@@ -321,7 +330,7 @@ function canGoDown(column, row){
 
 function clearMiniBoard(){
     if(miniBoard != null){
-        for (var i = 0; i < 25; i++) {
+        for (var i = 0; i < miniBoard.length; i++) {
             if (miniBoard[i] != null)
                 miniBoard[i].destroy();
                  miniBoard[i] = null;

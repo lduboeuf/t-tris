@@ -63,14 +63,22 @@ MouseArea {
         }
     }
 
-    onReleased: {
+    onClicked: {
 
-        if (lastSwipeUpActionDate + minActionInterval >= Date.now() ) return
 
         if (drag.axis===Drag.XAndYAxis){
-            swipe(Constant.KEY_UP) //like a click
-            lastSwipeUpActionDate = Date.now()
+            swipe(Constant.KEY_UP)
         }
+    }
+
+    onReleased: {
+
+//        if (lastSwipeUpActionDate + minActionInterval >= Date.now() ) return
+
+//        if (drag.axis===Drag.XAndYAxis){
+//            swipe(Constant.KEY_UP) //like a click
+//            lastSwipeUpActionDate = Date.now()
+//        }
 
     }
 

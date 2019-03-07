@@ -6,9 +6,6 @@ import QtMultimedia 5.0
 import QtQuick.Particles 2.0
 import QtQuick.LocalStorage 2.0
 
-//import QtQuick.Controls.Styles 1.4
-
-
 
 import "Configurations.js" as Config;
 import "Constant.js" as Constant
@@ -22,20 +19,35 @@ import "Figure.js" as FIGURE
 
 
 Page {
-    id: screenGame
+    id: boardGame
 
     focus: true    // important when set onKey
 
     property color textColor: "white"
-    property int intervalTimer: 500
-    property string state: "Play"
-    property int cellSize: parent.width < parent.height ? parent.width / Config.MAX_CELL : parent.height / Config.MAX_CELL
+
+    property int blockSize: width / Config.MAX_CELL;
+    property int cellSize: width < height ? blockSize : height / Config.MAX_CELL
     signal btnBackClick();
+
+    property int level: 1
+    property int score: 0
 
 
     StackView.onActivated: {
-        Tetris.startNewGame();
+        Tetris.initGame()
+       // boardGame.state= Constant.STATE_START
     }
+
+    onLevelChanged: {
+        boardGame.state = Constant.STATE_NEW_LEVEL
+        boardGame.state = Constant.STATE_PLAY
+    }
+
+    onStateChanged: {
+        console.log(state)
+
+    }
+
 
 
     header:ToolBar {
@@ -75,15 +87,15 @@ Page {
                     id: overlay
                     anchors.fill: navImage
                     source: navImage
-                    color: screenGame.textColor
+                    color: boardGame.textColor
                 }
             }
 
             Text {
                 id: score
                 anchors { horizontalCenter: parent.horizontalCenter;  verticalCenter: parent.verticalCenter;}
-                color: screenGame.textColor
-                text: "Level: " + gameCanvas.level + " | Score: " + gameCanvas.score
+                color: boardGame.textColor
+                text: "Level: " + boardGame.level + " | Score: " + boardGame.score
 
 
             }
@@ -97,26 +109,23 @@ Page {
                     sourceSize.height: toolButtonLeft.height  * 0.4
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: screenGame.state === "Play" ? "/assets/pause.svg" :"/assets/play.svg"
+                    source: boardGame.state === Constant.STATE_PAUSED ? "/assets/play.svg" : "/assets/pause.svg"
                 }
                 onClicked: {
-                    if(timer.running == true){
-                        timer.stop();
-                        screenGame.state = "Pause"
-                        nameInputDialog.show(qsTr("Paused"))
-                    }
-                    else{
-                        timer.start();
-                        screenGame.state = "Play"
-                        nameInputDialog.show(qsTr("Resumed"), 1000)
 
+                    if (boardGame.state===Constant.STATE_PAUSED){
+                        boardGame.state = Constant.STATE_RESUMED
+                    }else{
+                        boardGame.state = Constant.STATE_PAUSED
                     }
+
+
                 }
 
                 ColorOverlay {
                     anchors.fill: playPauseImg
                     source: playPauseImg
-                    color: screenGame.textColor
+                    color: boardGame.textColor
                 }
             }
         }
@@ -137,24 +146,7 @@ Page {
 
     Item {
         id: gameCanvas
-        property int score: -1
-        property int blockSize: parent.width / Config.MAX_CELL;
-        property int level: 1
-
-        onScoreChanged: {
-            if (gameCanvas.score===0){
-                playStartSound.play()
-            }
-        }
-
-        onLevelChanged: playNextLevel.play()
-
         anchors.fill: parent
-
-        ToolTip.text:""
-        ToolTip.visible:ToolTip.text.length > 0
-        ToolTip.timeout: 2000
-
 
     }
 
@@ -215,7 +207,7 @@ Page {
                 ColorOverlay {
                     anchors.fill: imgLeft
                     source: imgLeft
-                    color: screenGame.textColor
+                    color: boardGame.textColor
                 }
 
             }
@@ -245,7 +237,7 @@ Page {
                 ColorOverlay {
                     anchors.fill: imgRotate
                     source: imgRotate
-                    color: screenGame.textColor
+                    color: boardGame.textColor
                 }
 
 
@@ -275,7 +267,7 @@ Page {
                 ColorOverlay {
                     anchors.fill: imgRight
                     source: imgRight
-                    color: screenGame.textColor
+                    color: boardGame.textColor
                 }
 
             }
@@ -288,45 +280,44 @@ Page {
 
 
     DialogS7 {
-        id: nameInputDialog
+        id: dialog
         anchors.centerIn: parent
-        z: 100
     }
 
     GameOver{
         id: gameOverOverlay
         anchors.centerIn: parent
 
-        onVisibleChanged: {
-            if (visible) playGameOverSound.play()
-        }
+//        onVisibleChanged: {
+//            if (visible) playGameOverSound.play()
+//        }
 
-        onRestart: {
-            Tetris.startNewGame();
+        onRestartClicked: {
+            Tetris.initGame()
         }
 
     }
 
 
     SoundEffect {
-        id: playMovingSound
+        id: soundMoving
         source: "/sound/moving.wav"
     }
     SoundEffect {
-        id: playClearRowSound
+        id: soundClearRow
         source: "/sound/remove_row.wav"
     }
     SoundEffect {
-        id: playGameOverSound
+        id: soundGameOver
         source: "/sound/game_over.wav"
     }
     SoundEffect {
-        id: playStartSound
+        id: soundStart
         source: "/sound/start.wav"
     }
 
     SoundEffect {
-        id: playNextLevel
+        id: soundNextLevel
         source: "/sound/cymbals.wav"
     }
 
@@ -336,9 +327,13 @@ Page {
 
     Timer {
         id: timer
-        interval: intervalTimer
+        interval: Config.TIMER_INTERVAL
         repeat: true
-        onTriggered: Tetris.timerHandler()
+        onTriggered: Tetris.nextRound()
+//        onIntervalChanged: {
+//            console.log("interval changed")
+//            boardGame.state = Constant.STATE_PLAY //to reset state after STATE_NEW_LEVEL
+//        }
     }
 
     Keys.onLeftPressed: {
@@ -364,47 +359,49 @@ Page {
     }
 
 
+    states: [
+        State {
+            name: Constant.STATE_START
+            StateChangeScript { script: {
+                    boardGame.level = 1
+                    boardGame.score = 0
+                    soundStart.play()
+                    timer.start()
+                }
+            }
 
-    //    states: [
-    //        State {
-    //            name: "LEVEL_1"
-    //            when: gameCanvas.score < 500
-    //            StateChangeScript { script: Utils.setIntervalTimer(1000)}
-    //        },
+        },
 
-    //        State {
-    //            name: "LEVEL_2"
-    //            when: gameCanvas.score >= 500 && gameCanvas.score < 1200
-    //            PropertyChanges { target: gameCanvas; level: 2 }
-    //            StateChangeScript { script: Utils.setIntervalTimer(700)}
-    //        },
+        State {
+            name: Constant.STATE_PAUSED
+            PropertyChanges { target: timer; running: false }
+            PropertyChanges { target: dialog; text: qsTr("Paused") }
+        },
+        State {
+            name: Constant.STATE_RESUMED
+            PropertyChanges { target: timer; running: true }
+            PropertyChanges { target: dialog; text: qsTr("Resumed"); fixed: false }
+        },
+        State {
+            name: Constant.STATE_GAMEOVER
+            PropertyChanges { target: timer; running:false }
+            PropertyChanges { target: gameOverOverlay; visible:true }
+            StateChangeScript { script: soundGameOver.play() }
+        },
 
-    //        State {
-    //            name: "LEVEL_3"
-    //            when: gameCanvas.score >= 1200 && gameCanvas.score < 2000
-    //            PropertyChanges { target: gameCanvas; level: 3 }
-    //            StateChangeScript { script: Utils.setIntervalTimer(500)}
-    //        },
+        State {
+            name: Constant.STATE_NEW_LEVEL
+            StateChangeScript {
+                script: {
+                    timer.interval = timer.interval - Config.REDUCED_TIME
+                    soundNextLevel.play()
+                }
+            }
+        }
 
-    //        State {
-    //            name: "LEVEL_4"
-    //            when: gameCanvas.score >= 2000 && gameCanvas.score < 2500
-    //            PropertyChanges { target: gameCanvas; level: 4 }
-    //            StateChangeScript { script: Utils.setIntervalTimer(350)}
-    //        },
 
-    //        State {
-    //            name: "LEVEL_5"
-    //            when: gameCanvas.score >= 2500 && gameCanvas.score < 2800
-    //            PropertyChanges { target: gameCanvas; level: 5 }
-    //            StateChangeScript { script: Utils.setIntervalTimer(180)}
-    //        },
+    ]
 
-    //        State {
-    //            name: "HIGHEST_LEVEL"
-    //            when: gameCanvas.score >= 2800
-    //            PropertyChanges { target: gameCanvas; level: 6 }
-    //            StateChangeScript { script: Utils.setIntervalTimer(120)}
-    //        }
-    //    ]
+
+
 }

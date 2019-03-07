@@ -5,42 +5,33 @@ import QtQuick.Controls 2.2
 Rectangle {
     id: container
 
-    signal closed
-
-    function show(text, delay) {
-        dialogText.text = text;
-        container.opacity = 0.4;
-
-        if (delay!== undefined){
-            timerMsg.start()
-        }
-    }
-
-
+    property bool fixed: true
+    property alias text: dialogText.text
 
     width: dialogText.width + 20
     height: dialogText.height + 20
-    opacity: 0
-    visible: opacity > 0
+    visible: text.length > 0
+    opacity: 0.4
+
 
     Text {
         id: dialogText
-   //     anchors { verticalCenter: parent.verticalCenter; left: parent.left; leftMargin: 10 }
         anchors.centerIn: parent
         text: ""
-        color: screenGame.textColor
+        color: boardGame.textColor
     }
 
     Timer {
             id: timerMsg
 
-            interval: 1000
+            interval: 600
+            running: !fixed
             onTriggered: {
-                timerMsg.stop()
-                container.opacity = 0;
-                container.closed();
-            }
-        }
+                visible = false
+           }
+    }
+
+
 
 
 

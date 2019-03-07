@@ -5,13 +5,13 @@ function apply(type){
         playOtherSound.play()
         break;
     case Constant.MOVING_SOUND:
-        playMovingSound.play()
+        soundMoving.play()
         break;
     case Constant.REMOVE_ROW_SOUND:
-        playClearRowSound.play()
+        soundClearRow.play()
         break;
     case Constant.GAME_OVER_SOUND:
-        playGameOverSound.play()
+        soundGameOver.play()
         break;
     }
 }
