@@ -152,16 +152,14 @@ Page {
 
 
     SwipeArea {
-            id: mouse
+            id: mouseArea
             anchors.fill: gameCanvas
             anchors.margins: 5
 
             onSwipe: {
-                if(!timer.running) return
                 Tetris.onKeyHandler(action)
 
             }
-
     }
 
 
@@ -337,31 +335,29 @@ Page {
     }
 
     Keys.onLeftPressed: {
-        if(timer.running)
-            Tetris.onKeyHandler(Constant.KEY_LEFT)
+         Tetris.onKeyHandler(Constant.KEY_LEFT)
     }
 
     Keys.onRightPressed: {
-        if(timer.running)
-            Tetris.onKeyHandler(Constant.KEY_RIGHT)
+       Tetris.onKeyHandler(Constant.KEY_RIGHT)
     }
     Keys.onUpPressed: {
-        if(timer.running)
-            Tetris.onKeyHandler(Constant.KEY_UP)
+       Tetris.onKeyHandler(Constant.KEY_UP)
     }
     Keys.onDownPressed: {
-        if(timer.running)
-            Tetris.onKeyHandler(Constant.KEY_DOWN)
+        Tetris.onKeyHandler(Constant.KEY_DOWN)
     }
     Keys.onCallPressed:  {
-        if(timer.running)
-            Tetris.onKeyHandler(Constant.KEY_PAUSE)
+        Tetris.onKeyHandler(Constant.KEY_PAUSE)
     }
 
 
     states: [
         State {
             name: Constant.STATE_START
+            PropertyChanges { target: boardGame; Keys.enabled: true }
+            PropertyChanges { target: mouseArea; enabled: true }
+
             StateChangeScript { script: {
                     boardGame.level = 1
                     boardGame.score = 0
@@ -376,11 +372,19 @@ Page {
             name: Constant.STATE_PAUSED
             PropertyChanges { target: timer; running: false }
             PropertyChanges { target: dialog; text: qsTr("Paused") }
-        },
+            PropertyChanges { target: boardGame; Keys.enabled: false }
+            PropertyChanges { target: mouseArea; enabled: false }
+            //StateChangeScript { script:{ boardGame.Keys.enabled = false } }
+
+        }
+        ,
         State {
             name: Constant.STATE_RESUMED
             PropertyChanges { target: timer; running: true }
             PropertyChanges { target: dialog; text: qsTr("Resumed"); fixed: false }
+            PropertyChanges { target: boardGame; Keys.enabled: true }
+            PropertyChanges { target: mouseArea; enabled: true }
+
         },
         State {
             name: Constant.STATE_GAMEOVER
