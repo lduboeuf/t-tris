@@ -126,6 +126,7 @@ function createBlock(column, row, type, orientation)
     Tetris.originY = row;
     Tetris.typeBlock = type;
     Tetris.orientationBlock = orientation;
+
     var cell = Qt.createComponent("Cell.qml");
     if(cell.status === Component.Ready){
         var maxCell = Utils.getMaxCellFromType(type);

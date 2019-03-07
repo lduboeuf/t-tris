@@ -98,12 +98,12 @@ function onKeyHandler(key){
         case Constant.KEY_PAUSE:
             if(boardGame.state === Constant.STATE_PAUSED){
                 boardGame.state = Constant.STATE_PLAY;
-                timer.start();
-                nameInputDialog.hide()
+                //timer.start();
+                //nameInputDialog.hide()
             } else {
                 boardGame.state = Constant.STATE_PAUSED
-                timer.stop()
-                nameInputDialog.show("PAUSE");
+                //timer.stop()
+                //nameInputDialog.show("PAUSE");
             }
             break;
 
@@ -140,7 +140,7 @@ function controllerGame(column, row, type, orientation){
                 Tetris.nextTypeBlock = newType;
                 clearMiniBoard();
                 Utils.drawNextFigure(2,2,newType)
-            } else {
+            } else { //create a new one
                 Utils.createBlock(defaultOriginX, defaultOriginY,
                                   Constant.CELL_FIGURE, Constant.ORIENTATION_DEFAULT);
             }
