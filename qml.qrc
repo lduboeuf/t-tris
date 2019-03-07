@@ -46,5 +46,8 @@
         <file>qml/SwipeArea.qml</file>
         <file>sound/cymbals.wav</file>
         <file>sound/start.wav</file>
+        <file>i18n/base_es.qm</file>
+        <file>i18n/base_de.qm</file>
+        <file>i18n/base_fr.qm</file>
     </qresource>
 </RCC>
