@@ -6,22 +6,22 @@
     <message>
         <location filename="../qml/GameBoard.qml" line="98"/>
         <source>Level: </source>
-        <translation type="unfinished"></translation>
+        <translation>Niveau : </translation>
     </message>
     <message>
         <location filename="../qml/GameBoard.qml" line="98"/>
         <source>Score: </source>
-        <translation type="unfinished"></translation>
+        <translation>Score : </translation>
     </message>
     <message>
         <location filename="../qml/GameBoard.qml" line="378"/>
         <source>Paused</source>
-        <translation type="unfinished"></translation>
+        <translation>En pause</translation>
     </message>
     <message>
         <location filename="../qml/GameBoard.qml" line="383"/>
         <source>Resumed</source>
-        <translation type="unfinished"></translation>
+        <translation>Reprise</translation>
     </message>
 </context>
 <context>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../qml/GameOver.qml" line="41"/>
         <source>GAME OVER</source>
-        <translation type="unfinished"></translation>
+        <translation>FIN DE PARTIE</translation>
     </message>
     <message>
         <location filename="../qml/GameOver.qml" line="46"/>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>Réessayer</translation>
     </message>
 </context>
 <context>
@@ -42,7 +42,7 @@
     <message>
         <location filename="../qml/Options.qml" line="45"/>
         <source>not implemented yet</source>
-        <translation type="unfinished"></translation>
+        <translation>pas encore implémentées</translation>
     </message>
 </context>
 <context>
@@ -50,7 +50,7 @@
     <message>
         <location filename="../qml/ScorePage.qml" line="12"/>
         <source>High scores</source>
-        <translation type="unfinished"></translation>
+        <translation>Records</translation>
     </message>
 </context>
 <context>
@@ -63,17 +63,17 @@
     <message>
         <location filename="../qml/main.qml" line="35"/>
         <source>Show Scores</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les scores</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="41"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Options</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="48"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitter</translation>
     </message>
 </context>
 </TS>
