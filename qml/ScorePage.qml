@@ -9,8 +9,16 @@ import  "Utils.js" as Utils
 Page {
 
 
+    title: qsTr("High scores")
+
+    background: Image {
+        source: "/assets/background.jpg"
+        fillMode: Image.PreserveAspectCrop
+    }
+
     header:ToolBar {
         id:toolBar
+
 
         background: Rectangle{
             anchors.fill: toolBar
@@ -37,16 +45,42 @@ Page {
                     }
 
                 }
+
+                Text {
+                    id: score
+                    anchors { horizontalCenter: parent.horizontalCenter;  verticalCenter: parent.verticalCenter;}
+                    color: "white"
+                    text: title
+
+
+                }
+
             }
     }
 
 
     StackView.onActivated: {
-        Utils.showHighScore(1)
+        Utils.showHighScore()
     }
 
 
-    DialogS7 {
-        id: dialog
+    ListView{
+        anchors.fill: parent
+        model: ListModel{
+            id: scores
+        }
+        delegate: ItemDelegate{
+            width: parent.width
+            contentItem: Text{
+                color: "white"
+                text: score + " (" +date + ")"
+            }
+
+
+        }
     }
+
+
+
+
 }

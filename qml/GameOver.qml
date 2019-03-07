@@ -11,7 +11,7 @@ Item {
     height: 100
 
 
-    signal restart
+    signal restartClicked
 
     function show() {
         container.visible = true;
@@ -45,7 +45,7 @@ Item {
             id: retryBtn
             text: qsTr("Retry")
             onClicked: {
-                restart()
+                restartClicked()
                 container.visible = false;
             }
         }
