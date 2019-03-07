@@ -95,7 +95,7 @@ Page {
                 id: score
                 anchors { horizontalCenter: parent.horizontalCenter;  verticalCenter: parent.verticalCenter;}
                 color: boardGame.textColor
-                text: "Level: " + boardGame.level + " | Score: " + boardGame.score
+                text: qsTr("Level: ") + boardGame.level + " | " + qsTr("Score: ")  + boardGame.score
 
 
             }
