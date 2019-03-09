@@ -52,113 +52,141 @@ function getMaxOrientationFromType(type){
 }
 
 //Index function used instead of a 2D array
-function index(column, row) {
-    return column + (row * Tetris.maxColumn);
-}
+//function index(column, row) {
+//    return column + (row * Tetris.maxColumn);
+//}
 
-function availablePosition(column, row){
-    if(column < 0 || column >= Tetris.maxColumn || row < 0 || row >= Tetris.maxRow){
-        return false;
-    }
-    if (Tetris.board[Utils.index(column, row )] != null &&
-            Tetris.board[Utils.index(column, row)].type == Constant.CLOCKING_CELL){
-        return false;
-    }
+//function availablePosition(column, row){
+//    if(column < 0 || column >= Tetris.maxColumn || row < 0 || row >= Tetris.maxRow){
+//        return false;
+//    }
+//    if (Tetris.board[Utils.index(column, row )] != null &&
+//            Tetris.board[Utils.index(column, row)].type == Constant.CLOCKING_CELL){
+//        return false;
+//    }
 
-    return true;
-}
+//    return true;
+//}
 
-function removeFullRow(rowNum){
-    console.debug("call remove full row")
-    Sound.apply(Constant.REMOVE_ROW_SOUND);
-    for( var i=0; i< Tetris.maxColumn; i++){
-        Tetris.board[Utils.index(i, rowNum)].dying = true;
-        Tetris.board[Utils.index(i, rowNum)] = null;
-    }
-}
+//function removeFullRow(rowNum){
+//    console.debug("call remove full row")
+//    Sound.apply(Constant.REMOVE_ROW_SOUND);
+//    for( var i=0; i< Tetris.maxColumn; i++){
+//        Tetris.board[Utils.index(i, rowNum)].dying = true;
+//        Tetris.board[Utils.index(i, rowNum)] = null;
+//    }
+//}
 
-function moveDownAllRow(rowNum, delta){
-    for(var i=0; i<Tetris.maxColumn; i++){
+//function moveDownAllRow(rowNum, delta){
+//    for(var i=0; i<Tetris.maxColumn; i++){
 
-        var particle = Tetris.board[Utils.index(i, rowNum)]
+//        var particle = Tetris.board[Utils.index(i, rowNum)]
 
-        if(particle != null){
-            Utils.createBlock(i, rowNum + delta, Constant.CELL_FIGURE, 0)
-            Utils.changeStateOfCells(i, rowNum + delta, Constant.CELL_FIGURE, 0, particle.cellColor)
-            Tetris.board[Utils.index(i, rowNum)].destroy();
-            Tetris.board[Utils.index(i, rowNum)] = null;
-        }
-    }
-}
+//        if(particle != null){
+//            Utils.createBlock(i, rowNum + delta, Constant.CELL_FIGURE, 0)
+//            Utils.changeStateOfCells(i, rowNum + delta, Constant.CELL_FIGURE, 0, particle.cellColor)
+//            Tetris.board[Utils.index(i, rowNum)].destroy();
+//            Tetris.board[Utils.index(i, rowNum)] = null;
+//        }
+//    }
+//}
 
-function changeStateOfCells(column, row, type, orientation, color){
-    var maxCell = Utils.getMaxCellFromType(type);
-    for (var point = 0; point < maxCell; point++) {
-    //    console.debug("(x,y) = ("+ column+ " , "+ row+" )  -- type,orient:  " + type + " -- "+ orientation);
-        var x = Utils.getX(point, type, orientation);
-        var y = Utils.getY(point, type, orientation);
+//function changeStateOfCells(currentItem){
+//    var maxCell = Utils.getMaxCellFromType(currentItem.type);
+//    for (var point = 0; point < maxCell; point++) {
+//    //    console.debug("(x,y) = ("+ column+ " , "+ row+" )  -- type,orient:  " + type + " -- "+ orientation);
+//        var x = Utils.getX(point, currentItem.type, currentItem.orientation);
+//        var y = Utils.getY(point, currentItem.type, currentItem.orientation);
 
-        if(Tetris.board[Utils.index(column + x, row + y)] != null){
-            Tetris.board[Utils.index(column + x, row + y)].type = Constant.CLOCKING_CELL;
-            Tetris.board[Utils.index(column + x, row + y)].cellColor = color;
-        }
-    }
-    return true;
-}
+//        var particle = Tetris.board[Utils.index(currentItem.column + x, currentItem.row + y)]
+//        if(particle != null){
+//            particle.type = Constant.CLOCKING_CELL;
+//            particle.cellColor = color;
+//        }
+//    }
+//    return true;
+//}
 
-function deleteBlock(column, row, type, orientation){
-    var maxCell = Utils.getMaxCellFromType(type);
-    for (var point = 0; point < maxCell; point++) {
-    //    console.debug("(x,y) = ("+ column+ " , "+ row+" )  -- type,orient:  " + type + " -- "+ orientation);
-        var x = Utils.getX(point, type, orientation);
-        var y = Utils.getY(point, type, orientation);
-        if(Tetris.board[Utils.index(column + x, row + y)] != null){
-            Tetris.board[Utils.index(column + x, row + y)].destroy();
-            Tetris.board[Utils.index(column + x, row + y)] = null;
-        }
-    }
-    return true;
-}
+//function deleteBlock(column, row, type, orientation){
+//    var maxCell = Utils.getMaxCellFromType(type);
+//    for (var point = 0; point < maxCell; point++) {
+//    //    console.debug("(x,y) = ("+ column+ " , "+ row+" )  -- type,orient:  " + type + " -- "+ orientation);
+//        var x = Utils.getX(point, type, orientation);
+//        var y = Utils.getY(point, type, orientation);
+//        if(Tetris.board[Utils.index(column + x, row + y)] != null){
+//            Tetris.board[Utils.index(column + x, row + y)].destroy();
+//            Tetris.board[Utils.index(column + x, row + y)] = null;
+//        }
+//    }
+//    return true;
+//}
 
-function createBlock(column, row, type, orientation)
-{
-    Tetris.originX = column;
-    Tetris.originY = row;
-    Tetris.typeBlock = type;
-    Tetris.orientationBlock = orientation;
+//function moveBlock(source, target){
+//    var maxCell = Utils.getMaxCellFromType(source.type);
+//    for (var point = 0; point < maxCell; point++) {
+//        console.debug("(x,y) = ("+ target.column+ " , "+ target.row+" )  -- type,orient:  " + source.type + " -- "+ source.orientation);
+//        var x = Utils.getX(point, source.type, source.orientation);
+//        var y = Utils.getY(point, source.type, source.orientation);
+//        var idx = Utils.index(source.column + x, source.row + y)
 
-    var cell = Qt.createComponent("Cell.qml");
-    if(cell.status === Component.Ready){
-        var maxCell = Utils.getMaxCellFromType(type);
-        for (var point = 0; point < maxCell; point++) {
-            var dynamicObject = cell.createObject(gameCanvas);
-            if (dynamicObject === null) {
-                console.log("error creating block");
-                console.log(cell.errorString());
-                return false;
-            }
-            var x = Utils.getX(point, type, orientation);
-            var y = Utils.getY(point, type, orientation);
-            if(availablePosition(column + x, row + y)){
-                dynamicObject.x = (column + x) * Tetris.blockSize;
-                dynamicObject.y = (row + y) * Tetris.blockSize;
-                dynamicObject.spawned = true; //for object animation, see Cell.qml
-                dynamicObject.width = Tetris.blockSize;
-                dynamicObject.height = Tetris.blockSize;
-                dynamicObject.cellColor = Tetris.color;
-                dynamicObject.type = Constant.RUNNING_CELL;
-                Tetris.board[Utils.index(column + x, row + y, Tetris.maxColumn)] = dynamicObject;
-            }
-        //    console.debug("point: "+ point + " -- (x,y) = ("+ x + " , " + y +
-        //                  " ) -- col = "+column + " -- row = "+row );
-        }
-    } else {
-        console.log("error loading block component");
-        console.log(cell.errorString());
-        return false;
-    }
-    return true;
-}
+//        var particle = Tetris.board[idx];
+//        if(particle != null){
+//            Tetris.board[idx] = null;
+
+//            //new coordonates
+//            x = Utils.getX(point, target.type, target.orientation);
+//            y = Utils.getY(point, target.type, target.orientation);
+
+//            particle.x = (target.column + x) * Tetris.blockSize;
+//            particle.y = (target.row + y) * Tetris.blockSize;
+//            particle.type = Constant.RUNNING_CELL;
+//            Tetris.board[Utils.index(target.column + x, target.row + y, Tetris.maxColumn)] = particle;
+//            //TODO make object
+//            Tetris.originX = target.column;
+//            Tetris.originY = target.row;
+//            Tetris.typeBlock = source.type;
+//            Tetris.orientationBlock = target.orientation;
+//        }
+//    }
+//    return true;
+//}
+
+
+//function createItem(item)
+//{
+
+//    var cell = Qt.createComponent("Cell.qml");
+//    if(cell.status === Component.Ready){
+//        var maxCell = Utils.getMaxCellFromType(item.type);
+//        for (var point = 0; point < maxCell; point++) {
+//            var dynamicObject = cell.createObject(gameCanvas);
+//            if (dynamicObject === null) {
+//                console.log("error creating item");
+//                console.log(cell.errorString());
+//                return false;
+//            }
+//            var x = Utils.getX(point, item.type, item.orientation);
+//            var y = Utils.getY(point, item.type, item.orientation);
+//            if(availablePosition(item.column + x, item.row + y)){
+//                dynamicObject.x = (item.column + x) * Tetris.blockSize;
+//                dynamicObject.y = (item.row + y) * Tetris.blockSize;
+//                dynamicObject.spawned = true; //for object animation, see Cell.qml
+//                dynamicObject.width = Tetris.blockSize;
+//                dynamicObject.height = Tetris.blockSize;
+//                dynamicObject.cellColor = item.color;
+//                dynamicObject.type = item.type;
+//                Tetris.board[Utils.index(item.column + x, item.row + y, Tetris.maxColumn)] = dynamicObject;
+//            }
+//        //    console.debug("point: "+ point + " -- (x,y) = ("+ x + " , " + y +
+//        //                  " ) -- col = "+column + " -- row = "+row );
+//        }
+//    } else {
+//        console.log("error loading item component");
+//        console.log(cell.errorString());
+//        return false;
+//    }
+//    return true;
+//}
 
 function getColorOfCell(){
     return Constant.color[Math.floor(Math.random()*3)];
@@ -171,43 +199,43 @@ function getColorOfCell(){
 //    }
 //}
 
-function drawNextFigure(column, row, type){
-    var cell = Qt.createComponent("Cell.qml");
-    var blockSize = 15;
-    if(cell.status == Component.Ready){
-        var maxCell = Utils.getMaxCellFromType(type);
-        for (var point = 0; point < maxCell; point++) {
-            var dynamicObject = cell.createObject(nextFigure);
-            if (dynamicObject == null) {
-                console.log("error creating block");
-                console.log(cell.errorString());
-                return false;
-            }
-            var x = Utils.getX(point, type, 0);
-            var y = Utils.getY(point, type, 0);
-            if(availablePosition(column + x, row + y)){
-                dynamicObject.x = (column + x) * blockSize;
-                dynamicObject.y = (row + y) * blockSize;
-                dynamicObject.width = blockSize;
-                dynamicObject.height = blockSize;
-                dynamicObject.cellColor = Tetris.nextColor;
-                dynamicObject.type = Constant.CLOCKING_CELL;
-                Tetris.miniBoard[Utils.getIndex(column + x, row + y)] = dynamicObject;
-            }
-        //    console.debug("point: "+ point + " -- (x,y) = ("+ x + " , " + y +
-        //                  " ) -- col = "+column + " -- row = "+row );
-        }
-    } else {
-        console.log("error loading block component");
-        console.log(cell.errorString());
-        return false;
-    }
-    return true;
-}
+//function drawNextFigure(column, row, type){
+//    var cell = Qt.createComponent("Cell.qml");
+//    var blockSize = 15;
+//    if(cell.status == Component.Ready){
+//        var maxCell = Utils.getMaxCellFromType(type);
+//        for (var point = 0; point < maxCell; point++) {
+//            var dynamicObject = cell.createObject(nextFigure);
+//            if (dynamicObject == null) {
+//                console.log("error creating block");
+//                console.log(cell.errorString());
+//                return false;
+//            }
+//            var x = Utils.getX(point, type, 0);
+//            var y = Utils.getY(point, type, 0);
+//            if(availablePosition(column + x, row + y)){
+//                dynamicObject.x = (column + x) * blockSize;
+//                dynamicObject.y = (row + y) * blockSize;
+//                dynamicObject.width = blockSize;
+//                dynamicObject.height = blockSize;
+//                dynamicObject.cellColor = Tetris.nextColor;
+//                dynamicObject.type = Constant.CLOCKING_CELL;
+//                Tetris.miniBoard[Utils.getIndex(column + x, row + y)] = dynamicObject;
+//            }
+//        //    console.debug("point: "+ point + " -- (x,y) = ("+ x + " , " + y +
+//        //                  " ) -- col = "+column + " -- row = "+row );
+//        }
+//    } else {
+//        console.log("error loading block component");
+//        console.log(cell.errorString());
+//        return false;
+//    }
+//    return true;
+//}
 
-function getIndex(column, row){
-    return column + (row * 5);
-}
+//function getIndex(column, row){
+//    return column + (row * 5);
+//}
 
 function saveHighScore(name) {
     //OfflineStorage
@@ -239,19 +267,19 @@ function showHighScore(){
     );
 }
 
-function canMoveTo(column, row, type, orientation){
+//function canMoveTo(item){
 
-    var maxCell = Utils.getMaxCellFromType(type);
-    for (var point = 0; point < maxCell; point++) {
-    //    console.debug("(x,y) = ("+ column+ " , "+ row+" )  -- type,orient:  " + type + " -- "+ orientation);
-        var x = Utils.getX(point, type, orientation);
-        var y = Utils.getY(point, type, orientation);
-        if(!Utils.availablePosition(column + x, row + y)){
-            return false;
-        }
-    }
-    return true;
-}
+//    var maxCell = Utils.getMaxCellFromType(item.type);
+//    for (var point = 0; point < maxCell; point++) {
+//    //    console.debug("(x,y) = ("+ column+ " , "+ row+" )  -- type,orient:  " + type + " -- "+ orientation);
+//        var x = Utils.getX(point, item.type, item.orientation);
+//        var y = Utils.getY(point, item.type, item.orientation);
+//        if(!Utils.availablePosition(item.column + x, item.row + y)){
+//            return false;
+//        }
+//    }
+//    return true;
+//}
 
 function getClockwise(type, orientation){
     var maxOrient = Utils.getMaxOrientationFromType(type)
@@ -262,48 +290,48 @@ function getClockwise(type, orientation){
     }
 }
 
-function isGameOver(){
-    for(var i=0; i< maxColumn; i++){
-        if(board[Utils.index(i,0)] != null){
-            return true;
-        }
-    }
-    return false;
-}
+//function isGameOver(){
+//    for(var i=0; i< maxColumn; i++){
+//        if(board[Utils.index(i,0)] != null){
+//            return true;
+//        }
+//    }
+//    return false;
+//}
 
-function checkFullRow(){
-    var hasRowFull = true;
-    var delta = 0;
-    for (var i=maxRow -1; i > 0; i--){
-        for(var j=0; j<maxColumn; j++){
-            hasRowFull = true
-      //      console.debug("(col, row) = ("+ j + " , "+ i + " )" + " -- hasfullrow= "+ hasRowFull);
-            if(board[Utils.index(j,i)] == null){
-                hasRowFull = false;
-      //          console.debug("Call here -------------------------------hasFull= "+ hasRowFull)
-                break;
-            }
-        }
-        if(hasRowFull){
-            console.debug("row full = " +i)
-            Utils.removeFullRow(i);
-            delta++;
-        } else if(delta > 0){
-            console.debug("row not full = " +i)
-            Utils.moveDownAllRow(i, delta);
-        }
-    }
-    boardGame.score += (delta*10);
-    //check for new Level ?
-    if(boardGame.score - lastScore > Config.SCORE){
-        lastScore = boardGame.score;
-        boardGame.level++;
-        //timer.interval = timer.interval - Config.REDUCED_TIME;
-        //boardGame.state = Constant.STATE_NEW_LEVEL
-    }
-    //updateIntervalTimer(boardGame.level, boardGame.score, lastScore)
+//function checkFullRow(){
+//    var hasRowFull = true;
+//    var delta = 0;
+//    for (var i=maxRow -1; i > 0; i--){
+//        for(var j=0; j<maxColumn; j++){
+//            hasRowFull = true
+//      //      console.debug("(col, row) = ("+ j + " , "+ i + " )" + " -- hasfullrow= "+ hasRowFull);
+//            if(board[Utils.index(j,i)] == null){
+//                hasRowFull = false;
+//      //          console.debug("Call here -------------------------------hasFull= "+ hasRowFull)
+//                break;
+//            }
+//        }
+//        if(hasRowFull){
+//            console.debug("row full = " +i)
+//            Utils.removeFullRow(i);
+//            delta++;
+//        } else if(delta > 0){
+//            console.debug("row not full = " +i)
+//            Utils.moveDownAllRow(i, delta);
+//        }
+//    }
+//    boardGame.score += (delta*10);
+//    //check for new Level ?
+//    if(boardGame.score - lastScore > Config.SCORE){
+//        lastScore = boardGame.score;
+//        boardGame.level++;
+//        //timer.interval = timer.interval - Config.REDUCED_TIME;
+//        //boardGame.state = Constant.STATE_NEW_LEVEL
+//    }
+//    //updateIntervalTimer(boardGame.level, boardGame.score, lastScore)
 
-}
+//}
 
 //function updateIntervalTimer(level, currScore, lScore){
 //    if(currScore - lScore > Config.SCORE){
@@ -313,29 +341,29 @@ function checkFullRow(){
 //    }
 //}
 
-function canGoDown(column, row){
-    var maxCell = Utils.getMaxCellFromType(typeBlock);
-    for (var point = 0; point < maxCell; point++) {
-        var x = Utils.getX(point, typeBlock, orientationBlock);
-        var y = Utils.getY(point, typeBlock, orientationBlock);
-        if ((row + y) >= maxRow){
-            return false;
-        }
+//function canGoDown(column, row){
+//    var maxCell = Utils.getMaxCellFromType(typeBlock);
+//    for (var point = 0; point < maxCell; point++) {
+//        var x = Utils.getX(point, typeBlock, orientationBlock);
+//        var y = Utils.getY(point, typeBlock, orientationBlock);
+//        if ((row + y) >= maxRow){
+//            return false;
+//        }
 
-        if(board[Utils.index(column + x, row + y)] != null &&
-                board[Utils.index(column + x, row + y)].type === Constant.CLOCKING_CELL){
-            return false;
-        }
-    }
-    return true;
-}
+//        if(board[Utils.index(column + x, row + y)] != null &&
+//                board[Utils.index(column + x, row + y)].type === Constant.CLOCKING_CELL){
+//            return false;
+//        }
+//    }
+//    return true;
+//}
 
-function clearMiniBoard(){
-    if(miniBoard != null){
-        for (var i = 0; i < miniBoard.length; i++) {
-            if (miniBoard[i] != null)
-                miniBoard[i].destroy();
-                 miniBoard[i] = null;
-        }
-    }
-}
+//function clearMiniBoard(){
+//    if(miniBoard != null){
+//        for (var i = 0; i < miniBoard.length; i++) {
+//            if (miniBoard[i] != null)
+//                miniBoard[i].destroy();
+//                 miniBoard[i] = null;
+//        }
+//    }
+//}
