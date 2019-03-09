@@ -45,9 +45,14 @@
         <file>qml/GameOver.qml</file>
         <file>qml/SwipeArea.qml</file>
         <file>sound/cymbals.wav</file>
-        <file>sound/start.wav</file>
         <file>i18n/base_es.qm</file>
         <file>i18n/base_de.qm</file>
         <file>i18n/base_fr.qm</file>
+        <file>qml/miniboard.js</file>
+        <file>qml/board.js</file>
+        <file>sound/start.wav</file>
+        <file>qml/MiniBoard.js</file>
+        <file>qml/Board.js</file>
+        <file>qml/Figures.js</file>
     </qresource>
 </RCC>
