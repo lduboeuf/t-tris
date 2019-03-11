@@ -1,9 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>qml/Utils.js</file>
         <file>qml/Tetris.js</file>
-        <file>qml/SoundUtils.js</file>
         <file>qml/Options.qml</file>
         <file>qml/GameBoard.qml</file>
         <file>qml/Figure.js</file>
@@ -35,7 +33,6 @@
         <file>sound/moving.wav</file>
         <file>sound/game_over.wav</file>
         <file>qml/ScorePage.qml</file>
-        <file>assets/right.svg</file>
         <file>assets/left.svg</file>
         <file>assets/rotate.svg</file>
         <file>assets/down.svg</file>
@@ -45,14 +42,12 @@
         <file>qml/GameOver.qml</file>
         <file>qml/SwipeArea.qml</file>
         <file>sound/cymbals.wav</file>
-        <file>i18n/base_es.qm</file>
         <file>i18n/base_de.qm</file>
         <file>i18n/base_fr.qm</file>
-        <file>qml/miniboard.js</file>
-        <file>qml/board.js</file>
         <file>sound/start.wav</file>
-        <file>qml/MiniBoard.js</file>
         <file>qml/Board.js</file>
         <file>qml/Figures.js</file>
+        <file>qml/Storage.js</file>
+        <file>assets/right.svg</file>
     </qresource>
 </RCC>

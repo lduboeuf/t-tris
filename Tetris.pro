@@ -13,7 +13,8 @@ QML_IMPORT_PATH =
 SOURCES += \
      main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+
 
 #Translation
 TRANSLATIONS = i18n/base_fr.ts i18n/base_de.ts i18n/base_es.ts

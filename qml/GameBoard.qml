@@ -10,12 +10,8 @@ import QtQuick.LocalStorage 2.0
 import "Configurations.js" as Config;
 import "Constant.js" as Constant
 
-
-import "Utils.js" as Utils
-import "SoundUtils.js" as Sound
 import "Tetris.js" as Tetris
-
-import "Figures.js" as FIGURE
+import "Storage.js" as Storage
 
 
 Page {
@@ -314,6 +310,7 @@ Page {
         source: "/sound/start.wav"
     }
 
+
     SoundEffect {
         id: soundNextLevel
         source: "/sound/cymbals.wav"
@@ -391,6 +388,11 @@ Page {
             PropertyChanges { target: timer; running:false }
             PropertyChanges { target: gameOverOverlay; visible:true }
             StateChangeScript { script: soundGameOver.play() }
+        },
+
+        State {
+            name: Constant.STATE_ROW_REMOVED
+            StateChangeScript { script: soundClearRow.play() }
         },
 
         State {
