@@ -2,12 +2,31 @@ import QtQuick 2.0
 import QtQuick.Controls 2.2
 import QtQuick.Particles 2.0
 
+import "Constant.js" as Constant
+
  Item {
      id: block
-     property int type
+     property int type: Constant.RUNNING_CELL
      property string cellColor: "red"
      property bool dying: false
      property bool spawned: false
+     property point refPoints
+     property int column
+     property int row
+
+     onTypeChanged: {
+         if (type === Constant.CLOCKING_CELL){
+             refPoints = Qt.point(0,0) //init points
+         }
+     }
+
+
+     function updatePosition(pColumn, pRow){
+         column = pColumn + refPoints.x
+         row = pRow + refPoints.y
+         x= column * width
+         y= row * width
+     }
 
 
      Image {
@@ -43,15 +62,18 @@ import QtQuick.Particles 2.0
              name: "AliveState"; when: spawned == true && dying == false
              PropertyChanges { target: img; opacity: 1 }
          },
-
          State {
              name: "DeathState"; when: dying == true
              StateChangeScript { script: particles.burst(20); }
              PropertyChanges { target: img; opacity: 0 }
              StateChangeScript { script: block.destroy(1000); }
          }
+
      ]
+
+
  }
+
 
 //Rectangle {
 //    id: block
