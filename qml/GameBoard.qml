@@ -10,12 +10,8 @@ import QtQuick.LocalStorage 2.0
 import "Configurations.js" as Config;
 import "Constant.js" as Constant
 
-
-import "Utils.js" as Utils
-import "SoundUtils.js" as Sound
 import "Tetris.js" as Tetris
-
-import "Figure.js" as FIGURE
+import "Storage.js" as Storage
 
 
 Page {
@@ -33,7 +29,7 @@ Page {
     property int score: 0
 
 
-    StackView.onActivated: {
+    Component.onCompleted: {
         Tetris.initGame()
        // boardGame.state= Constant.STATE_START
     }
@@ -138,7 +134,7 @@ Page {
     }
 
     Item {
-        id: nextFigure
+        id: nextFigureBoard
         anchors {top: parent.top; left: parent.left}
     }
 
@@ -314,6 +310,7 @@ Page {
         source: "/sound/start.wav"
     }
 
+
     SoundEffect {
         id: soundNextLevel
         source: "/sound/cymbals.wav"
@@ -327,7 +324,7 @@ Page {
         id: timer
         interval: Config.TIMER_INTERVAL
         repeat: true
-        onTriggered: Tetris.nextRound()
+        onTriggered: Tetris.nextStep()
 //        onIntervalChanged: {
 //            console.log("interval changed")
 //            boardGame.state = Constant.STATE_PLAY //to reset state after STATE_NEW_LEVEL
@@ -391,6 +388,11 @@ Page {
             PropertyChanges { target: timer; running:false }
             PropertyChanges { target: gameOverOverlay; visible:true }
             StateChangeScript { script: soundGameOver.play() }
+        },
+
+        State {
+            name: Constant.STATE_ROW_REMOVED
+            StateChangeScript { script: soundClearRow.play() }
         },
 
         State {

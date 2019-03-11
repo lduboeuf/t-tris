@@ -1,162 +1,87 @@
-var list_figure = new Array(Constant.MAX_FIGURE)
-
-list_figure[Constant.CELL_FIGURE] = [
-            {
-                "x":  0,
-                "y":  0
-            }
-        ];
-
-list_figure[Constant.LEFT_ANGLE_FIGURE] = [
-            {
-                "x": 0,
-                "y":  0
-            },
-            {
-                "x": 0,
-                "y": 1
-            },
-            {
-                "x":  1,
-                "y":  0
-            },
-            {
-                "x": 2,
-                "y": 0
-            },
-        ];
+Qt.include("Figures.js")
 
 
-list_figure[Constant.RIGHT_ANGLE_FIGURE] =  [
-            {
-                "x": 0,
-                "y":  0
-            },
-            {
-                "x": 0,
-                "y": 1
-            },
-            {
-                "x":  -1,
-                "y":  0
-            },
-            {
-                "x": -2,
-                "y": 0
-            },
-        ];
-
-list_figure[Constant.LINE_FIGURE] =  [
-            {
-                "x": -2,
-                "y":  0
-            },
-            {
-                "x": -1,
-                "y": 0
-            },
-            {
-                "x": 0,
-                "y":  0
-            },
-            {
-                "x": 1,
-                "y": 0
-            },
-        ];
-list_figure[Constant.PLUS_FIGURE] = [
-            {
-                "x": 0,
-                "y":  0
-            },
-            {
-                "x": 0,
-                "y": 1
-            },
-            {
-                "x": 0,
-                "y":  2
-            },
-            {
-                "x": -1,
-                "y": 1
-            },
-            {
-                "x": 1,
-                "y": 1
-            },
-        ];
+function Figure( type, color, orientation){
+    //console.log("new Figure:type, color, orientation:" + type, color, orientation)
+    this.type = type
+    this.color = color
+    this.orientation = orientation
+    this.points = Figures[type].points
+    this.maxOrientation = Figures[type].maxOrientation
+    this.particles = []
 
 
-list_figure[Constant.S_FIGURE] = [
-            {
-                "x":  0,
-                "y":  0
-            },
-            {
-                "x": 0,
-                "y": 1
-            },
-            {
-                "x":  -1,
-                "y":  0
-            },
-            {
-                "x": 1,
-                "y": 1
-            },
-        ];
-list_figure[Constant.SQUARE_FIGURE] =  [
-            {
-                "x": 0,
-                "y":  0
-            },
-            {
-                "x": -1,
-                "y": 0
-            },
-            {
-                "x": -1,
-                "y":  1
-            },
-            {
-                "x": 0,
-                "y": 1
-            },
-        ];
-list_figure[Constant.TRIANGLE_FIGURE] =  [
-            {
-                "x": 0,
-                "y":  0
-            },
-            {
-                "x": -1,
-                "y": 0
-            },
-            {
-                "x":  1,
-                "y":  0
-            },
-            {
-                "x": 0,
-                "y": 1
-            },
-        ];
-list_figure[Constant.Z_FIGURE] = [
-            {
-                "x": 0,
-                "y":  0
-            },
-            {
-                "x": 0,
-                "y": 1
-            },
-            {
-                "x":  -1,
-                "y":  1
-            },
-            {
-                "x": 1,
-                "y": 0
-            },
-        ];
+    for (var i=0; i < this.points.length; i++){
+
+        var point = this.points[i];
+
+        var particle = particleComponent.createObject();
+        particle.refPoints =Qt.point(point.x, point.y)
+        particle.cellColor = this.color;
+        //particle.type = Constant.RUNNING_CELL;
+
+        this.particles.push(particle);
+
+    }
+
+}
+
+Figure.prototype.updatePoints = function(){
+
+    for (var i=0; i < this.particles.length; i++){
+        var point = currentFigure.points[i];
+        var particle = currentFigure.particles[i];
+        particle.refPoints = Qt.point(this.getX(i), this.getY(i))
+        //particle.updatePosition(nextColumn, nextRow);
+
+    }
+
+
+}
+
+
+
+
+
+Figure.prototype.rotate = function(){
+    if(this.orientation + 1>= this.maxOrientation){
+        this.orientation = 0;
+    } else {
+        this.orientation++;
+    }
+    this.updatePoints()
+}
+
+Figure.prototype.getX = function(point){
+    switch(this.orientation){
+    case 0:
+        return this.points[point].x;
+    case 1:
+        return - this.points[point].y;
+    case 2:
+        return - this.points[point].x;
+    case 3:
+        return this.points[point].y;
+    default:
+        return this.points[point].x;
+    }
+}
+
+Figure.prototype.getY = function(point){
+    switch(this.orientation){
+    case 0:
+        return this.points[point].y;
+    case 1:
+        return this.points[point].x;
+    case 2:
+        return - this.points[point].y;
+    case 3:
+        return - this.points[point].x;
+    default:
+        return this.points[point].y;
+    }
+}
+
+
+
+
