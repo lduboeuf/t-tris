@@ -5,7 +5,7 @@ import QtQuick.LocalStorage 2.0
 import QtQuick.Layouts 1.3
 
 
-import  "Utils.js" as Utils
+import  "Storage.js" as Storage
 Page {
 
 
@@ -60,7 +60,7 @@ Page {
 
 
     StackView.onActivated: {
-        Utils.showHighScore()
+        Storage.showHighScore()
     }
 
 
