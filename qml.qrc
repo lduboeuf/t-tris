@@ -1,53 +1,24 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>qml/Tetris.js</file>
         <file>qml/Options.qml</file>
         <file>qml/GameBoard.qml</file>
-        <file>qml/Figure.js</file>
         <file>qml/DialogS7.qml</file>
-        <file>qml/Constant.js</file>
-        <file>qml/Configurations.js</file>
         <file>qml/Cell.qml</file>
         <file>qml/Button.qml</file>
         <file>qml/MenuButton.qml</file>
-        <file>assets/yellowStone.png</file>
-        <file>assets/yellowStar.png</file>
-        <file>assets/yellowBall.png</file>
-        <file>assets/star.png</file>
-        <file>assets/skyBall.png</file>
-        <file>assets/redStone.png</file>
-        <file>assets/redStar.png</file>
-        <file>assets/redBall.png</file>
-        <file>assets/purpleStar.png</file>
-        <file>assets/pinkBall.png</file>
-        <file>assets/greenStone.png</file>
-        <file>assets/greenStar.png</file>
-        <file>assets/greenBall.png</file>
-        <file>assets/brownBall.png</file>
-        <file>assets/blueStone.png</file>
-        <file>assets/blueStar.png</file>
-        <file>assets/blueBall.png</file>
-        <file>assets/background.jpg</file>
         <file>sound/remove_row.wav</file>
         <file>sound/moving.wav</file>
         <file>sound/game_over.wav</file>
         <file>qml/ScorePage.qml</file>
-        <file>assets/left.svg</file>
-        <file>assets/rotate.svg</file>
-        <file>assets/down.svg</file>
-        <file>assets/back.svg</file>
-        <file>assets/pause.svg</file>
-        <file>assets/play.svg</file>
         <file>qml/GameOver.qml</file>
         <file>qml/SwipeArea.qml</file>
         <file>sound/cymbals.wav</file>
         <file>i18n/base_de.qm</file>
         <file>i18n/base_fr.qm</file>
         <file>sound/start.wav</file>
-        <file>qml/Board.js</file>
-        <file>qml/Figures.js</file>
-        <file>qml/Storage.js</file>
-        <file>assets/right.svg</file>
+        <file>qml/Bomb.qml</file>
+        <file>qml/PauseOverlay.qml</file>
+        <file>sound/bomb_fire.wav</file>
     </qresource>
 </RCC>

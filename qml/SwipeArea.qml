@@ -1,9 +1,9 @@
 import QtQuick 2.0
-import "Constant.js" as Constant
+import "../js/Configuration.js" as Config
 
 MouseArea {
     property point origin
-    property real xStep: parent.width / Constant.MAX_COLUMN_DEFAULT
+    property real xStep: parent.width / Config.MAX_COLUMN_DEFAULT
     property int currentPos: 0
     property var lastSwipeDownActionDate: Date.now()
     property var lastSwipeUpActionDate: Date.now()
@@ -35,9 +35,9 @@ MouseArea {
 
             var nbSteps = Math.round(mouse.x / xStep)
             if (nbSteps > currentPos)
-                swipe(Constant.KEY_RIGHT)
+                swipe(Config.KEY_RIGHT)
             else if (nbSteps < currentPos)
-                swipe(Constant.KEY_LEFT)
+                swipe(Config.KEY_LEFT)
             currentPos = nbSteps
 
             break
@@ -46,14 +46,15 @@ MouseArea {
 
 
             if (mouse.y - origin.y < 0){
-                if (lastSwipeUpActionDate + minActionInterval < Date.now() ) {
-                    swipe(Constant.KEY_UP)
-                    lastSwipeUpActionDate = Date.now()
-                }
+                //disable key up
+//                if (lastSwipeUpActionDate + minActionInterval < Date.now() ) {
+//                    swipe(Config.KEY_UP)
+//                    lastSwipeUpActionDate = Date.now()
+//                }
             }else{
                 //protect from unintended down actions
                 if (lastSwipeDownActionDate + minActionInterval < Date.now() ){
-                    swipe(Constant.KEY_DOWN)
+                    swipe(Config.KEY_STEP_DOWN)
                     lastSwipeDownActionDate = Date.now()
                 }
             }
@@ -66,8 +67,9 @@ MouseArea {
     onClicked: {
 
 
+
         if (drag.axis===Drag.XAndYAxis){
-            swipe(Constant.KEY_UP)
+            swipe(Config.KEY_UP)
         }
     }
 
@@ -75,10 +77,17 @@ MouseArea {
 
 //        if (lastSwipeUpActionDate + minActionInterval >= Date.now() ) return
 
-//        if (drag.axis===Drag.XAndYAxis){
-//            swipe(Constant.KEY_UP) //like a click
-//            lastSwipeUpActionDate = Date.now()
-//        }
+        if (drag.axis===Drag.YAxis){
+
+            var velocity = (mouse.y - origin.y) / (Date.now() - lastSwipeDownActionDate)
+            console.log("velocity:" + velocity)
+            if (velocity > 1){
+                swipe(Config.KEY_DOWN)
+                lastSwipeUpActionDate = Date.now()
+            }
+
+
+        }
 
     }
 

@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
-
+import Qt.labs.settings 1.0
 
 ApplicationWindow {
     id: window
@@ -18,6 +18,11 @@ ApplicationWindow {
         source: "/assets/background.jpg"
         fillMode: Image.PreserveAspectCrop
     }
+
+    Settings {
+            id: settings
+            property bool soundOff: false
+        }
 
 
     Column {

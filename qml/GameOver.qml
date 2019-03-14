@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
-import QtGraphicalEffects 1.0
+//import QtGraphicalEffects 1.0
 
 
 
@@ -50,35 +50,6 @@ Item {
             }
         }
 
-//        Item {
-//            anchors.horizontalCenter: parent.horizontalCenter
-
-
-//            Image {
-//                id:imgReload
-//                fillMode: Image.Pad
-//                sourceSize.width: dialogText.height
-//                sourceSize.height: dialogText.height
-//                source: "/assets/rotate.svg"
-
-
-//                MouseArea{
-//                    anchors.fill: imgReload
-//                    onClicked: {
-//                        restart()
-//                        container.visible = false;
-//                    }
-//                }
-
-//            }
-
-//            ColorOverlay {
-//                id: overlay
-//                anchors.fill: imgReload
-//                source: imgReload
-//                color: "white"
-//            }
-//        }
 
     }
 

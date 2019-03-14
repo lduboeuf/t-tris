@@ -6,12 +6,10 @@ import QtMultimedia 5.0
 import QtQuick.Particles 2.0
 import QtQuick.LocalStorage 2.0
 
+import "../js/Configuration.js" as Config;
 
-import "Configurations.js" as Config;
-import "Constant.js" as Constant
-
-import "Tetris.js" as Tetris
-import "Storage.js" as Storage
+import "../js/Tetris.js" as Tetris
+import "../js/Storage.js" as Storage
 
 
 Page {
@@ -23,6 +21,7 @@ Page {
 
     property int blockSize: width / Config.MAX_CELL;
     property int cellSize: width < height ? blockSize : height / Config.MAX_CELL
+    //state : Tetris.gameState
     signal btnBackClick();
 
     property int level: 1
@@ -30,19 +29,21 @@ Page {
 
 
     Component.onCompleted: {
-        Tetris.initGame()
-       // boardGame.state= Constant.STATE_START
+        Tetris.initGame(boardGame, gameCanvas, nextFigureBoard)
+       // boardGame.state= Config.STATE_START
     }
 
     onLevelChanged: {
-        boardGame.state = Constant.STATE_NEW_LEVEL
-        boardGame.state = Constant.STATE_PLAY
+        boardGame.state = Config.STATE_NEW_LEVEL
+        boardGame.state = Config.STATE_PLAY
     }
 
     onStateChanged: {
-        console.log(state)
+        console.log("state:"+state)
 
     }
+
+    Binding { target: boardGame; property: "state"; value: Tetris.gameState }
 
 
 
@@ -95,35 +96,64 @@ Page {
 
 
             }
-            ToolButton {
-                id: toolButtonRight
+            Row {
                 anchors.right: parent.right
-                contentItem: Image {
-                    id:playPauseImg
-                    fillMode: Image.Pad
-                    sourceSize.width: toolButtonLeft.height  * 0.4
-                    sourceSize.height: toolButtonLeft.height  * 0.4
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: boardGame.state === Constant.STATE_PAUSED ? "/assets/play.svg" : "/assets/pause.svg"
-                }
-                onClicked: {
+                ToolButton {
+                    id: toolButtonSound
 
-                    if (boardGame.state===Constant.STATE_PAUSED){
-                        boardGame.state = Constant.STATE_RESUMED
-                    }else{
-                        boardGame.state = Constant.STATE_PAUSED
+                    contentItem: Image {
+                        id:soundImg
+                        fillMode: Image.Pad
+                        sourceSize.width: toolButtonLeft.height  * 0.4
+                        sourceSize.height: toolButtonLeft.height  * 0.4
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        source: settings.soundOff ?  "/assets/audio-volume-off.svg" : "/assets/audio-volume-on.svg"
+                    }
+                    onClicked: {
+
+                       settings.soundOff = !settings.soundOff
+
+
                     }
 
-
+                    ColorOverlay {
+                        anchors.fill: soundImg
+                        source: soundImg
+                        color: boardGame.textColor
+                    }
                 }
+                ToolButton {
+                    id: toolButtonRight
+                    contentItem: Image {
+                        id:playPauseImg
+                        fillMode: Image.Pad
+                        sourceSize.width: toolButtonLeft.height  * 0.4
+                        sourceSize.height: toolButtonLeft.height  * 0.4
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        source: boardGame.state === Config.STATE_PAUSED ? "/assets/play.svg" : "/assets/pause.svg"
+                    }
+                    onClicked: {
 
-                ColorOverlay {
-                    anchors.fill: playPauseImg
-                    source: playPauseImg
-                    color: boardGame.textColor
+                        if (boardGame.state===Config.STATE_PAUSED){
+                            boardGame.state = Config.STATE_RESUMED
+                        }else{
+                            boardGame.state = Config.STATE_PAUSED
+                        }
+
+
+                    }
+
+                    ColorOverlay {
+                        anchors.fill: playPauseImg
+                        source: playPauseImg
+                        color: boardGame.textColor
+                    }
                 }
             }
+
+
         }
     }
 
@@ -196,7 +226,7 @@ Page {
                 }
                 onClicked: {
                     if(timer.running)
-                        Tetris.onKeyHandler(Constant.KEY_LEFT)
+                        Tetris.onKeyHandler(Config.KEY_LEFT)
                 }
                 ColorOverlay {
                     anchors.fill: imgLeft
@@ -225,7 +255,7 @@ Page {
 
                 onClicked: {
                     if(timer.running)
-                        Tetris.onKeyHandler(Constant.KEY_UP)
+                        Tetris.onKeyHandler(Config.KEY_UP)
                 }
 
                 ColorOverlay {
@@ -255,7 +285,7 @@ Page {
                 }
                 onClicked: {
                     if(timer.running)
-                        Tetris.onKeyHandler(Constant.KEY_RIGHT)
+                        Tetris.onKeyHandler(Config.KEY_RIGHT)
                 }
 
                 ColorOverlay {
@@ -273,9 +303,17 @@ Page {
 
 
 
-    DialogS7 {
-        id: dialog
+//    DialogS7 {
+//        id: dialog
+//        anchors.centerIn: parent
+//    }
+
+    PauseOverlay{
+        id: pauseOverlay
         anchors.centerIn: parent
+        onResumeClicked: {
+            boardGame.state = Config.STATE_RESUMED
+        }
     }
 
     GameOver{
@@ -287,7 +325,7 @@ Page {
 //        }
 
         onRestartClicked: {
-            Tetris.initGame()
+            Tetris.initGame(boardGame, gameCanvas, nextFigureBoard)
         }
 
     }
@@ -295,27 +333,39 @@ Page {
 
     SoundEffect {
         id: soundMoving
+        muted: settings.soundOff
         source: "/sound/moving.wav"
     }
     SoundEffect {
         id: soundClearRow
+        muted: settings.soundOff
         source: "/sound/remove_row.wav"
+
+
     }
     SoundEffect {
         id: soundGameOver
+        muted: settings.soundOff
         source: "/sound/game_over.wav"
     }
     SoundEffect {
         id: soundStart
+        muted: settings.soundOff
         source: "/sound/start.wav"
     }
 
 
     SoundEffect {
         id: soundNextLevel
+        muted: settings.soundOff
         source: "/sound/cymbals.wav"
     }
 
+    SoundEffect {
+        id: soundBombFired
+        muted: settings.soundOff
+        source: "/sound/bomb_fire.wav"
+    }
 
 
 
@@ -325,40 +375,39 @@ Page {
         interval: Config.TIMER_INTERVAL
         repeat: true
         onTriggered: Tetris.nextStep()
-//        onIntervalChanged: {
-//            console.log("interval changed")
-//            boardGame.state = Constant.STATE_PLAY //to reset state after STATE_NEW_LEVEL
-//        }
+
     }
 
     Keys.onLeftPressed: {
-         Tetris.onKeyHandler(Constant.KEY_LEFT)
+         Tetris.onKeyHandler(Config.KEY_LEFT)
     }
 
     Keys.onRightPressed: {
-       Tetris.onKeyHandler(Constant.KEY_RIGHT)
+       Tetris.onKeyHandler(Config.KEY_RIGHT)
     }
     Keys.onUpPressed: {
-       Tetris.onKeyHandler(Constant.KEY_UP)
+       Tetris.onKeyHandler(Config.KEY_UP)
     }
     Keys.onDownPressed: {
-        Tetris.onKeyHandler(Constant.KEY_DOWN)
+        Tetris.onKeyHandler(Config.KEY_DOWN)
     }
     Keys.onCallPressed:  {
-        Tetris.onKeyHandler(Constant.KEY_PAUSE)
+        Tetris.onKeyHandler(Config.KEY_PAUSE)
     }
 
 
     states: [
         State {
-            name: Constant.STATE_START
+            name: Config.STATE_START
             PropertyChanges { target: boardGame; Keys.enabled: true }
             PropertyChanges { target: mouseArea; enabled: true }
 
             StateChangeScript { script: {
+                    console.log("hello start")
                     boardGame.level = 1
                     boardGame.score = 0
                     soundStart.play()
+                    timer.interval = Config.TIMER_INTERVAL
                     timer.start()
                 }
             }
@@ -366,9 +415,10 @@ Page {
         },
 
         State {
-            name: Constant.STATE_PAUSED
+            name: Config.STATE_PAUSED
             PropertyChanges { target: timer; running: false }
-            PropertyChanges { target: dialog; text: qsTr("Paused") }
+            //PropertyChanges { target: dialog; text: qsTr("Paused") }
+            PropertyChanges { target: pauseOverlay; visible: true }
             PropertyChanges { target: boardGame; Keys.enabled: false }
             PropertyChanges { target: mouseArea; enabled: false }
             //StateChangeScript { script:{ boardGame.Keys.enabled = false } }
@@ -376,27 +426,49 @@ Page {
         }
         ,
         State {
-            name: Constant.STATE_RESUMED
+            name: Config.STATE_RESUMED
             PropertyChanges { target: timer; running: true }
-            PropertyChanges { target: dialog; text: qsTr("Resumed"); fixed: false }
+            //PropertyChanges { target: dialog; text: qsTr("Resumed"); fixed: false }
             PropertyChanges { target: boardGame; Keys.enabled: true }
             PropertyChanges { target: mouseArea; enabled: true }
 
         },
         State {
-            name: Constant.STATE_GAMEOVER
+            name: Config.STATE_GAMEOVER
             PropertyChanges { target: timer; running:false }
+            PropertyChanges { target: boardGame; Keys.enabled: false }
             PropertyChanges { target: gameOverOverlay; visible:true }
-            StateChangeScript { script: soundGameOver.play() }
+            PropertyChanges { target: mouseArea; enabled: false }
+            StateChangeScript { script: {
+                    Storage.saveHighScore(new Date().toLocaleString(), boardGame.score, boardGame.level)
+                    soundGameOver.play()
+                }}
+
+        },
+        State {
+            name: Config.STATE_PENDING_BOMB // ? any way to group properties ( almost same as STATE_PAUSE/GAME_OVER
+            PropertyChanges { target: timer; running:false }
+            PropertyChanges { target: boardGame; Keys.enabled: false }
+            PropertyChanges { target: mouseArea; enabled: false }
+        },
+        State {
+            name: Config.STATE_FIRING_BOMB
+            PropertyChanges { target: timer; running:true }
+            StateChangeScript { script: {
+                    soundBombFired.play()
+                }}
+            //PropertyChanges { target: boardGame; Keys.enabled: false }
+            //PropertyChanges { target: gameOverOverlay; visible:true }
+            //PropertyChanges { target: mouseArea; enabled: false }
         },
 
         State {
-            name: Constant.STATE_ROW_REMOVED
-            StateChangeScript { script: soundClearRow.play() }
+            name: Config.STATE_ROW_REMOVED
+            StateChangeScript { script:  soundClearRow.play() }
         },
 
         State {
-            name: Constant.STATE_NEW_LEVEL
+            name: Config.STATE_NEW_LEVEL
             StateChangeScript {
                 script: {
                     timer.interval = timer.interval - Config.REDUCED_TIME
