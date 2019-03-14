@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/assets">
+        <file>left.svg</file>
+        <file>back.svg</file>
+        <file>bomb.png</file>
+        <file>right.svg</file>
+        <file>ttris.png</file>
+        <file>yellowStone.png</file>
+        <file>yellowStar.png</file>
+        <file>star.png</file>
+        <file>redStone.png</file>
+        <file>redStar.png</file>
+        <file>purpleStar.png</file>
+        <file>greenStone.png</file>
+        <file>greenStar.png</file>
+        <file>blueStone.png</file>
+        <file>blueStar.png</file>
+        <file>background.jpg</file>
+        <file>play.svg</file>
+        <file>rotate.svg</file>
+        <file>down.svg</file>
+        <file>pause.svg</file>
+        <file>audio-volume-off.svg</file>
+        <file>audio-volume-on.svg</file>
+    </qresource>
+</RCC>

@@ -47,8 +47,10 @@ set(
     SRCS
     main.cpp
 )
+qt5_add_resources(RSCS qml.qrc js/js.qrc assets/assets.qrc )
 	
-add_executable(${PROJECT_NAME} ${SRCS} ${RSCS} qml.qrc)		
+add_executable(${PROJECT_NAME} ${SRCS} ${RSCS})
+
 qt5_use_modules(${PROJECT_NAME} Gui Qml Quick QuickControls2)		
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${DATA_DIR})
 

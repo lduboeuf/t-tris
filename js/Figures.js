@@ -4,6 +4,10 @@ var Figures = {
         maxOrientation: 1,
         points:[{ "x":0, "y":0 } ]
     },
+//    "BOMB" :{
+//        maxOrientation: 1,
+//        points:[{ "x":0, "y":0 } ]
+//    },
     "SQUARE_FIGURE" :{
         maxOrientation: 1,
         points:[ { "x":0, "y":0 }, { "x":-1, "y":0 }, { "x":-1, "y":1 }, { "x":0, "y":1 }, ]

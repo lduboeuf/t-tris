@@ -5,7 +5,7 @@ import QtQuick.LocalStorage 2.0
 import QtQuick.Layouts 1.3
 
 
-import  "Storage.js" as Storage
+import  "../js/Storage.js" as Storage
 Page {
 
 
