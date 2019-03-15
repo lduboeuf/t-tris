@@ -4,23 +4,13 @@
 <context>
     <name>GameBoard</name>
     <message>
-        <location filename="../qml/GameBoard.qml" line="98"/>
+        <location filename="../qml/GameBoard.qml" line="176"/>
         <source>Level: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/GameBoard.qml" line="98"/>
+        <location filename="../qml/GameBoard.qml" line="181"/>
         <source>Score: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/GameBoard.qml" line="378"/>
-        <source>Paused</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/GameBoard.qml" line="383"/>
-        <source>Resumed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -38,10 +28,26 @@
     </message>
 </context>
 <context>
+    <name>NewLevelOverlay</name>
+    <message>
+        <location filename="../qml/NewLevelOverlay.qml" line="18"/>
+        <source>Level </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Options</name>
     <message>
         <location filename="../qml/Options.qml" line="45"/>
         <source>not implemented yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PauseOverlay</name>
+    <message>
+        <location filename="../qml/PauseOverlay.qml" line="34"/>
+        <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -56,22 +62,22 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="29"/>
+        <location filename="../qml/main.qml" line="34"/>
         <source>New Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="35"/>
+        <location filename="../qml/main.qml" line="40"/>
         <source>Show Scores</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="41"/>
+        <location filename="../qml/main.qml" line="46"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="48"/>
+        <location filename="../qml/main.qml" line="53"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>

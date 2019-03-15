@@ -1,6 +1,7 @@
 .pragma library
 var MAX_CELL = 12;
-var SCORE = 20;
+var SCORE = 20; //score between levels
+var SCORE_INCREMENT = 10
 var REDUCED_TIME = 60;
 var TIMER_INTERVAL = 500
 

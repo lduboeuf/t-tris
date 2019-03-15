@@ -3,9 +3,7 @@
         <file>qml/main.qml</file>
         <file>qml/Options.qml</file>
         <file>qml/GameBoard.qml</file>
-        <file>qml/DialogS7.qml</file>
         <file>qml/Cell.qml</file>
-        <file>qml/Button.qml</file>
         <file>qml/MenuButton.qml</file>
         <file>sound/remove_row.wav</file>
         <file>sound/moving.wav</file>
@@ -20,5 +18,9 @@
         <file>qml/Bomb.qml</file>
         <file>qml/PauseOverlay.qml</file>
         <file>sound/bomb_fire.wav</file>
+        <file>qml/NewLevelOverlay.qml</file>
+        <file>qml/GameBoardFooter.qml</file>
+        <file>qml/GameBoardHeader.qml</file>
+        <file>qml/Score.qml</file>
     </qresource>
 </RCC>
