@@ -8,8 +8,8 @@ ApplicationWindow {
     visible: true
     visibility: (Screen.devicePixelRatio > 2) ? Window.FullScreen : Window.AutomaticVisibility
 
-    width: 360
-    height: 520
+    width: 320
+    height: 480
 
     color:"black"
 

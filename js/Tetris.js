@@ -12,7 +12,7 @@ var gameBoard = { //QML component holder
 }
 
 var currentFigure, nextFigure;
-var lastScore;
+var lastScore, nbRound;
 
 var column, row, orientation; //current positions
 var nextColumn, nextRow, nextOrientation; //next positions
@@ -39,6 +39,8 @@ function initGame(game, gameCanvas, nextFigureBoard) {
     //init boards
 
     lastScore = 0
+    gameBoard.game.score =0
+    gameBoard.game.level =1
 
     var blockSize = gameCanvas.width < gameCanvas.height ? gameCanvas.width / Config.MAX_CELL : gameCanvas.height / Config.MAX_CELL;
     var maxRow = Math.floor(gameCanvas.height / blockSize);
@@ -58,6 +60,7 @@ function initGame(game, gameCanvas, nextFigureBoard) {
     nextFigure = null
 
     gameBoard.game.state = Config.STATE_START
+    nbRound =0
     nextRound()
 
 }
@@ -65,11 +68,11 @@ function initGame(game, gameCanvas, nextFigureBoard) {
 function nextRound(){
 
 
-
+    nbRound++
 
 
     //handle bomb component
-    if (Math.floor(Math.random()*5)===1){
+    if (nbRound >1 && Math.floor(Math.random()*20)===1){
 
         gameBoard.game.state = Config.STATE_PENDING_BOMB
         var bombColumn =  Math.floor(Math.random()*board.maxColumn);
@@ -332,6 +335,7 @@ function checkFullRow(){
            //  console.debug("row full = " +i)
             gameBoard.game.state = Config.STATE_ROW_REMOVED
             removeFullRow(i);
+            gameBoard.game.score +=  Config.SCORE_INCREMENT;
             delta++;
         }else if(delta > 0){
            // console.debug("row not full = " +i)
@@ -340,10 +344,11 @@ function checkFullRow(){
 
     }
 
-    gameBoard.game.score += (delta*10);
+
     //check for new Level ?
     if(gameBoard.game.score - lastScore > Config.SCORE){
-        lastScore = gameBoard.score;
+        lastScore = gameBoard.game.score;
+        gameBoard.game.state = Config.STATE_NEW_LEVEL
         gameBoard.game.level++;
 
     }

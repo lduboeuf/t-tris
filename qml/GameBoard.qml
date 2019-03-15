@@ -3,7 +3,6 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 import QtMultimedia 5.0
-import QtQuick.Particles 2.0
 import QtQuick.LocalStorage 2.0
 
 import "../js/Configuration.js" as Config;
@@ -16,26 +15,31 @@ Page {
     id: boardGame
 
     focus: true    // important when set onKey
+    padding: 2
 
     property color textColor: "white"
 
     property int blockSize: width / Config.MAX_CELL;
     property int cellSize: width < height ? blockSize : height / Config.MAX_CELL
-    //state : Tetris.gameState
-    signal btnBackClick();
 
+
+    property bool running: false
     property int level: 1
     property int score: 0
 
+    Keys.enabled: running
 
-    Component.onCompleted: {
+    function init(){
         Tetris.initGame(boardGame, gameCanvas, nextFigureBoard)
-       // boardGame.state= Config.STATE_START
+        running = true
+        score = 0
+        level = 1
     }
 
-    onLevelChanged: {
-        boardGame.state = Config.STATE_NEW_LEVEL
-        boardGame.state = Config.STATE_PLAY
+
+    Component.onCompleted: {
+
+        init()
     }
 
     onStateChanged: {
@@ -43,118 +47,84 @@ Page {
 
     }
 
-    Binding { target: boardGame; property: "state"; value: Tetris.gameState }
+
+//    Behavior on score {
+////        SequentialAnimation{
+////            NumberAnimation {
+////                target: txtScore
+////                property: "font.weight"
+////                from:txtScore.font.weight
+////                to:txtScore.font.weight*1.2
+////                duration: 400
+////                easing.type: Easing.InOutQuad
+////            }
+////            NumberAnimation {
+////                target: txtScore
+////                property: "font.weight"
+////                //from:stats.font.pixelSize
+////                to:txtScore.font.weight
+////                duration: 400
+////                easing.type: Easing.InOutQuad
+////            }
+////        }
 
 
 
-    header:ToolBar {
-        id:toolBar
+
+//        NumberAnimation {
+//                    target: scoreAdded
+//                    properties: "opacity"
+//                    running: boardGame.score > 0
+//                    easing.type: Easing.InExpo
+//                    //easing: Easing.Linear
+//                    from: 1
+//                    to:0
+//                    duration: 1200
+//                }
+//        NumberAnimation {
+//                    target: scoreAdded
+//                    properties: "y"
+//                    running: boardGame.score > 0
+//                    from: gameCanvas.height / 2
+//                    to:boardGame.y - header.height
+//                    duration: 1200
+//                }
+//        NumberAnimation {
+//                    target: scoreAdded
+//                    properties: "x"
+//                    running: boardGame.score > 0
+//                    from: gmHeader.txtScoreX// +gmHeader.txtScore.width - scoreAdded.width
+//                    to:gmHeader.txtScoreX// +gmHeader.txtScore.width - scoreAdded.width
+//                    duration: 1200
+//                }
+//    }
 
 
 
 
-        background: Rectangle{
-            anchors.fill: toolBar
-            color:"white"
-            opacity: 0.2
-        }
 
-        RowLayout {
+    Text {
+        id: scoreAdded
+        y: -100
+        text: "+" + Config.SCORE_INCREMENT
+        color: boardGame.textColor
+        font.bold: true
+    }
 
-
-
-            anchors.fill: parent
-            ToolButton {
-                id: toolButtonLeft
-                contentItem: Image {
-                    id:navImage
-                    fillMode: Image.Pad
-                    sourceSize.width: toolButtonLeft.height  * 0.4
-                    sourceSize.height: toolButtonLeft.height  * 0.4
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "/assets/back.svg"
-                }
-                onClicked: {
-                    timer.stop();
-                    pageStack.pop()
-                }
-
-                ColorOverlay {
-                    id: overlay
-                    anchors.fill: navImage
-                    source: navImage
-                    color: boardGame.textColor
-                }
-            }
-
-            Text {
-                id: score
-                anchors { horizontalCenter: parent.horizontalCenter;  verticalCenter: parent.verticalCenter;}
-                color: boardGame.textColor
-                text: qsTr("Level: ") + boardGame.level + " | " + qsTr("Score: ")  + boardGame.score
+    NewLevelOverlay{
+        id: newLevelOverlay
+        anchors.centerIn: parent
+        //visible: true
 
 
-            }
-            Row {
-                anchors.right: parent.right
-                ToolButton {
-                    id: toolButtonSound
-
-                    contentItem: Image {
-                        id:soundImg
-                        fillMode: Image.Pad
-                        sourceSize.width: toolButtonLeft.height  * 0.4
-                        sourceSize.height: toolButtonLeft.height  * 0.4
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        source: settings.soundOff ?  "/assets/audio-volume-off.svg" : "/assets/audio-volume-on.svg"
-                    }
-                    onClicked: {
-
-                       settings.soundOff = !settings.soundOff
+       // NumberAnimation { duration: 500 ;easing.type: Easing.SineCurve}
+    }
 
 
-                    }
-
-                    ColorOverlay {
-                        anchors.fill: soundImg
-                        source: soundImg
-                        color: boardGame.textColor
-                    }
-                }
-                ToolButton {
-                    id: toolButtonRight
-                    contentItem: Image {
-                        id:playPauseImg
-                        fillMode: Image.Pad
-                        sourceSize.width: toolButtonLeft.height  * 0.4
-                        sourceSize.height: toolButtonLeft.height  * 0.4
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        source: boardGame.state === Config.STATE_PAUSED ? "/assets/play.svg" : "/assets/pause.svg"
-                    }
-                    onClicked: {
-
-                        if (boardGame.state===Config.STATE_PAUSED){
-                            boardGame.state = Config.STATE_RESUMED
-                        }else{
-                            boardGame.state = Config.STATE_PAUSED
-                        }
 
 
-                    }
-
-                    ColorOverlay {
-                        anchors.fill: playPauseImg
-                        source: playPauseImg
-                        color: boardGame.textColor
-                    }
-                }
-            }
-
-
-        }
+    header: GameBoardHeader{
+        id: gmHeader
     }
 
     background: Image {
@@ -174,11 +144,13 @@ Page {
         id: gameCanvas
         anchors.fill: parent
 
+
     }
 
 
     SwipeArea {
             id: mouseArea
+            enabled: boardGame.running
             anchors.fill: gameCanvas
             anchors.margins: 5
 
@@ -191,122 +163,9 @@ Page {
 
 
 
+    footer: GameBoardFooter{}
 
 
-    footer:ToolBar {
-        id:toolBarBottom
-
-        background: Rectangle{
-            anchors.fill: toolBarBottom
-            color: "black";
-            opacity: 0.8
-            Rectangle{
-                width: parent.width
-                anchors.top: parent.top
-                color:"#9a37a4"
-                height: 1
-            }
-        }
-
-        RowLayout{
-            anchors.fill: parent
-
-            ToolButton {
-                id: btnLeft
-                anchors.left: parent.left
-                Layout.fillWidth: true
-                contentItem: Image {
-                    id:imgLeft
-                    fillMode: Image.Pad
-                    sourceSize.width: btnLeft.height  * 0.4
-                    sourceSize.height: btnLeft.height  * 0.4
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "/assets/left.svg"
-                }
-                onClicked: {
-                    if(timer.running)
-                        Tetris.onKeyHandler(Config.KEY_LEFT)
-                }
-                ColorOverlay {
-                    anchors.fill: imgLeft
-                    source: imgLeft
-                    color: boardGame.textColor
-                }
-
-            }
-
-
-
-            ToolButton {
-                id: btnRotate
-                anchors.horizontalCenter: parent.horizontalCenter
-                Layout.fillWidth: true
-
-                contentItem: Image {
-                    id: imgRotate
-                    fillMode: Image.Pad
-                    sourceSize.width: btnRotate.height  * 0.4
-                    sourceSize.height: btnRotate.height  * 0.4
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "/assets/rotate.svg"
-                }
-
-                onClicked: {
-                    if(timer.running)
-                        Tetris.onKeyHandler(Config.KEY_UP)
-                }
-
-                ColorOverlay {
-                    anchors.fill: imgRotate
-                    source: imgRotate
-                    color: boardGame.textColor
-                }
-
-
-            }
-
-
-
-
-            ToolButton {
-                id: btnRight
-                Layout.fillWidth: true
-                anchors.right: parent.right
-                contentItem: Image {
-                    id: imgRight
-                    fillMode: Image.Pad
-                    sourceSize.width: btnLeft.height  * 0.4
-                    sourceSize.height: btnLeft.height  * 0.4
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "/assets/right.svg"
-                }
-                onClicked: {
-                    if(timer.running)
-                        Tetris.onKeyHandler(Config.KEY_RIGHT)
-                }
-
-                ColorOverlay {
-                    anchors.fill: imgRight
-                    source: imgRight
-                    color: boardGame.textColor
-                }
-
-            }
-        }
-
-
-
-    }
-
-
-
-//    DialogS7 {
-//        id: dialog
-//        anchors.centerIn: parent
-//    }
 
     PauseOverlay{
         id: pauseOverlay
@@ -320,12 +179,8 @@ Page {
         id: gameOverOverlay
         anchors.centerIn: parent
 
-//        onVisibleChanged: {
-//            if (visible) playGameOverSound.play()
-//        }
-
         onRestartClicked: {
-            Tetris.initGame(boardGame, gameCanvas, nextFigureBoard)
+            boardGame.init()
         }
 
     }
@@ -350,6 +205,7 @@ Page {
     }
     SoundEffect {
         id: soundStart
+
         muted: settings.soundOff
         source: "/sound/start.wav"
     }
@@ -373,8 +229,12 @@ Page {
     Timer {
         id: timer
         interval: Config.TIMER_INTERVAL
+        running: boardGame.running
         repeat: true
-        onTriggered: Tetris.nextStep()
+        onTriggered: {
+            Tetris.nextStep()
+            //score +=1
+        }
 
     }
 
@@ -399,46 +259,33 @@ Page {
     states: [
         State {
             name: Config.STATE_START
-            PropertyChanges { target: boardGame; Keys.enabled: true }
-            PropertyChanges { target: mouseArea; enabled: true }
+            //PropertyChanges { target: boardGame; Keys.enabled: true }
+//            PropertyChanges { target: boardGame; score: 0 }
+//             PropertyChanges { target: boardGame; level: 0 }
 
-            StateChangeScript { script: {
-                    console.log("hello start")
-                    boardGame.level = 1
-                    boardGame.score = 0
-                    soundStart.play()
-                    timer.interval = Config.TIMER_INTERVAL
-                    timer.start()
-                }
-            }
+            StateChangeScript { script: soundStart.play() }
+
+
 
         },
 
         State {
             name: Config.STATE_PAUSED
-            PropertyChanges { target: timer; running: false }
-            //PropertyChanges { target: dialog; text: qsTr("Paused") }
+            PropertyChanges { target: boardGame; running: false }
             PropertyChanges { target: pauseOverlay; visible: true }
-            PropertyChanges { target: boardGame; Keys.enabled: false }
-            PropertyChanges { target: mouseArea; enabled: false }
-            //StateChangeScript { script:{ boardGame.Keys.enabled = false } }
-
         }
         ,
         State {
             name: Config.STATE_RESUMED
-            PropertyChanges { target: timer; running: true }
-            //PropertyChanges { target: dialog; text: qsTr("Resumed"); fixed: false }
-            PropertyChanges { target: boardGame; Keys.enabled: true }
-            PropertyChanges { target: mouseArea; enabled: true }
+            PropertyChanges { target: boardGame; running: true }
+
 
         },
         State {
             name: Config.STATE_GAMEOVER
-            PropertyChanges { target: timer; running:false }
-            PropertyChanges { target: boardGame; Keys.enabled: false }
+            PropertyChanges { target: boardGame; running:false }
             PropertyChanges { target: gameOverOverlay; visible:true }
-            PropertyChanges { target: mouseArea; enabled: false }
+            //PropertyChanges { target: mouseArea; enabled: false }
             StateChangeScript { script: {
                     Storage.saveHighScore(new Date().toLocaleString(), boardGame.score, boardGame.level)
                     soundGameOver.play()
@@ -447,19 +294,12 @@ Page {
         },
         State {
             name: Config.STATE_PENDING_BOMB // ? any way to group properties ( almost same as STATE_PAUSE/GAME_OVER
-            PropertyChanges { target: timer; running:false }
-            PropertyChanges { target: boardGame; Keys.enabled: false }
-            PropertyChanges { target: mouseArea; enabled: false }
+            PropertyChanges { target: boardGame; running:false }
         },
         State {
             name: Config.STATE_FIRING_BOMB
-            PropertyChanges { target: timer; running:true }
-            StateChangeScript { script: {
-                    soundBombFired.play()
-                }}
-            //PropertyChanges { target: boardGame; Keys.enabled: false }
-            //PropertyChanges { target: gameOverOverlay; visible:true }
-            //PropertyChanges { target: mouseArea; enabled: false }
+            StateChangeScript { script:soundBombFired.play()}
+
         },
 
         State {
@@ -469,6 +309,7 @@ Page {
 
         State {
             name: Config.STATE_NEW_LEVEL
+            PropertyChanges { target: newLevelOverlay; visible:true }
             StateChangeScript {
                 script: {
                     timer.interval = timer.interval - Config.REDUCED_TIME
