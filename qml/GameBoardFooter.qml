@@ -7,6 +7,10 @@ import QtGraphicalEffects 1.0
 ToolBar {
         id:toolBarBottom
 
+        signal leftPressed
+        signal rightPressed
+        signal rotatePressed
+
         background: Rectangle{
             anchors.fill: toolBarBottom
             color: "black";
@@ -36,8 +40,7 @@ ToolBar {
                     source: "/assets/left.svg"
                 }
                 onClicked: {
-                    if(timer.running)
-                        Tetris.onKeyHandler(Config.KEY_LEFT)
+                    leftPressed()
                 }
                 ColorOverlay {
                     anchors.fill: imgLeft
@@ -65,8 +68,7 @@ ToolBar {
                 }
 
                 onClicked: {
-                    if(timer.running)
-                        Tetris.onKeyHandler(Config.KEY_UP)
+                    rotatePressed()
                 }
 
                 ColorOverlay {
@@ -95,8 +97,7 @@ ToolBar {
                     source: "/assets/right.svg"
                 }
                 onClicked: {
-                    if(timer.running)
-                        Tetris.onKeyHandler(Config.KEY_RIGHT)
+                    rightPressed()
                 }
 
                 ColorOverlay {

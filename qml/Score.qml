@@ -63,18 +63,17 @@ Item {
 
         PropertyAction { target: txtScore; property: "text"; value: boardGame.score }
         NumberAnimation {
-            property: "font.weight"
+            property: "scale"
             target: txtScore
-            from:txtScore.font.weight
-            to:txtScore.font.weight*1.4
+            to:txtScore.scale*1.4
             duration: 200
             easing.type: Easing.InOutQuad
         }
         NumberAnimation {
-            property: "font.weight"
+            property: "scale"
             target: txtScore
             //from:stats.font.pixelSize
-            to:txtScore.font.weight
+            to:txtScore.scale
             duration: 200
             easing.type: Easing.InOutQuad
         }

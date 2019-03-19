@@ -8,8 +8,8 @@ ApplicationWindow {
     visible: true
     visibility: (Screen.devicePixelRatio > 2) ? Window.FullScreen : Window.AutomaticVisibility
 
-    width: 320
-    height: 480
+    width: 360
+    height: 520
 
     color:"black"
 
@@ -32,6 +32,8 @@ ApplicationWindow {
 
         MenuButton {
             name: qsTr("New Game")
+            highlighted: true
+            focus:true
             onClicked:{
                 pageStack.push("qrc:/qml/GameBoard.qml", StackView.Immediate);
             }

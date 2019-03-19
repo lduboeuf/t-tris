@@ -36,13 +36,15 @@ Item {
 
         ToolButton {
             id: resumeImg
+            //anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
             contentItem: Image {
                 id:playPauseImg
                 fillMode: Image.Pad
                 sourceSize.width: text.height  * 2
                 sourceSize.height: text.height  * 2
-                anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
+
                 source: "/assets/play.svg"
             }
             onClicked:  resumeClicked()
