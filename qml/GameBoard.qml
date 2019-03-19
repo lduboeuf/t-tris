@@ -38,86 +38,12 @@ Page {
 
 
     Component.onCompleted: {
-
         init()
     }
 
     onStateChanged: {
         console.log("state:"+state)
 
-    }
-
-
-//    Behavior on score {
-////        SequentialAnimation{
-////            NumberAnimation {
-////                target: txtScore
-////                property: "font.weight"
-////                from:txtScore.font.weight
-////                to:txtScore.font.weight*1.2
-////                duration: 400
-////                easing.type: Easing.InOutQuad
-////            }
-////            NumberAnimation {
-////                target: txtScore
-////                property: "font.weight"
-////                //from:stats.font.pixelSize
-////                to:txtScore.font.weight
-////                duration: 400
-////                easing.type: Easing.InOutQuad
-////            }
-////        }
-
-
-
-
-//        NumberAnimation {
-//                    target: scoreAdded
-//                    properties: "opacity"
-//                    running: boardGame.score > 0
-//                    easing.type: Easing.InExpo
-//                    //easing: Easing.Linear
-//                    from: 1
-//                    to:0
-//                    duration: 1200
-//                }
-//        NumberAnimation {
-//                    target: scoreAdded
-//                    properties: "y"
-//                    running: boardGame.score > 0
-//                    from: gameCanvas.height / 2
-//                    to:boardGame.y - header.height
-//                    duration: 1200
-//                }
-//        NumberAnimation {
-//                    target: scoreAdded
-//                    properties: "x"
-//                    running: boardGame.score > 0
-//                    from: gmHeader.txtScoreX// +gmHeader.txtScore.width - scoreAdded.width
-//                    to:gmHeader.txtScoreX// +gmHeader.txtScore.width - scoreAdded.width
-//                    duration: 1200
-//                }
-//    }
-
-
-
-
-
-    Text {
-        id: scoreAdded
-        y: -100
-        text: "+" + Config.SCORE_INCREMENT
-        color: boardGame.textColor
-        font.bold: true
-    }
-
-    NewLevelOverlay{
-        id: newLevelOverlay
-        anchors.centerIn: parent
-        //visible: true
-
-
-       // NumberAnimation { duration: 500 ;easing.type: Easing.SineCurve}
     }
 
 
@@ -163,7 +89,33 @@ Page {
 
 
 
-    footer: GameBoardFooter{}
+    footer: GameBoardFooter{
+
+        onLeftPressed: {
+            Tetris.onKeyHandler(Config.KEY_LEFT)
+        }
+
+        onRightPressed: {
+            Tetris.onKeyHandler(Config.KEY_RIGHT)
+        }
+
+        onRotatePressed: {
+            Tetris.onKeyHandler(Config.KEY_UP)
+        }
+
+
+    }
+
+
+    NewLevelOverlay{
+        id: newLevelOverlay
+        anchors.centerIn: parent
+        opacity: 0
+        visible: false
+
+
+       // NumberAnimation { duration: 500 ;easing.type: Easing.SineCurve}
+    }
 
 
 
@@ -188,15 +140,11 @@ Page {
 
     SoundEffect {
         id: soundMoving
-        muted: settings.soundOff
         source: "/sound/moving.wav"
     }
     SoundEffect {
         id: soundClearRow
-        muted: settings.soundOff
         source: "/sound/remove_row.wav"
-
-
     }
     SoundEffect {
         id: soundGameOver
@@ -205,25 +153,23 @@ Page {
     }
     SoundEffect {
         id: soundStart
-
-        muted: settings.soundOff
         source: "/sound/start.wav"
     }
 
 
     SoundEffect {
         id: soundNextLevel
-        muted: settings.soundOff
         source: "/sound/cymbals.wav"
     }
 
     SoundEffect {
         id: soundBombFired
-        muted: settings.soundOff
         source: "/sound/bomb_fire.wav"
     }
 
-
+    function playSound(soundId){
+        if (!settings.soundOff) soundId.play()
+    }
 
 
     Timer {
@@ -263,8 +209,7 @@ Page {
 //            PropertyChanges { target: boardGame; score: 0 }
 //             PropertyChanges { target: boardGame; level: 0 }
 
-            StateChangeScript { script: soundStart.play() }
-
+          //  StateChangeScript { script: soundStart.play() }
 
 
         },
@@ -285,10 +230,8 @@ Page {
             name: Config.STATE_GAMEOVER
             PropertyChanges { target: boardGame; running:false }
             PropertyChanges { target: gameOverOverlay; visible:true }
-            //PropertyChanges { target: mouseArea; enabled: false }
             StateChangeScript { script: {
                     Storage.saveHighScore(new Date().toLocaleString(), boardGame.score, boardGame.level)
-                    soundGameOver.play()
                 }}
 
         },
@@ -296,28 +239,63 @@ Page {
             name: Config.STATE_PENDING_BOMB // ? any way to group properties ( almost same as STATE_PAUSE/GAME_OVER
             PropertyChanges { target: boardGame; running:false }
         },
-        State {
-            name: Config.STATE_FIRING_BOMB
-            StateChangeScript { script:soundBombFired.play()}
+//        State {
+//            name: Config.STATE_FIRING_BOMB
+//            StateChangeScript { script:soundBombFired.play()}
 
-        },
+//        },
 
-        State {
-            name: Config.STATE_ROW_REMOVED
-            StateChangeScript { script:  soundClearRow.play() }
-        },
+//        State {
+//            name: Config.STATE_ROW_REMOVED
+//            StateChangeScript { script:  soundClearRow.play() }
+//        },
 
         State {
             name: Config.STATE_NEW_LEVEL
-            PropertyChanges { target: newLevelOverlay; visible:true }
+            //PropertyChanges { target: newLevelOverlay; visible:true; explicit:true}
             StateChangeScript {
                 script: {
                     timer.interval = timer.interval - Config.REDUCED_TIME
-                    soundNextLevel.play()
+                   // newLevelOverlay.show()
+                   // soundNextLevel.play()
                 }
             }
         }
 
+
+    ]
+
+    transitions: [
+        Transition{
+            to: Config.STATE_ROW_REMOVED
+            ScriptAction{ script: playSound(soundClearRow)}
+        },
+        Transition {
+            to: Config.STATE_FIRING_BOMB
+            ScriptAction { script:playSound(soundBombFired)}
+
+        },
+        Transition {
+            to: Config.STATE_NEW_LEVEL
+            //NumberAnimation { target: newLevelOverlay; property: "opacity"; from:0; to: 1 ;easing.type: Easing.InOutQuad; duration: 1000  }
+            ScriptAction { script: playSound(soundNextLevel)}
+            PropertyAction{ target: newLevelOverlay; property: "visible"; value: true}
+//            SequentialAnimation  {
+//                 PropertyAnimation { target: newLevelOverlay; property: "opacity"; to: 1 }
+//                 PropertyAnimation { target: newLevelOverlay; property: "opacity"; to: 0 }
+//             }
+
+        },
+        Transition {
+            to: Config.STATE_GAMEOVER
+            ScriptAction { script: playSound(soundGameOver)}
+
+        },
+        Transition {
+            to: Config.STATE_START
+            ScriptAction { script: playSound(soundStart)}
+
+        }
 
     ]
 

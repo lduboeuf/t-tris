@@ -11,6 +11,14 @@ Button {
     height: btnText.implicitHeight * 2
     antialiasing: true
 
+    Accessible.name: text
+    Accessible.description: "This button does " + text
+    Accessible.role: Accessible.Button
+    Accessible.onPressAction: {
+        btnStart.clicked()
+    }
+
+
 
     contentItem: Text{
         id:btnText
@@ -21,7 +29,8 @@ Button {
     }
 
     background: Rectangle {
-        color: btnStart.pressed ? "#2b3b48": "transparent"
+        color: btnStart.pressed   ? "#214f4d": "transparent"
+        opacity: 0.5
         border.width: 1
         border.color: "#087443"
         radius: 20

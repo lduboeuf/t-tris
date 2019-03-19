@@ -11,6 +11,9 @@ var gameBoard = { //QML component holder
     nextFigureBoard: null
 }
 
+var scorePerRows = [40,100,300,1200]
+var nbRows;
+
 var currentFigure, nextFigure;
 var lastScore, nbRound;
 
@@ -39,6 +42,7 @@ function initGame(game, gameCanvas, nextFigureBoard) {
     //init boards
 
     lastScore = 0
+    nbRows = 0
     gameBoard.game.score =0
     gameBoard.game.level =1
 
@@ -335,18 +339,28 @@ function checkFullRow(){
            //  console.debug("row full = " +i)
             gameBoard.game.state = Config.STATE_ROW_REMOVED
             removeFullRow(i);
-            gameBoard.game.score +=  Config.SCORE_INCREMENT;
+
             delta++;
         }else if(delta > 0){
-           // console.debug("row not full = " +i)
+           //console.debug("row not full = " +i)
+
             moveDownAllRow(i, delta);
+
         }
 
     }
 
+    //score
+    if ( delta > 0){
+        nbRows += delta
+        gameBoard.game.score +=  scorePerRows[delta-1] * gameBoard.game.level;
+
+    }
+
+
 
     //check for new Level ?
-    if(gameBoard.game.score - lastScore > Config.SCORE){
+    if(nbRows /  gameBoard.game.level  > Config.LEVEL_DELTA){
         lastScore = gameBoard.game.score;
         gameBoard.game.state = Config.STATE_NEW_LEVEL
         gameBoard.game.level++;

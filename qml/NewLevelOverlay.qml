@@ -8,8 +8,6 @@ Item {
 
     width: txt.width + 20
     height: txt.height + 20
-    //opacity: 0
-    visible: false
 
 
     Text {
@@ -20,37 +18,39 @@ Item {
         font.pixelSize: Qt.application.font.pixelSize * 2
     }
 
-    NumberAnimation on opacity {
-        id: createAnimation
-        from: 0
-        to: 1
-        duration: 500
-        running: newLevelOverlay.visible
+    states: State {
+        name: "shown"; when: container.visible
+        StateChangeScript { script: anim.start()}
     }
-    NumberAnimation on opacity {
-        id: deleteAnimation
-        from: 1
-        to: 0
-        duration: 500
-        running: !newLevelOverlay.visible
-        onRunningChanged: {
-            if (!running) {
-                newLevelOverlay.visible = false
-                newLevelOverlay.opacity = 1
-            }
+
+
+    SequentialAnimation{
+        id:anim
+        alwaysRunToEnd: true
+        PropertyAnimation  {
+            target: container
+            property: "opacity"
+            to: 0.8
+            duration: 800
         }
+        PropertyAnimation  {
+            target: container
+            property: "opacity"
+            //from: 0
+            to: 0
+            duration: 800
+        }
+        PropertyAction{
+            target: container
+            property: "visible"
+            value: false
+        }
+
     }
 
 
-    Timer {
-        id:timer
-            interval: 800
-            running: container.visible
-            onTriggered: {
-                deleteAnimation.running = true
-                //visible = false
-           }
-    }
+
+
 
 
 }
