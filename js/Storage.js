@@ -70,7 +70,7 @@ function saveOnlineScore(name, score, level){
         if (http.readyState == 4) {
             if (http.status == 201) {
 
-                container.hitHighScore = true
+                container.showHitHighScore()
 
                //OK highscore
             } else {
