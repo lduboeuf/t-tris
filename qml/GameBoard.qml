@@ -90,6 +90,7 @@ Page {
 
 
 
+
     footer: GameBoardFooter{
 
         onLeftPressed: {
@@ -130,7 +131,10 @@ Page {
 
     GameOver{
         id: gameOverOverlay
+
         anchors.centerIn: parent
+        //anchors.horizontalCenter: parent.horizontalCenter
+        visible: false
 
         onRestartClicked: {
             boardGame.init()
