@@ -7,4 +7,5 @@
         <file>Board.js</file>
         <file>Configuration.js</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>

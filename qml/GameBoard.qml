@@ -8,7 +8,7 @@ import QtQuick.LocalStorage 2.0
 import "../js/Configuration.js" as Config;
 
 import "../js/Tetris.js" as Tetris
-import "../js/Storage.js" as Storage
+//import "../js/Storage.js" as Storage
 
 
 Page {
@@ -39,6 +39,7 @@ Page {
 
     Component.onCompleted: {
         init()
+        state = Config.STATE_GAMEOVER
     }
 
     onStateChanged: {
@@ -231,7 +232,7 @@ Page {
             PropertyChanges { target: boardGame; running:false }
             PropertyChanges { target: gameOverOverlay; visible:true }
             StateChangeScript { script: {
-                    Storage.saveHighScore(new Date().toLocaleString(), boardGame.score, boardGame.level)
+                    //Storage.saveHighScore(new Date().toLocaleString(), boardGame.score, boardGame.level)
                 }}
 
         },

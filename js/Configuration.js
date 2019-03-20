@@ -60,6 +60,8 @@ var color = ["red", "blue", "green", "yellow"]
 //var REMOVE_ROW_SOUND = 2
 //var GAME_OVER_SOUND = 3
 
+var API_KEY = "XXXXX"
+
 
 
 
