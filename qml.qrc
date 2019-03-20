@@ -22,5 +22,7 @@
         <file>qml/GameBoardFooter.qml</file>
         <file>qml/GameBoardHeader.qml</file>
         <file>qml/Score.qml</file>
+        <file>qml/ScoreItemDelegate.qml</file>
+        <file>qml/HitHighScore.qml</file>
     </qresource>
 </RCC>

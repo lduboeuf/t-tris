@@ -22,6 +22,7 @@ ApplicationWindow {
     Settings {
             id: settings
             property bool soundOff: false
+            property string envMode: (Screen.devicePixelRatio > 2) ? "Mobile": "Desktop"
         }
 
 
@@ -57,6 +58,7 @@ ApplicationWindow {
                 Qt.quit();
             }
         }
+
     }
 
 

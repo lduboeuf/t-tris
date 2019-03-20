@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName("ttris.lduboeuf");
         //app.setOrganizationDomain("ttbn.lduboeuf");
     app.setApplicationName("ttris.lduboeuf");
+   // app.setApplicationVersion("0.7");
 
     QTranslator myappTranslator;
 
@@ -20,6 +21,8 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/qml/");
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+
+    qDebug()<< "Default path >> "+engine.offlineStoragePath();
 
     return app.exec();
 }
