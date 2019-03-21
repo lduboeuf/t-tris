@@ -59,8 +59,7 @@ function saveOnlineScore(name, score, level){
     }
 
     var http = new XMLHttpRequest()
-    var url = "http://localhost:8000/api.php";
-    http.open("POST", url, true);
+    http.open("POST", Config.API_URL, true);
 
     // Send the proper header information along with the request
     http.setRequestHeader("Content-type", "application/json");
@@ -87,7 +86,7 @@ function getOnlineScores(){
 
     //var scores = []
     var http = new XMLHttpRequest()
-    var url = "http://localhost:8000/api.php";
+    var url = Config.API_URL;
     http.open("GET", url, true);
 
     // Send the proper header information along with the request

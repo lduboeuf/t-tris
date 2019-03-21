@@ -58,6 +58,12 @@ ApplicationWindow {
                 Qt.quit();
             }
         }
+//        MenuButton {
+//            name: qsTr("Options")
+//            onClicked:{
+//                pageStack.push("qrc:/qml/HitHighScore.qml");
+//            }
+//        }
 
     }
 

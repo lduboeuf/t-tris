@@ -25,10 +25,14 @@ Page {
         horizontalAlignment: Text.AlignHCenter
         width: parent.width - parent.anchors.margins * 2
         wrapMode: Text.WordWrap
-        color: "white"
-        text: qsTr("Congratulation! , <br> you hit online top scores")
+        //color: "blue"
+        text: qsTr("Congratulation, <br> you hit <a href=\"qrc:/qml/ScorePage.qml\">online top scores!</a>")
         font.pixelSize: Qt.application.font.pixelSize * 2
+        onLinkActivated: {
+            pageStack.push(link, {showOnline:true})
+        }
     }
+
 
     Button{
         id: closeBtn

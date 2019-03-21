@@ -24,5 +24,6 @@
         <file>qml/Score.qml</file>
         <file>qml/ScoreItemDelegate.qml</file>
         <file>qml/HitHighScore.qml</file>
+        <file>qml/NavigationBar.qml</file>
     </qresource>
 </RCC>

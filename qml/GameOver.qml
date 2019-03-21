@@ -68,7 +68,7 @@ Item {
             visible: saveVisible
             anchors.horizontalCenter: parent.horizontalCenter
             //width: parent.width
-            focus: true
+            //focus: true
             placeholderText: qsTr('type your name here')
             onTextChanged: {
                 saveBtn.enabled = (text.length > 0) ? true: false
@@ -92,7 +92,8 @@ Item {
                 enabled: false
                 onClicked: {
                     Storage.saveHighScore(nameText.text, boardGame.score, boardGame.level)
-                    boardGame.score = 0
+                    boardGame.score = 0// TODO faire autrement
+                    dialogText.text = qsTr("Score saved")
 
                 }
             }

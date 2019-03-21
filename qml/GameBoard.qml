@@ -24,7 +24,7 @@ Page {
 
 
     property bool running: false
-    property int level: 1
+    property int level: 0
     property int score: 0
 
     Keys.enabled: running
@@ -32,18 +32,16 @@ Page {
     function init(){
         Tetris.initGame(boardGame, gameCanvas, nextFigureBoard)
         running = true
-        score = 0
-        level = 1
     }
 
 
     Component.onCompleted: {
         init()
-        state = Config.STATE_GAMEOVER
     }
 
     onStateChanged: {
         console.log("state:"+state)
+        console.log("timer interval:" + timer.interval)
 
     }
 
@@ -176,10 +174,9 @@ Page {
         if (!settings.soundOff) soundId.play()
     }
 
-
     Timer {
         id: timer
-        interval: Config.TIMER_INTERVAL
+        interval:  Config.TIMER_INTERVAL - (boardGame.level * Config.REDUCED_TIME)
         running: boardGame.running
         repeat: true
         onTriggered: {
@@ -210,6 +207,7 @@ Page {
     states: [
         State {
             name: Config.STATE_START
+           // PropertyChanges { target: timer; interval:Config.TIMER_INTERVAL; explicit:true}
             //PropertyChanges { target: boardGame; Keys.enabled: true }
 //            PropertyChanges { target: boardGame; score: 0 }
 //             PropertyChanges { target: boardGame; level: 0 }
@@ -260,7 +258,7 @@ Page {
             //PropertyChanges { target: newLevelOverlay; visible:true; explicit:true}
             StateChangeScript {
                 script: {
-                    timer.interval = timer.interval - Config.REDUCED_TIME
+                    //timer.interval = timer.interval - Config.REDUCED_TIME
                    // newLevelOverlay.show()
                    // soundNextLevel.play()
                 }

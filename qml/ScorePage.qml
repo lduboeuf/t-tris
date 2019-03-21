@@ -1,5 +1,5 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
-import QtQuick 2.0
+import QtQuick 2.7
 import QtQuick.Controls 2.2
 //import QtQuick.LocalStorage 2.0
 import QtQuick.Layouts 1.3
@@ -14,57 +14,27 @@ Page {
 
     title: qsTr("High scores")
 
+    property bool showOnline: false
     property color textColor: "white"
+
+
+    onShowOnlineChanged:{
+        console.log("online changed:" + showOnline)
+        bar.currentIndex = 1
+    }
 
     background: Image {
         source: "/assets/background.jpg"
         fillMode: Image.PreserveAspectCrop
     }
 
-    header:ToolBar {
-        id:toolBar
-
-
-        background: Rectangle{
-            anchors.fill: toolBar
-            color:scorePage.textColor
-            opacity: 0.2
-        }
-
-            RowLayout {
-
-                anchors.fill: parent
-                ToolButton {
-                    id: toolButtonLeft
-                    contentItem: Image {
-                        id:navImage
-                        fillMode: Image.Pad
-                        sourceSize.width: toolButtonLeft.height  * 0.4
-                        sourceSize.height: toolButtonLeft.height  * 0.4
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        source: "/assets/back.svg"
-                    }
-                    onClicked: {
-                        pageStack.pop()
-                    }
-
-                }
-
-                Text {
-                    id: score
-                    anchors { horizontalCenter: parent.horizontalCenter;  verticalCenter: parent.verticalCenter;}
-                    color: "white"
-                    text: title
-
-
-                }
-
-            }
-    }
+    header: NavigationBar{}
 
     TabBar {
         id: bar
+
+        currentIndex: view.currentIndex
+
         //anchors.bottom: view.bottom
         width: parent.width
         background: Rectangle{
@@ -80,7 +50,7 @@ Page {
             height: parent.height
             background: Rectangle {
                     color: "transparent"
-                    border.color: bar.currentIndex == 0 ? "#087443" : "grey"
+                    border.color: bar.currentIndex == 0 ? "white" : "grey"
                     height: 1
                     anchors.bottom: parent.bottom
                 }
@@ -99,7 +69,7 @@ Page {
             height: parent.height
             background: Rectangle {
                     color: "transparent"
-                    border.color: bar.currentIndex ==1 ? "#087443" : "grey"
+                    border.color: bar.currentIndex ==1 ? "white" : "grey"
                     height: 1
                     anchors.bottom: parent.bottom
                 }
@@ -120,23 +90,32 @@ Page {
 
 
 
-    StackLayout {
+    SwipeView {
         id: view
         //anchors.fill: parent
         width: parent.width
 
+
+        currentIndex: bar.currentIndex
         anchors{
             top: bar.bottom
             bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+            topMargin: 24
 
         }
 
-        currentIndex: bar.currentIndex
+        //currentIndex: bar.currentIndex
+
+        onCurrentIndexChanged: {
+            console.log("kikou current index")
+        }
 
 
         Item {
             id: localTab
-            anchors.fill: parent
+           // anchors.fill: parent
 
 
             Component.onCompleted:  {
@@ -144,12 +123,17 @@ Page {
             }
 
 
+
             ListView{
                anchors.fill: parent
                 model: ListModel{
                     id: scores
                 }
-                delegate: ScoreItemDelegate{ }
+                delegate: ScoreItemDelegate{
+
+
+
+                }
 
 
 
@@ -157,10 +141,10 @@ Page {
 
 
 
+
         }
         Item {
             id: onlineTab
-            anchors.fill: parent
             property bool error: false
 
 
@@ -176,7 +160,7 @@ Page {
                 anchors.centerIn: parent
                 visible: onlineTab.error
                 color:scorePage.textColor
-                text: qsTr("Network unreachable or serice unavailable")
+                text: qsTr("Network unreachable or service unavailable")
             }
 
             BusyIndicator{
