@@ -1,61 +1,63 @@
-import QtQuick 2.0
+import QtQuick 2.7
+import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
 
-RowLayout{
+Item{
+
+ //   Layout.margins: 4
+//    Layout.leftMargin: 12
+//    Layout.topMargin: 4
 
 
-    height: scoreTxt.height *2
     width: parent.width
+    height: scoreTxt.implicitHeight *3
 
-//    Rectangle{
-//        anchors.fill: parent
-//        color: "white"
-//        opacity: 0.2
-//    }
+    Layout.margins: 12
 
-    //                    Text{
-    //                        id:indice
-    //                        anchors.left: parent.left
-    //                        //Layout.alignment: Qt.AlignLeft
+    Rectangle{
 
-    //                        color: scorePage.textColor
-    //                        text: index + 1
-    //                        opacity: 0.5
-    //                    }
+        anchors.fill: rowScore
+        //anchors.margins: 4
+        color:"white"
+        radius: 5
+        border.color: "white"
 
-    Text{
-
-        id: scoreTxt
-
-        //anchors.left: parent.left
-        //Layout.alignment: Qt.AlignLeft
-        anchors.leftMargin:  4
-        color: scorePage.textColor
-        text: " " +score //TODO
-    }
-
-    Text{
-        //anchors.left: scoreTxt.right
-        //anchors.right: dateText.left
-        anchors.horizontalCenter: parent.horizontalCenter
-        //width: parent.width - (scoreTxt.width + dateText.width)
-        color: scorePage.textColor
-        elide: Text.ElideRight
-        //wrapMode: Text.WordWrap
-        text: name
+        opacity: 0.2
 
     }
 
-//    Text{
-//        id:dateText
-//        //Layout.alignment: Qt.AlignRight
-//        // anchors.right: parent.right
-//        anchors.rightMargin: 4
-//        anchors.right: parent.right
-//        color: scorePage.textColor
-//        // wrapMode: Text.Wrap
-//        text: model.date
-//    }
 
+    RowLayout{
+        id:rowScore
+        // width: parent.width
+        anchors.fill: parent
+        anchors.margins: 4
+//        Layout.alignment: Qt.AlignHCenter
+//        Layout.margins: 12
+
+
+
+        Text{
+
+            id: scoreTxt
+
+            Layout.leftMargin: 12
+            color: scorePage.textColor
+            text: " " +score //TODO margin doesn't work
+        }
+
+        Text{
+
+            //Layout.alignment: Qt.AlignHCenter
+            anchors.left: parent.horizontalCenter
+            //anchors.horizontalCenter: parent.horizontalCenter
+            color: scorePage.textColor
+            elide: Text.ElideRight
+            text: name
+
+        }
+
+
+    }
 }

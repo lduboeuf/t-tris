@@ -44,15 +44,15 @@ function initGame(game, gameCanvas, nextFigureBoard) {
     lastScore = 0
     nbRows = 0
     gameBoard.game.score =0
-    gameBoard.game.level =1
+    gameBoard.game.level =0
 
     var blockSize = gameCanvas.width < gameCanvas.height ? gameCanvas.width / Config.MAX_CELL : gameCanvas.height / Config.MAX_CELL;
     var maxRow = Math.floor(gameCanvas.height / blockSize);
     var maxColumn = Math.floor(gameCanvas.width / blockSize);
 
     //delete previous board
-    if (board!=null) board.clear()
-    if (miniBoard!=null) miniBoard.clear()
+    if (board!=null) board.clear(true)
+    if (miniBoard!=null) miniBoard.clear(true)
     if (currentFigure!=null) currentFigure.clear()
     if (nextFigure!=null) currentFigure.clear()
 
@@ -100,18 +100,17 @@ function nextRound(){
 
     if (nextFigure!=null){
        //for now, easier to remove particles and create new ones
-        nextFigure.clear()
-        miniBoard.clear()
+        //nextFigure.clear()
+
         currentFigure = nextFigure
     }else{
       currentFigure =  createNextFigure()
     }
 
-    //currentFigure = (nextFigure!=null) ? nextFigure : createNextFigure()
     drawFigure(currentFigure,gameBoard.gameCanvas, board, column, row);
 
 
-
+    miniBoard.clear(false)
     nextFigure = createNextFigure()
     drawFigure(nextFigure,gameBoard.nextFigureBoard, miniBoard, 2,2);
 }
@@ -141,23 +140,36 @@ function drawFigure(figure, parentEntity, pBoard, pColumn, pRow){
 
         var point = points[i];
 
-        var particle = particleComponent.createObject();
-        particle.cellColor = figure.color;
-        particle.parent = parentEntity;
-        particle.size = pBoard.blockSize;
+        var particle = figure.particles[i]
+        var alreadyExist = (particle!=null)
+        if (!alreadyExist){
+            particle = particleComponent.createObject();
+            figure.particles.push(particle)
+        }
+
+        //var particle = particleComponent.createObject();
         if (pBoard.availablePosition(pColumn + point.x, pRow + point.y)){
             particle.column = pColumn + point.x
             particle.row = pRow + point.y
+            particle.cellColor = figure.color;
+            particle.parent = parentEntity;
+            particle.size = pBoard.blockSize;
+
+
             pBoard.insert(particle);
-            figure.particles.push(particle)
+
         }
 
         //console.log("insert at:" + particle.column, particle.row)
 
     }
 
-
 }
+
+
+
+
+
 
 function moveFigure(){
 
@@ -217,6 +229,22 @@ function onKeyHandler(key){
         switch(key){
         case Config.KEY_LEFT:
             nextColumn = nextColumn - 1
+            break;
+        case Config.KEY_FARLEFT:
+            nextColumn = nextColumn - 1
+            while(gameBoard.game.state === Config.STATE_PLAY &&
+                 canMoveTo(nextColumn, nextRow, nextOrientation)){
+                 nextColumn = nextColumn - 1
+            }
+            nextColumn = nextColumn+ 1
+            break;
+        case Config.KEY_FARRIGHT:
+            nextColumn = nextColumn + 1
+            while(gameBoard.game.state === Config.STATE_PLAY &&
+                 canMoveTo(nextColumn, nextRow, nextOrientation)){
+                 nextColumn = nextColumn+ 1
+            }
+            nextColumn = nextColumn-1
             break;
         case Config.KEY_RIGHT:
             nextColumn = nextColumn + 1

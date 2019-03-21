@@ -4,6 +4,9 @@ import QtQuick.Layouts 1.3
 
 Page {
 
+    property color textColor: "white"
+
+
     background: Image {
         source: "/assets/background.jpg"
         fillMode: Image.PreserveAspectCrop

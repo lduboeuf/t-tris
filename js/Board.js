@@ -9,11 +9,13 @@ function Board(blockSize, maxRow, maxColumn){
 
 }
 
-Board.prototype.clear = function(){
+Board.prototype.clear = function(destroyParticle){
     for (var i = 0; i < this.container.length; i++) {
-        if (this.container[i] != null)
+        if (this.container[i] != null && destroyParticle){
             this.container[i].destroy(); //destroy particle
-            this.container[i] = null;
+            console.log("kikou destroy")
+        }
+        this.container[i] = null;
     }
 }
 

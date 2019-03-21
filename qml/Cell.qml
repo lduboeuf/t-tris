@@ -10,12 +10,13 @@ import "../js/Configuration.js" as Config
      property int type: Config.RUNNING_CELL
      property string cellColor: "red"
      property bool dying: false
-    // property point refPoints
-     property alias state: img.state
+     //property alias state: img.state
 
      property int column:0
      property int row:0
      property int size:0
+     property var oldValues: { "x":0, "y":0, "size":0}
+     property bool moved: false
 
      width: size
      height: size
@@ -24,13 +25,23 @@ import "../js/Configuration.js" as Config
      y:size*row
 
 
-//     onTypeChanged: {
-//         if (type === Constant.CLOCKING_CELL){
-//             refPoints = Qt.point(0,0) //init points
-//         }
+
+     Behavior on width {
+         NumberAnimation{ target:block; property: "opacity" ;from: 0;to:1}
+     }
+
+//     Rectangle {
+//         id: particle
+//         anchors.fill: parent
+//         color:cellColor
+//         border.color: "grey"
+
+//         opacity: 0.5
+////         gradient: Gradient {
+////             GradientStop { position: 0.0; color: cellColor }
+////             GradientStop { position: 1.0; color: "white" }
+////         }
 //     }
-
-
 
 
      Image {
@@ -62,14 +73,14 @@ import "../js/Configuration.js" as Config
      }
 
      states: [
+
          State {
              name: "AliveState"; when: spawned == true && dying == false
              PropertyChanges { target: img; opacity: 1 }
          },
-//         State {
-//             name: "FixedState"; when: type===Constant.CLOCKING_CELL
-//             PropertyChanges { target: overlay; color: "blue" }
-//         },
+
+
+
          State {
              name: "DeathState"; when: dying == true
              StateChangeScript { script: particles.burst(20); }
@@ -80,12 +91,11 @@ import "../js/Configuration.js" as Config
      ]
 
 
+
+
+
+
+
  }
 
 
-//Rectangle {
-//    id: block
-//    property int type
-//    color: "gray"
-//    border.width: 1
-//}
