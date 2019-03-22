@@ -1,8 +1,8 @@
 .pragma library
 var MAX_CELL = 12;
-var LEVEL_DELTA = 1; //nb of rows between levels
+var LEVEL_DELTA = 2; //nb of rows between levels
 var REDUCED_TIME = 60;
-var TIMER_INTERVAL = 500
+var TIMER_INTERVAL = 700
 
 
 
@@ -18,6 +18,8 @@ var KEY_UP = 3
 var KEY_DOWN = 4
 var KEY_PAUSE = 5
 var KEY_STEP_DOWN =6
+var KEY_FARLEFT =7
+var KEY_FARRIGHT =8
 
 /*
   Type of cell
@@ -59,8 +61,9 @@ var color = ["red", "blue", "green", "yellow"]
 //var MOVING_SOUND = 1
 //var REMOVE_ROW_SOUND = 2
 //var GAME_OVER_SOUND = 3
-
-var API_KEY = "XXXXX"
+var MAX_LOCAL_SCORES = 20
+var API_URL= "XXXX"
+var API_KEY = "XXXX"
 
 
 
