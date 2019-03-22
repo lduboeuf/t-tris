@@ -15,6 +15,8 @@ Page {
     title: qsTr("High scores")
 
     property bool showOnline: false
+    property string currentName: ""
+    property int currentScore:0
     property color textColor: "white"
 
 

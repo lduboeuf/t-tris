@@ -6,6 +6,8 @@ Page {
 
     property color textColor: "white"
 
+    title: qsTr("Options")
+
 
     background: Image {
         source: "/assets/background.jpg"
@@ -13,36 +15,7 @@ Page {
     }
 
 
-    header:ToolBar {
-        id:toolBar
-
-        background: Rectangle{
-            anchors.fill: toolBar
-            color:"white"
-            opacity: 0.2
-        }
-
-            RowLayout {
-
-                anchors.fill: parent
-                ToolButton {
-                    id: toolButtonLeft
-                    contentItem: Image {
-                        id:navImage
-                        fillMode: Image.Pad
-                        sourceSize.width: toolButtonLeft.height  * 0.4
-                        sourceSize.height: toolButtonLeft.height  * 0.4
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        source: "/assets/back.svg"
-                    }
-                    onClicked: {
-                        pageStack.pop(null)
-                    }
-
-                }
-            }
-    }
+    header:NavigationBar{}
 
     Label{
         text: qsTr("not implemented yet")

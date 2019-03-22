@@ -15,22 +15,33 @@ Item {
 
     visible: false
 
-    property bool saveVisible: boardGame.score >0
+    property bool saveVisible: false
+
+    onVisibleChanged: {
+        if (visible){
+            saveVisible = Storage.canSave(boardGame.score)
+        }
+    }
 
 
     signal restartClicked
 
-    function show() {
-        container.visible = true;
-    }
+//    function show() {
+//        container.visible = true;
+//    }
 
     function showHitHighScore(){
         console.log("hit high score!")
-        pageStack.push("qrc:/qml/HitHighScore.qml", StackView.Immediate);
-        hitHighScore = false
+        container.state = "hitHighScore"
+        //pageStack.push("qrc:/qml/HitHighScore.qml",{currentName: nameText.text, currentScore: boardGame.score}, StackView.Immediate);
+        //hitHighScore = false
     }
 
-
+    HitHighScore{
+        id: hitHighScorePane
+        anchors.centerIn: parent
+        visible: false
+    }
 
 
     Rectangle{
@@ -46,7 +57,7 @@ Item {
         spacing: 12
         anchors.fill: parent
         //anchors.centerIn: parent
-        padding: 12
+        padding: 24
 
 
         Text {
@@ -59,7 +70,7 @@ Item {
         Text{
             anchors.horizontalCenter: parent.horizontalCenter
             color: "white"
-            text: qsTr("Save your score:")
+            text: qsTr("Congratulations!, you reached top local high scores")
             visible: saveVisible
         }
 
@@ -92,9 +103,9 @@ Item {
                 enabled: false
                 onClicked: {
                     Storage.saveHighScore(nameText.text, boardGame.score, boardGame.level)
-                    boardGame.score = 0// TODO faire autrement
+                    //boardGame.score = 0// TODO
+                    container.saveVisible = false
                     dialogText.text = qsTr("Score saved")
-
                 }
             }
 
@@ -112,6 +123,18 @@ Item {
 
 
     }
+
+    states:[
+
+        State{
+            name:"hitHighScore"
+            PropertyChanges { target: content; visible: false}
+            PropertyChanges { target: hitHighScorePane; visible: true}
+
+        }
+
+
+    ]
 
 
 

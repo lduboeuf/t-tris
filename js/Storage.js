@@ -1,6 +1,7 @@
 .import "qrc:/js/Configuration.js" as Config
 .import QtQuick.LocalStorage 2.0 as DBStorage
 
+
 var db = DBStorage.LocalStorage.openDatabaseSync("TetrisScores", "", "Local Tetris High Scores",100);
 db.transaction(
     function(tx) {
@@ -11,7 +12,7 @@ db.transaction(
                 tx.executeSql('ALTER TABLE Scores ADD COLUMN date TEXT');
                 tx.executeSql('UPDATE Scores SET date = \'\'');
                 tx.executeSql('UPDATE Scores SET name = \'ABC\'');
-                tx.executeSql('DELETE FROM Scores WHERE score = 0');
+                tx.executeSql('DELETE FROM Scores');
             });
 
         }
@@ -32,11 +33,32 @@ function saveHighScore(name, score, level) {
     saveOnlineScore(name, score, level)
 }
 
+function canSave(score) {
+    //OfflineStorage
+    var can = false
+    var dataStr = "SELECT count(*) as nb FROM Scores WHERE score > ?";
+    var data = [score];
+    db.transaction(
+        function(tx) {
+           var rs = tx.executeSql(dataStr, data);
+           if (rs.rows.length > 0) {
+              var nb = rs.rows.item(0).nb
+               can = (nb < Config.MAX_LOCAL_SCORES)
+
+           }
+        }
+    );
+
+    console.log("can save")
+
+    return can
+}
+
 function showHighScore(){
     db.transaction(
         function(tx) {
             //Only show results for the current grid size
-             var rs = tx.executeSql('SELECT * FROM Scores ORDER BY score desc LIMIT 10');
+             var rs = tx.executeSql('SELECT * FROM Scores ORDER BY score desc LIMIT ' + Config.MAX_LOCAL_SCORES);
             scores.clear()
             for(var i = 0; i < rs.rows.length; i++){
                 console.log(rs.rows.item(i).date)

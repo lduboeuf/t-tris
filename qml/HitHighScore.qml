@@ -1,14 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.3
 
-Page {
 
-    id:container
+Item {
 
-    background: Image {
-        source: "/assets/background.jpg"
-        fillMode: Image.PreserveAspectCrop
-    }
+    width: hitContent.implicitWidth
+    height: hitContent.implicitHeight
 
     Rectangle{
         anchors.fill: parent
@@ -18,18 +16,22 @@ Page {
     }
 
 
+    ColumnLayout {
+        id:hitContent
+        anchors.centerIn: parent
+
 
     Text{
         id: txt
-        anchors.centerIn: parent
+        //anchors.centerIn: parent
         horizontalAlignment: Text.AlignHCenter
         width: parent.width - parent.anchors.margins * 2
         wrapMode: Text.WordWrap
-        //color: "blue"
-        text: qsTr("Congratulation, <br> you hit <a href=\"qrc:/qml/ScorePage.qml\">online top scores!</a>")
+        color: "white"
+        text: qsTr("Oh yes!, <br> you've reached <br><a href=\"qrc:/qml/ScorePage.qml\">online top scores</a>")
         font.pixelSize: Qt.application.font.pixelSize * 2
         onLinkActivated: {
-            pageStack.push(link, {showOnline:true})
+            pageStack.push(link, {showOnline:true, currentName: nameText.text, currentScore: boardGame.score})
         }
     }
 
@@ -38,13 +40,15 @@ Page {
         id: closeBtn
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: txt.bottom
-        anchors.topMargin: 12
+        anchors.topMargin: 24
         text: qsTr("Close")
         onClicked: {
-            pageStack.pop()
+            container.state = ""
+            //pageStack.pop()
         }
     }
 
+    }
 
 
 

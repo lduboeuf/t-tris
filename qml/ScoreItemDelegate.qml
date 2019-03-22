@@ -12,11 +12,13 @@ Item{
 
     width: parent.width
     height: scoreTxt.implicitHeight *3
+    state: (name === scorePage.currentName && score == scorePage.currentScore) ? "highlighted" : ""
 
     Layout.margins: 12
 
     Rectangle{
 
+        id: rowRect
         anchors.fill: rowScore
         //anchors.margins: 4
         color:"white"
@@ -60,4 +62,12 @@ Item{
 
 
     }
+
+    states: [
+        State{
+            name: "highlighted";
+            PropertyChanges {target: rowRect; color: "blue"}
+        }
+
+    ]
 }

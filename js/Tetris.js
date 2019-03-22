@@ -381,7 +381,13 @@ function checkFullRow(){
     //score
     if ( delta > 0){
         nbRows += delta
-        gameBoard.game.score +=  scorePerRows[delta-1] * gameBoard.game.level;
+        var newScore = scorePerRows[delta-1]
+        if (gameBoard.game.level>0){
+             gameBoard.game.score +=  newScore * gameBoard.game.level;
+        }else{
+            gameBoard.game.score +=  newScore
+        }
+
 
     }
 
