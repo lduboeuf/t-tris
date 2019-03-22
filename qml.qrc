@@ -11,7 +11,6 @@
         <file>qml/ScorePage.qml</file>
         <file>qml/GameOver.qml</file>
         <file>qml/SwipeArea.qml</file>
-        <file>sound/cymbals.wav</file>
         <file>i18n/base_de.qm</file>
         <file>i18n/base_fr.qm</file>
         <file>sound/start.wav</file>
@@ -25,5 +24,6 @@
         <file>qml/ScoreItemDelegate.qml</file>
         <file>qml/HitHighScore.qml</file>
         <file>qml/NavigationBar.qml</file>
+        <file>sound/newlevel.wav</file>
     </qresource>
 </RCC>
