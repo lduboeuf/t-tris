@@ -2,7 +2,7 @@ import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
-import QtMultimedia 5.0
+import QtMultimedia 5.8
 import QtQuick.LocalStorage 2.0
 
 import "../js/Configuration.js" as Config;
@@ -16,6 +16,7 @@ Page {
 
     focus: true    // important when set onKey
     padding: 2
+
 
     property color textColor: "white"
 
@@ -37,6 +38,9 @@ Page {
 
     Component.onCompleted: {
         init()
+       // score = 200
+        //state = Config.STATE_GAMEOVER
+
     }
 
     onStateChanged: {
@@ -151,18 +155,23 @@ Page {
     }
     SoundEffect {
         id: soundGameOver
-        muted: settings.soundOff
         source: "/sound/game_over.wav"
     }
     SoundEffect {
         id: soundStart
         source: "/sound/start.wav"
+//        onPlayingChanged: {
+//            if (playing)
+//                volume = 0.4;
+//            else
+//                volume = 0.0;
+//        }
     }
 
 
     SoundEffect {
         id: soundNextLevel
-        source: "/sound/cymbals.wav"
+        source: "/sound/newlevel.wav"
     }
 
     SoundEffect {
@@ -171,7 +180,10 @@ Page {
     }
 
     function playSound(soundId){
-        if (!settings.soundOff) soundId.play()
+        if (!settings.soundOff) {
+            soundId.volume = 0.4
+            soundId.play()
+        }
     }
 
     Timer {
