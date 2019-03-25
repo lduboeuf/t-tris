@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr_FR">
+<TS version="2.2" language="fr_FR">
 <context>
     <name>About</name>
     <message>
         <location filename="../qml/About.qml" line="11"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="50"/>
         <source>Welcome to t-tris!</source>
-        <translation type="unfinished"></translation>
+        <translation>Bienvenue dans T-tris !</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="58"/>
         <source>Use swipe, bottom control buttons or keys to play</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisez vos doigts ou les touches en bas de l'écran pour jouer</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="66"/>
         <source>Please notice that online scores are stored freely on https://lduboeuf.ouvaton.org, we collect only scores and user provided names. See source code for details</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez noter que les scores partagés sont stockés gratuitement sur https://lduboeuf.ouvaton.org. Nous collectons uniquement les scores et les noms fournis par les utilisateurs/trices. Se référer au code source pour plus de détails.</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="72"/>
         <source>source code here</source>
-        <translation type="unfinished"></translation>
+        <translation>Code source disponible ici</translation>
     </message>
 </context>
 <context>
     <name>GameBoard</name>
     <message>
         <source>Level: </source>
-        <translation type="vanished">Niveau : </translation>
+        <translation>Niveau : </translation>
     </message>
     <message>
         <source>Score: </source>
-        <translation type="vanished">Score : </translation>
+        <translation>Score : </translation>
     </message>
     <message>
         <source>Paused</source>
-        <translation type="vanished">En pause</translation>
+        <translation>En pause</translation>
     </message>
     <message>
         <source>Resumed</source>
-        <translation type="vanished">Reprise</translation>
+        <translation>Reprise</translation>
     </message>
 </context>
 <context>
@@ -53,23 +53,23 @@
     <message>
         <location filename="../qml/GameBoardHeader.qml" line="57"/>
         <source>Level: </source>
-        <translation type="unfinished">Niveau : </translation>
+        <translation>Niveau : </translation>
     </message>
     <message>
         <location filename="../qml/GameBoardHeader.qml" line="57"/>
         <source>Score: </source>
-        <translation type="unfinished">Score : </translation>
+        <translation>Score : </translation>
     </message>
 </context>
 <context>
     <name>GameOver</name>
     <message>
         <source>GAME OVER</source>
-        <translation type="vanished">FIN DE PARTIE</translation>
+        <translation>FIN DE PARTIE</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="vanished">Réessayer</translation>
+        <translation>Réessayer</translation>
     </message>
 </context>
 <context>
@@ -77,42 +77,42 @@
     <message>
         <location filename="../qml/scoring/HighScoresOverlay.qml" line="131"/>
         <source>GAME OVER</source>
-        <translation type="unfinished">FIN DE PARTIE</translation>
+        <translation>FIN DE PARTIE</translation>
     </message>
     <message>
         <location filename="../qml/scoring/HighScoresOverlay.qml" line="137"/>
         <source>Retry</source>
-        <translation type="unfinished">Réessayer</translation>
+        <translation>Réessayer</translation>
     </message>
     <message>
         <location filename="../qml/scoring/HighScoresOverlay.qml" line="182"/>
         <source>Congratulations!</source>
-        <translation type="unfinished"></translation>
+        <translation>Félicitations !</translation>
     </message>
     <message>
         <location filename="../qml/scoring/HighScoresOverlay.qml" line="193"/>
         <source>you reached top local high scores</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous êtes rentré(e) dans le haut du classement des records locaux</translation>
     </message>
     <message>
         <location filename="../qml/scoring/HighScoresOverlay.qml" line="202"/>
         <source>Yes!, you reached top online high scores</source>
-        <translation type="unfinished"></translation>
+        <translation>Oui ! Vous êtes rentré(e) dans le haut du classement des records partagés</translation>
     </message>
     <message>
         <location filename="../qml/scoring/HighScoresOverlay.qml" line="212"/>
         <source>Could not checked for shared top scores,&lt;br&gt; maybe your  offline ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de consulter les records partagés. Peut-être êtes-vous déconnecté(e) ?</translation>
     </message>
     <message>
         <location filename="../qml/scoring/HighScoresOverlay.qml" line="248"/>
         <source>type your name here</source>
-        <translation type="unfinished"></translation>
+        <translation>Saisissez votre nom ici</translation>
     </message>
     <message>
         <location filename="../qml/scoring/HighScoresOverlay.qml" line="258"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer</translation>
     </message>
 </context>
 <context>
@@ -128,7 +128,7 @@
     <message>
         <location filename="../qml/scoring/OnlineScores.qml" line="28"/>
         <source>Network unreachable or service unavailable</source>
-        <translation type="unfinished"></translation>
+        <translation>Réseau injoignable ou service indisponible</translation>
     </message>
 </context>
 <context>
@@ -136,12 +136,12 @@
     <message>
         <location filename="../qml/Options.qml" line="11"/>
         <source>Options</source>
-        <translation type="unfinished">Options</translation>
+        <translation>Options</translation>
     </message>
     <message>
         <location filename="../qml/Options.qml" line="23"/>
         <source>not implemented yet</source>
-        <translation>pas encore implémentées</translation>
+        <translation>Pas encore implémenté</translation>
     </message>
 </context>
 <context>
@@ -162,12 +162,12 @@
     <message>
         <location filename="../qml/scoring/ScorePage.qml" line="62"/>
         <source>Local</source>
-        <translation type="unfinished"></translation>
+        <translation>Locaux</translation>
     </message>
     <message>
         <location filename="../qml/scoring/ScorePage.qml" line="82"/>
         <source>Shared</source>
-        <translation type="unfinished"></translation>
+        <translation>Partagés</translation>
     </message>
 </context>
 <context>
@@ -190,7 +190,7 @@
     <message>
         <location filename="../qml/main.qml" line="57"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="64"/>
