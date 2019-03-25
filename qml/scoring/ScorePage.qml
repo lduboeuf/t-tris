@@ -5,9 +5,8 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
+import "../components"
 
-import "qrc:/js/Configuration.js" as Config
-import  "qrc:/js/Storage.js" as Storage
 Page {
 
     id: scorePage
@@ -18,7 +17,6 @@ Page {
     property string currentName: ""
     property int currentScore:0
     property color textColor: "white"
-
 
 
 
@@ -81,7 +79,7 @@ Page {
             contentItem: Item{
                 anchors.fill: onlineTabBtn
                 Text{
-                    text: qsTr("Online")
+                    text: qsTr("Shared")
                     anchors.centerIn: parent
                     color: scorePage.textColor
                     opacity: bar.currentIndex == 1 ? 1 : 0.4
@@ -96,7 +94,6 @@ Page {
 
     SwipeView {
         id: view
-        //anchors.fill: parent
         width: parent.width
 
 
@@ -116,127 +113,13 @@ Page {
             console.log("kikou current index")
         }
 
+        LocalScores{}
 
-        Item {
-            id: localTab
-            // anchors.fill: parent
-
-
-            Component.onCompleted:  {
-                //Storage.showHighScore()
-
-                Storage.db.transaction(
-                            function(tx) {
-                                //Only show results for the current grid size
-                                var rs = tx.executeSql('SELECT * FROM Scores ORDER BY score desc LIMIT ' + Config.MAX_LOCAL_SCORES);
-                                scores.clear()
-                                for(var i = 0; i < rs.rows.length; i++){
-                                    console.log(rs.rows.item(i).date)
-                                    scores.append({name: rs.rows.item(i).name, score: rs.rows.item(i).score, level: rs.rows.item(i).level, date: rs.rows.item(i).date})
-
-                                }
-                            }
-                            );
-
-            }
+        OnlineScores{}
 
 
-
-            ListView{
-                anchors.fill: parent
-                model: ListModel{
-                    id: scores
-                }
-                delegate: ScoreItemDelegate{
-
-
-
-                }
-
-
-
-            }
-
-
-
-
-        }
-        Item {
-            id: onlineTab
-            property bool error: false
-
-
-            ListView{
-                anchors.fill: parent
-                model: ListModel{
-                    id: onLineScores
-                }
-                delegate: ScoreItemDelegate{}
-            }
-
-            Label {
-                anchors.centerIn: parent
-                visible: onlineTab.error
-                color:scorePage.textColor
-                text: qsTr("Network unreachable or service unavailable")
-            }
-
-            BusyIndicator{
-                id: loading
-                anchors.centerIn: parent
-                running: (onLineScores.count == 0 && !onlineTab.error)
-
-            }
-
-            ColorOverlay {
-                anchors.fill: loading
-                source: loading
-                color:scorePage.textColor
-            }
-
-
-            Component.onCompleted:  {
-                // Storage.getOnlineScores()
-
-
-                //var scores = []
-                var http = new XMLHttpRequest()
-                var url = Config.API_URL;
-                http.open("GET", url, true);
-
-                // Send the proper header information along with the request
-                http.setRequestHeader("Content-type", "application/json");
-                http.setRequestHeader("TOKEN", Config.API_KEY);
-
-                http.onreadystatechange = function() { // Call a function when the state changes.
-                    if (http.readyState == 4) {
-                        if (http.status == 200) {
-                            onLineScores.clear()
-                            var scores = JSON.parse(http.responseText)
-                            for(var i = 0; i < scores.length; i++){
-                                onLineScores.append(scores[i])
-
-                            }
-
-                            //console.log("ok" + scores.length)
-                        } else {
-                            onlineTab.error = true
-                            console.log("error: " + http.status)
-                        }
-                    }
-                }
-                http.send();
-            }
-
-
-
-
-        }
 
     }
-
-
-
 
 
 

@@ -1,3 +1,4 @@
+.pragma library
 .import "qrc:/js/Configuration.js" as Config
 .import QtQuick.LocalStorage 2.0 as DBStorage
 
@@ -29,14 +30,13 @@ function saveHighScore(name, score, level) {
         }
     );
 
-    //online
-    saveOnlineScore(name, score, level)
+
 }
 
 function canSave(score) {
     //OfflineStorage
     var can = false
-    var dataStr = "SELECT count(*) as nb FROM Scores WHERE score > ?";
+    var dataStr = "SELECT count(*) as nb FROM Scores WHERE score >= ?";
     var data = [score];
     db.transaction(
         function(tx) {
@@ -54,19 +54,48 @@ function canSave(score) {
     return can
 }
 
-function showHighScore(){
-    db.transaction(
-        function(tx) {
-            //Only show results for the current grid size
-             var rs = tx.executeSql('SELECT * FROM Scores ORDER BY score desc LIMIT ' + Config.MAX_LOCAL_SCORES);
-            scores.clear()
-            for(var i = 0; i < rs.rows.length; i++){
-                console.log(rs.rows.item(i).date)
-                scores.append({name: rs.rows.item(i).name, score: rs.rows.item(i).score, level: rs.rows.item(i).level, date: rs.rows.item(i).date})
+//function showHighScore(){
+//    db.transaction(
+//        function(tx) {
+//            //Only show results for the current grid size
+//             var rs = tx.executeSql('SELECT * FROM Scores ORDER BY score desc LIMIT ' + Config.MAX_LOCAL_SCORES);
+//            scores.clear()
+//            for(var i = 0; i < rs.rows.length; i++){
+//                console.log(rs.rows.item(i).date)
+//                scores.append({name: rs.rows.item(i).name, score: rs.rows.item(i).score, level: rs.rows.item(i).level, date: rs.rows.item(i).date})
+
+//            }
+//        }
+//    );
+//}
+
+function canSaveOnline(score, response) {
+    //OfflineStorage
+    var http = new XMLHttpRequest()
+    http.open("GET", Config.API_URL + "?operation=canSave", true);
+
+    // Send the proper header information along with the request
+    //http.setRequestHeader("Content-type", "application/json");
+    http.setRequestHeader("TOKEN", Config.API_KEY);
+
+    http.onreadystatechange = function() { // Call a function when the state changes.
+        if (http.readyState == 4) {
+            if (http.status == 200) {
+
+                var response = JSON.parse(http.responseText)
+                response.hitOnlineHighScore = response.canSave
+
+
+               //OK highscore
+            } else {
+                //onlineTab.error = true
+                response.onError = true
+                console.log("error: " + http.status)
 
             }
         }
-    );
+    }
+    http.send();
 }
 
 
@@ -91,7 +120,7 @@ function saveOnlineScore(name, score, level){
         if (http.readyState == 4) {
             if (http.status == 201) {
 
-                container.showHitHighScore()
+                gameOver.showHitHighScore()
 
                //OK highscore
             } else {
@@ -104,34 +133,34 @@ function saveOnlineScore(name, score, level){
     http.send(JSON.stringify(data));
 }
 
-function getOnlineScores(){
+//function getOnlineScores(){
 
-    //var scores = []
-    var http = new XMLHttpRequest()
-    var url = Config.API_URL;
-    http.open("GET", url, true);
+//    //var scores = []
+//    var http = new XMLHttpRequest()
+//    var url = Config.API_URL;
+//    http.open("GET", url, true);
 
-    // Send the proper header information along with the request
-    http.setRequestHeader("Content-type", "application/json");
-    http.setRequestHeader("TOKEN", Config.API_KEY);
+//    // Send the proper header information along with the request
+//    http.setRequestHeader("Content-type", "application/json");
+//    http.setRequestHeader("TOKEN", Config.API_KEY);
 
-    http.onreadystatechange = function() { // Call a function when the state changes.
-        if (http.readyState == 4) {
-            if (http.status == 200) {
-                onLineScores.clear()
-                var scores = JSON.parse(http.responseText)
-                for(var i = 0; i < scores.length; i++){
-                    onLineScores.append(scores[i])
+//    http.onreadystatechange = function() { // Call a function when the state changes.
+//        if (http.readyState == 4) {
+//            if (http.status == 200) {
+//                onLineScores.clear()
+//                var scores = JSON.parse(http.responseText)
+//                for(var i = 0; i < scores.length; i++){
+//                    onLineScores.append(scores[i])
 
-                }
+//                }
 
-                //console.log("ok" + scores.length)
-            } else {
-                onlineTab.error = true
-                console.log("error: " + http.status)
-            }
-        }
-    }
-    http.send();
-}
+//                //console.log("ok" + scores.length)
+//            } else {
+//                onlineTab.error = true
+//                console.log("error: " + http.status)
+//            }
+//        }
+//    }
+//    http.send();
+//}
 

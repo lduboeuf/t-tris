@@ -3,6 +3,8 @@ import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 
+import "components"
+
 ApplicationWindow {
     id: window
     visible: true
@@ -42,13 +44,19 @@ ApplicationWindow {
         MenuButton {
             name: qsTr("Show Scores")
             onClicked:{
-                pageStack.push("qrc:/qml/ScorePage.qml");
+                pageStack.push("qrc:/qml/scoring/ScorePage.qml");
             }
         }
         MenuButton {
             name: qsTr("Options")
             onClicked:{
                 pageStack.push("qrc:/qml/Options.qml");
+            }
+        }
+        MenuButton {
+            name: qsTr("About")
+            onClicked:{
+                pageStack.push("qrc:/qml/About.qml");
             }
         }
         MenuButton {
@@ -59,9 +67,9 @@ ApplicationWindow {
             }
         }
 //        MenuButton {
-//            name: qsTr("Options")
+//            name: qsTr("test")
 //            onClicked:{
-//                pageStack.push("qrc:/qml/HitHighScore.qml");
+//                pageStack.push("qrc:/qml/scoring/HighScoresOverlay.qml", {score:0, level:5});
 //            }
 //        }
 
@@ -74,6 +82,7 @@ ApplicationWindow {
         anchors.fill: parent
         initialItem: Item{}
         onCurrentItemChanged: {
+            if (currentItem!=null)
                 currentItem.forceActiveFocus() //force focus on Page (fix issue with keyboard event on Gameboard)
         }
     }

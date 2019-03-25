@@ -1,4 +1,7 @@
+
 <?php
+
+/**quick and dirty apis**/
 include_once("config.inc.php");
 
 // foreach ($_SERVER as $key => $value) {
@@ -22,7 +25,22 @@ if (!$db) {
 
 $request_method = filter_input(INPUT_SERVER, 'REQUEST_METHOD');
 if ($request_method=='GET'){
-    get_scores();
+
+    $operation = filter_input(INPUT_GET, 'operation');
+    if ($operation=='canSave'){
+        $current_score = filter_input(INPUT_GET, 'score');
+        $response=array();
+        $res = can_save($current_score);
+        $response["canSave"] = $res;
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }else{
+        get_scores();
+
+    }
+
+
+
 }elseif ($request_method=='POST'){
 
     $contentType = filter_input(INPUT_SERVER, 'Content-Type');
@@ -34,13 +52,15 @@ if ($request_method=='GET'){
     //Receive the RAW post data.
     $content = trim(file_get_contents("php://input"));
     
+    
     //Attempt to decode the incoming RAW post data from JSON.
     $decoded = json_decode($content, true);
     
     //If json_decode failed, the JSON is invalid.
-    if(!is_array($decoded)){
+    if($decoded==null){
         header("HTTP/1.0 400 Bad Request");
     }
+
 
     save_score($decoded);
 
@@ -56,18 +76,21 @@ function can_save($current_score){
     global $db;
     $isHigher = TRUE;
 
-    $stmt = mysqli_prepare($db,"SELECT count(*) as nb FROM ttris.score WHERE score > ?");
+    //echo "kikou2:".$current_score;
+
+    $stmt = mysqli_prepare($db,"SELECT count(*) as nb FROM score WHERE score > ?");
     $stmt->bind_param("s", $current_score);
     $stmt->execute();
     $result  =  $stmt->get_result();
     $row = $result->fetch_array(MYSQLI_ASSOC);
 
-    if ($row["nb"]>=5) {
+    if ($row["nb"]>=100) {
         $isHigher = FALSE;
     } 
+
     
     $stmt->close();
-    echo "isHigher:".$isHigher;
+    //echo "isHigher:".$isHigher;
     return $isHigher;
 
 }
@@ -90,6 +113,7 @@ function get_scores()
 function save_score($data){
     global $db;
 
+
     $canSave = can_save($data["score"]);
    
     if ($canSave == FALSE){
@@ -97,6 +121,7 @@ function save_score($data){
         header("HTTP/1.1 208 Already Reported");
         return;
     } 
+
 
     //TODO check if count(*) > 100 et same name and score 
 
@@ -106,6 +131,8 @@ function save_score($data){
     $result = $stmt->execute();
     if(!$result) {
         $stmt->close();
+
+        die('execute() failed: ' . htmlspecialchars($stmt->error));
         header("HTTP/1.0 400 Bad Request");
     }else {
         $stmt->close();

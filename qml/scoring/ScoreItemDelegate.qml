@@ -1,4 +1,4 @@
-import QtQuick 2.7
+import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
@@ -12,7 +12,9 @@ Item{
 
     width: parent.width
     height: scoreTxt.implicitHeight *3
-    state: (name === scorePage.currentName && score == scorePage.currentScore) ? "highlighted" : ""
+   // state: (name === scorePage.currentName && score == scorePage.currentScore) ? "highlighted" : ""
+
+    signal highlighted
 
     Layout.margins: 12
 
@@ -21,7 +23,7 @@ Item{
         id: rowRect
         anchors.fill: rowScore
         //anchors.margins: 4
-        color:"white"
+        color:selected ? "blue": "white"
         radius: 5
         border.color: "white"
 
@@ -63,11 +65,12 @@ Item{
 
     }
 
-    states: [
-        State{
-            name: "highlighted";
-            PropertyChanges {target: rowRect; color: "blue"}
-        }
+//    states: [
+//        State{
+//            name: "highlighted";
+//            PropertyChanges {target: rowRect; color: "blue"}
+//            StateChangeScript { script: highlighted()}
+//        }
 
-    ]
+//    ]
 }

@@ -5,10 +5,14 @@ import QtGraphicalEffects 1.0
 import QtMultimedia 5.8
 import QtQuick.LocalStorage 2.0
 
-import "../js/Configuration.js" as Config;
 
+import "scoring"
+
+import "../js/Configuration.js" as Config;
 import "../js/Tetris.js" as Tetris
 //import "../js/Storage.js" as Storage
+
+
 
 
 Page {
@@ -38,7 +42,7 @@ Page {
 
     Component.onCompleted: {
         init()
-       // score = 200
+        //score =440
         //state = Config.STATE_GAMEOVER
 
     }
@@ -131,19 +135,28 @@ Page {
         }
     }
 
-    GameOver{
-        id: gameOverOverlay
+//    GameOver{
+//        id: gameOverOverlay
 
-        anchors.centerIn: parent
-        //anchors.horizontalCenter: parent.horizontalCenter
+//        anchors.centerIn: parent
+//        //anchors.horizontalCenter: parent.horizontalCenter
+//        visible: false
+
+//        onRestartClicked: {
+//            boardGame.init()
+//        }
+
+//    }
+
+    HighScoresOverlay{
+        id:gameOver
         visible: false
+        anchors.centerIn: parent
 
         onRestartClicked: {
-            boardGame.init()
-        }
-
+          boardGame.init()
+         }
     }
-
 
     SoundEffect {
         id: soundMoving
@@ -244,8 +257,10 @@ Page {
         State {
             name: Config.STATE_GAMEOVER
             PropertyChanges { target: boardGame; running:false }
-            PropertyChanges { target: gameOverOverlay; visible:true }
+            PropertyChanges { target: gameOver; visible:true }
             StateChangeScript { script: {
+                //pageStack.push("qrc:/qml/scoring/HighScoresOverlay.qml", {score:boardGame.score, level:boardGame.level});
+                 gameOver.checkHighScore(boardGame.score, boardGame.level)
                     //Storage.saveHighScore(new Date().toLocaleString(), boardGame.score, boardGame.level)
                 }}
 
