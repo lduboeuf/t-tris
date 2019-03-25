@@ -72,6 +72,7 @@ ToolBar {
                 anchors.right: parent.right
                 ToolButton {
                     id: toolButtonSound
+                    enabled: running
 
                     contentItem: Image {
                         id:soundImg
@@ -97,6 +98,7 @@ ToolBar {
                 }
                 ToolButton {
                     id: toolButtonRight
+                    enabled: running && boardGame.state != Config.STATE_PAUSED
                     contentItem: Image {
                         id:playPauseImg
                         fillMode: Image.Pad

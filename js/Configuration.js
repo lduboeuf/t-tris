@@ -1,6 +1,6 @@
 .pragma library
 var MAX_CELL = 12;
-var LEVEL_DELTA = 2; //nb of rows between levels
+var LEVEL_DELTA = 10; //nb of rows between levels
 var REDUCED_TIME = 60;
 var TIMER_INTERVAL = 700
 
@@ -62,8 +62,8 @@ var color = ["red", "blue", "green", "yellow"]
 //var REMOVE_ROW_SOUND = 2
 //var GAME_OVER_SOUND = 3
 var MAX_LOCAL_SCORES = 20
-var API_URL= "XXXX"
-var API_KEY = "XXXX"
+var API_URL= "https://lduboeuf.ouvaton.org/ttris/api.php"
+var API_KEY = ""
 
 
 

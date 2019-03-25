@@ -4,12 +4,9 @@
         <file>qml/Options.qml</file>
         <file>qml/GameBoard.qml</file>
         <file>qml/Cell.qml</file>
-        <file>qml/MenuButton.qml</file>
         <file>sound/remove_row.wav</file>
         <file>sound/moving.wav</file>
         <file>sound/game_over.wav</file>
-        <file>qml/ScorePage.qml</file>
-        <file>qml/GameOver.qml</file>
         <file>qml/SwipeArea.qml</file>
         <file>i18n/base_de.qm</file>
         <file>i18n/base_fr.qm</file>
@@ -21,9 +18,14 @@
         <file>qml/GameBoardFooter.qml</file>
         <file>qml/GameBoardHeader.qml</file>
         <file>qml/Score.qml</file>
-        <file>qml/ScoreItemDelegate.qml</file>
-        <file>qml/HitHighScore.qml</file>
-        <file>qml/NavigationBar.qml</file>
         <file>sound/newlevel.wav</file>
+        <file>qml/scoring/ScorePage.qml</file>
+        <file>qml/scoring/ScoreItemDelegate.qml</file>
+        <file>qml/scoring/LocalScores.qml</file>
+        <file>qml/scoring/OnlineScores.qml</file>
+        <file>qml/components/NavigationBar.qml</file>
+        <file>qml/components/MenuButton.qml</file>
+        <file>qml/scoring/HighScoresOverlay.qml</file>
+        <file>qml/About.qml</file>
     </qresource>
 </RCC>

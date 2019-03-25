@@ -92,21 +92,21 @@ MouseArea {
 
         }else if (drag.axis===Drag.XAxis){
 
-            var delta = mouse.x - origin.x
-            //var delta = Math.abs(mouse.x - origin.x)
-            velocity = Math.abs(delta) / (Date.now() - lastSwipeHorizontalActionDate)
-            //onsole.log("velocityX:" + velocity + " delta:" + delta + " time:" + (Date.now() - lastSwipeHorizontalActionDate))
-            if (velocity > 1){
+//            var delta = mouse.x - origin.x
+//            //var delta = Math.abs(mouse.x - origin.x)
+//            velocity = Math.abs(delta) / (Date.now() - lastSwipeHorizontalActionDate)
+//            //onsole.log("velocityX:" + velocity + " delta:" + delta + " time:" + (Date.now() - lastSwipeHorizontalActionDate))
+//            if (velocity > 1){
 
-                if (delta>0){
-                    swipe(Config.KEY_FARRIGHT)
-                }else{
-                    swipe(Config.KEY_FARLEFT)
-                }
+//                if (delta>0){
+//                    swipe(Config.KEY_FARRIGHT)
+//                }else{
+//                    swipe(Config.KEY_FARLEFT)
+//                }
 
 
-                //lastSwipeHorizontalActionDate = Date.now()
-            }
+//                //lastSwipeHorizontalActionDate = Date.now()
+//            }
 
 
         }
