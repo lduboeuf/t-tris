@@ -1,5 +1,14 @@
 QT += quick quickcontrols2 svg
 CONFIG += c++11
+unix {
+    #PKG_CONFIG = PKG_CONFIG_PATH=/usr/local/ssl/lib/pkgconfig/
+    #PKG_CONFIG = PKG_CONFIG = PKG_CONFIG_PATH=/usr/local/ssl/lib/pkgconfig/
+   ## LIBS += -LC:/home/lionel/dev/tools/openssl/openssl-1.0.2k -lssl -lcrypto
+    #LIBS += -LC:/usr/include/openssl/
+    #CONFIG += link_pkgconfig
+    #PKGCONFIG += openssl
+}
+#LIBS += -LC:/home/lionel/dev/tools/openssl/openssl-1.0.2k -lssl -lcrypto
 
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
@@ -32,5 +41,31 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    qml/qmldir
+    qml/qmldir \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat
+
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_PACKAGE_SOURCE_DIR = \
+        $$PWD/android
+}
 

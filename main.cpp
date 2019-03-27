@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QTranslator>
 #include <QDebug>
+#include <QSslSocket>
 
 int main(int argc, char *argv[])
 {
@@ -23,6 +24,8 @@ int main(int argc, char *argv[])
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     qDebug()<< "Default path >> "+engine.offlineStoragePath();
+
+    qDebug() << QSslSocket::sslLibraryBuildVersionString();
 
     return app.exec();
 }

@@ -394,7 +394,7 @@ function checkFullRow(){
 
 
     //check for new Level ?
-    if(nbRows /  gameBoard.game.level  > Config.LEVEL_DELTA){
+    if(nbRows /  (gameBoard.game.level +1)  > Config.LEVEL_DELTA){
         lastScore = gameBoard.game.score;
         gameBoard.game.state = Config.STATE_NEW_LEVEL
         gameBoard.game.level++;

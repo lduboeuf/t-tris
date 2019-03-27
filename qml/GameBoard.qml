@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 import QtMultimedia 5.8
 import QtQuick.LocalStorage 2.0
+import Qt.labs.settings 1.0
+
 
 
 import "scoring"
