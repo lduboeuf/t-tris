@@ -63,7 +63,7 @@ var color = ["red", "blue", "green", "yellow"]
 //var GAME_OVER_SOUND = 3
 var MAX_LOCAL_SCORES = 20
 var API_URL= "https://lduboeuf.ouvaton.org/ttris/api.php"
-var API_KEY = "X=~2;b<E9G+G8XI!aGnmb(#_n(bby5ClMywdG.r<uv}lrZ}v)E<W!@G4Mq(so}Hj"
+var API_KEY = "super token"
 
 
 
