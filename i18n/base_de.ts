@@ -45,43 +45,48 @@
 <context>
     <name>HighScoresOverlay</name>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="131"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="133"/>
         <source>GAME OVER</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="137"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="139"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="182"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="184"/>
         <source>Congratulations!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="193"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="195"/>
         <source>you reached top local high scores</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="202"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="204"/>
         <source>Yes!, you reached top online high scores</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="212"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="214"/>
         <source>Could not checked for shared top scores,&lt;br&gt; maybe your  offline ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="248"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="250"/>
         <source>type your name here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="258"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="260"/>
         <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="285"/>
+        <source>Allow save online</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -104,13 +109,13 @@
 <context>
     <name>Options</name>
     <message>
-        <location filename="../qml/Options.qml" line="11"/>
+        <location filename="../qml/Options.qml" line="12"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Options.qml" line="23"/>
-        <source>not implemented yet</source>
+        <location filename="../qml/Options.qml" line="104"/>
+        <source>Allow saving highscores online</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -143,27 +148,27 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="37"/>
+        <location filename="../qml/main.qml" line="41"/>
         <source>New Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="45"/>
+        <location filename="../qml/main.qml" line="49"/>
         <source>Show Scores</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="51"/>
+        <location filename="../qml/main.qml" line="55"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="57"/>
+        <location filename="../qml/main.qml" line="61"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="64"/>
+        <location filename="../qml/main.qml" line="68"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
