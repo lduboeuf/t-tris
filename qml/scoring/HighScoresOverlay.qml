@@ -2,6 +2,8 @@ import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Window 2.2
+import Qt.labs.settings 1.0
+
 
 import "qrc:/js/Configuration.js" as Config
 import  "qrc:/js/Storage.js" as Storage
@@ -112,7 +114,7 @@ Item{
 
 
     function showHighScorePage(){
-        pageStack.push("qrc:/qml/scoring/ScorePage.qml", {showOnline:gameOverItem.hitOnlineHighScore, currentName: nameText.text, currentScore: score})
+        pageStack.push("qrc:/qml/scoring/ScorePage.qml", {showOnline:gameOverItem.hitOnlineHighScore & allowSaveOnline.checked, currentName: nameText.text, currentScore: score})
 
     }
 
@@ -187,7 +189,7 @@ Item{
 
                 Text{
                     anchors.horizontalCenter: parent.horizontalCenter
-                    //idth: parent.width - parent.padding
+                    width: parent.width - parent.padding
                     color: "white"
                     wrapMode: Text.WordWrap
                     text: qsTr("you reached top local high scores")
@@ -197,7 +199,7 @@ Item{
                 Text{
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "white"
-                    //width: parent.width - parent.padding
+                    width: parent.width - parent.padding
                     wrapMode: Text.WordWrap
                     text: qsTr("Yes!, you reached top online high scores")
                     visible: hitOnlineHighScore
@@ -205,6 +207,7 @@ Item{
                 Text{
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "brown"
+                    width: parent.width - parent.padding
                     wrapMode: Text.WordWrap
                     visible:onError
                     horizontalAlignment: Qt.AlignHCenter
@@ -262,13 +265,33 @@ Item{
 
                     onClicked: {
                         Storage.saveHighScore(nameText.text, gameOverItem.score, gameOverItem.level)
-                        if (hitOnlineHighScore){
+                        if (hitOnlineHighScore && allowSaveOnline.checked){
                             saveOnlineScore(nameText.text, gameOverItem.score, gameOverItem.level)
                         }else{
                             showHighScorePage()
                         }
                     }
                 }
+
+                Row {
+                    visible: hitOnlineHighScore
+                   // anchors.horizontalCenter: parent.horizontalCenter
+                    CheckBox {
+                            id:allowSaveOnline
+                            checked: settings.allowNetwork
+                        }
+
+                    Text{
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: qsTr("Allow save online")
+                        color:"white"
+                    }
+
+
+                }
+
+
+
 
 
 

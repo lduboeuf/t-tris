@@ -25,6 +25,10 @@ ApplicationWindow {
             id: settings
             property bool soundOff: false
             property string envMode: (Screen.devicePixelRatio > 2) ? "Mobile": "Desktop"
+            property int initialLevel:0
+            property bool useBomb: true
+            property bool allowNetwork: true
+            property int maxColumns: 12
         }
 
 
