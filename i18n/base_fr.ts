@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.2" language="fr_FR">
+<TS version="2.1" language="fr_FR">
 <context>
     <name>About</name>
     <message>
@@ -16,7 +16,7 @@
     <message>
         <location filename="../qml/About.qml" line="58"/>
         <source>Use swipe, bottom control buttons or keys to play</source>
-        <translation>Utilisez vos doigts ou les touches en bas de l'écran pour jouer</translation>
+        <translation>Utilisez vos doigts ou les touches en bas de l&apos;écran pour jouer</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="66"/>
@@ -33,19 +33,19 @@
     <name>GameBoard</name>
     <message>
         <source>Level: </source>
-        <translation>Niveau : </translation>
+        <translation type="vanished">Niveau : </translation>
     </message>
     <message>
         <source>Score: </source>
-        <translation>Score : </translation>
+        <translation type="vanished">Score : </translation>
     </message>
     <message>
         <source>Paused</source>
-        <translation>En pause</translation>
+        <translation type="vanished">En pause</translation>
     </message>
     <message>
         <source>Resumed</source>
-        <translation>Reprise</translation>
+        <translation type="vanished">Reprise</translation>
     </message>
 </context>
 <context>
@@ -65,54 +65,59 @@
     <name>GameOver</name>
     <message>
         <source>GAME OVER</source>
-        <translation>FIN DE PARTIE</translation>
+        <translation type="vanished">FIN DE PARTIE</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation>Réessayer</translation>
+        <translation type="vanished">Réessayer</translation>
     </message>
 </context>
 <context>
     <name>HighScoresOverlay</name>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="131"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="133"/>
         <source>GAME OVER</source>
         <translation>FIN DE PARTIE</translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="137"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="139"/>
         <source>Retry</source>
         <translation>Réessayer</translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="182"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="184"/>
         <source>Congratulations!</source>
         <translation>Félicitations !</translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="193"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="195"/>
         <source>you reached top local high scores</source>
         <translation>Vous êtes rentré(e) dans le haut du classement des records locaux</translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="202"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="204"/>
         <source>Yes!, you reached top online high scores</source>
         <translation>Oui ! Vous êtes rentré(e) dans le haut du classement des records partagés</translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="212"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="214"/>
         <source>Could not checked for shared top scores,&lt;br&gt; maybe your  offline ?</source>
         <translation>Impossible de consulter les records partagés. Peut-être êtes-vous déconnecté(e) ?</translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="248"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="250"/>
         <source>type your name here</source>
         <translation>Saisissez votre nom ici</translation>
     </message>
     <message>
-        <location filename="../qml/scoring/HighScoresOverlay.qml" line="258"/>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="260"/>
         <source>Save</source>
         <translation>Enregistrer</translation>
+    </message>
+    <message>
+        <location filename="../qml/scoring/HighScoresOverlay.qml" line="285"/>
+        <source>Allow save online</source>
+        <translation>Publier le score en ligne</translation>
     </message>
 </context>
 <context>
@@ -134,14 +139,18 @@
 <context>
     <name>Options</name>
     <message>
-        <location filename="../qml/Options.qml" line="11"/>
+        <location filename="../qml/Options.qml" line="12"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../qml/Options.qml" line="23"/>
+        <location filename="../qml/Options.qml" line="104"/>
+        <source>Allow saving highscores online</source>
+        <translation>Autoriser la publication des scores en ligne</translation>
+    </message>
+    <message>
         <source>not implemented yet</source>
-        <translation>Pas encore implémenté</translation>
+        <translation type="vanished">Pas encore implémenté</translation>
     </message>
 </context>
 <context>
@@ -173,27 +182,27 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="37"/>
+        <location filename="../qml/main.qml" line="41"/>
         <source>New Game</source>
         <translation>Nouvelle partie</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="45"/>
+        <location filename="../qml/main.qml" line="49"/>
         <source>Show Scores</source>
         <translation>Afficher les scores</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="51"/>
+        <location filename="../qml/main.qml" line="55"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="57"/>
+        <location filename="../qml/main.qml" line="61"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="64"/>
+        <location filename="../qml/main.qml" line="68"/>
         <source>Quit</source>
         <translation>Quitter</translation>
     </message>
