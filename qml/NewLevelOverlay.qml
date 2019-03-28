@@ -18,14 +18,15 @@ Item {
         font.pixelSize: Qt.application.font.pixelSize * 2
     }
 
-    states: State {
-        name: "shown"; when: container.visible
-        StateChangeScript { script: anim.start()}
-    }
+//    states: State {
+//        name: "shown"; when: container.visible
+//        StateChangeScript { script: anim.start()}
+//    }
 
 
     SequentialAnimation{
         id:anim
+        running: container.visible
         alwaysRunToEnd: true
         PropertyAnimation  {
             target: container
