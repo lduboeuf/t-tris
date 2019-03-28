@@ -91,7 +91,7 @@ Item{
         http.open("POST", Config.API_URL, true);
 
         // Send the proper header information along with the request
-        http.setRequestHeader("Content-type", "application/json");
+        http.setRequestHeader("Content-Type", "application/json");
         http.setRequestHeader("TOKEN", Config.API_KEY);
 
         http.onreadystatechange = function() { // Call a function when the state changes.
@@ -103,7 +103,7 @@ Item{
                     //OK highscore
                 } else {
                     //onlineTab.error = true
-                    console.log("error: " + http.status)
+                    console.log("error: " + http.status + "resp:" + http.responseText)
 
                 }
             }
@@ -270,6 +270,7 @@ Item{
                         }else{
                             showHighScorePage()
                         }
+                        gameOverItem.visible = false
                     }
                 }
 
