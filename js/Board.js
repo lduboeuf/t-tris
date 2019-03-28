@@ -39,7 +39,7 @@ Board.prototype.index = function(column, row){
 Board.prototype.availablePosition = function(column, row){
 
     //out of bounds?
-    if(column < 0 || column >= this.maxColumn || row < 0 || row >= this.maxRow){
+    if(column < 0 || column >= this.maxColumn  || row >= this.maxRow){
         return false;
     }
     var idx = this.index(column, row );
