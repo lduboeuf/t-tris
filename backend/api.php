@@ -39,17 +39,26 @@ if ($request_method=='GET'){
 
 }elseif ($request_method=='POST'){
 
-    $contentType = filter_input(INPUT_SERVER, 'CONTENT_TYPE');
-    
-    if(strcasecmp($contentType, 'application/json') != 0){
+    $contentType = filter_input(INPUT_SERVER, 'HTTP_CONTENT_TYPE');
+    //$contentType = filter_input(INPUT_SERVER, 'Content-Type');
+    if (!$contentType){
+
+
+    }
+
+    if (substr_compare($contentType, 'application/json', 0 , strlen($contentType)) === 0){
+    //if(strcasecmp($contentType, 'application/json') != 0){
         header("HTTP/1.0 400 Bad Request");
         exit;
     }
+
+
     
+
     //Receive the RAW post data.
     $content = trim(file_get_contents("php://input"));
-    
-    
+
+
     //Attempt to decode the incoming RAW post data from JSON.
     $decoded = json_decode($content, true);
     
