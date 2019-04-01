@@ -13,8 +13,8 @@ function Figure( type, color, orientation){
 }
 
 Figure.prototype.getPoints = function(orientation){
-    var points = []
     if (orientation===0) return this.points
+    var points = []
     for (var i=0; i < this.points.length; i++){
         var point = this.getPoint(i, orientation);
         points.push(point)
@@ -32,17 +32,7 @@ Figure.prototype.clear = function(){
     this.particles = []
 }
 
-Figure.prototype.updatePoints = function(){
 
-    for (var i=0; i < this.particles.length; i++){
-        var point = this.points[i];
-        var particle = this.particles[i];
-        particle.refPoints = Qt.point(this.getX(i), this.getY(i))
-
-    }
-
-
-}
 
 Figure.prototype.changeState = function(state){
     for (var i = 0; i < this.particles.length; i++) {

@@ -3,9 +3,10 @@
         <file>Tetris.js</file>
         <file>Figure.js</file>
         <file>Figures.js</file>
-        <file>Storage.js</file>
         <file>Board.js</file>
         <file>Configuration.js</file>
+        <file>LocalStorage.js</file>
+        <file>RemoteStorage.js</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
