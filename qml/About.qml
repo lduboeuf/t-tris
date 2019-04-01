@@ -55,7 +55,7 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
              width: parent.width - parent.padding *2
              wrapMode: Text.WordWrap
-            text: qsTr('Use swipe, bottom control buttons or keys to play')
+            text: qsTr('Use swipe left/right/bottom to move pieces, tap to rotate or use bottom control buttons. On Desktop you can use arrow keys')
             color: textColor
         }
 

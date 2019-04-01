@@ -1,10 +1,13 @@
 import QtQuick 2.0
 import "../js/Tetris.js" as Tetris
+import "../js/Configuration.js" as Config
+
 
 
 Cell {
     id:bomb
     particle.source:  "/assets/bomb.png"
+    style: Config.CELL_STYLE_CIRCLE
 
 
 

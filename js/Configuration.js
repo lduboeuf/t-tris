@@ -26,6 +26,10 @@ var KEY_FARRIGHT =8
 */
 var RUNNING_CELL = 1 //moving cells
 var CLOCKING_CELL = 2 //fixed cells
+var BOMB_CELL = 2 //fixed cells
+
+var CELL_STYLE_CIRCLE =0
+var CELL_STYLE_SQUARE = 1
 
 /*
   STATES
@@ -63,7 +67,7 @@ var color = ["red", "blue", "green", "yellow"]
 //var GAME_OVER_SOUND = 3
 var MAX_LOCAL_SCORES = 20
 var API_URL= "https://lduboeuf.ouvaton.org/ttris/api.php"
-var API_KEY = "super token"
+var API_KEY = ""
 
 
 

@@ -12,7 +12,6 @@ Item {
 
     signal resumeClicked
 
-    visible: false
 
     Rectangle{
         anchors.fill: parent
