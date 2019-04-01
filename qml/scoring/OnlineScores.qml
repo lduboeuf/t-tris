@@ -3,7 +3,8 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
-import "qrc:/js/Configuration.js" as Config
+
+import "qrc:/js/RemoteStorage.js" as RemoteStorage
 
 Item {
     id: onlineTab
@@ -44,50 +45,77 @@ Item {
 
     Component.onCompleted:  {
         // Storage.getOnlineScores()
-        console.log("olala")
 
-        //var scores = []
-        var http = new XMLHttpRequest()
-        var url = Config.API_URL;
-        http.open("GET", url, true);
 
-        // Send the proper header information along with the request
-        http.setRequestHeader("Content-type", "application/json");
-        http.setRequestHeader("TOKEN", Config.API_KEY);
+        RemoteStorage.getAll(
+                    function(scores){
+                        onLineScores.clear()
+                        var recordToHighLight = 0
+                        for(var i = 0; i < scores.length; i++){
+                            var score = scores[i]
+                            score.selected= (score.name === scorePage.currentName && parseInt(score.score) === scorePage.currentScore)
+                            onLineScores.append(score)
 
-        http.onreadystatechange = function() { // Call a function when the state changes.
-            if (http.readyState == 4) {
-                if (http.status == 200) {
+                            if (score.selected){
+                                recordToHighLight = i
+                            }
 
-                   onLineScores.clear()
-                    var recordToHighLight = 0
-                    var fetchScores = JSON.parse(http.responseText)
-                    for(var i = 0; i < fetchScores.length; i++){
-
-                        var record = fetchScores[i]
-                        record.selected= (record.name === scorePage.currentName && parseInt(record.score) === scorePage.currentScore)
-                        onLineScores.append(record)
-
-                        if (record.selected){
-                            recordToHighLight = i
                         }
 
+                        if (recordToHighLight>0){
+                            onlineList.positionViewAtIndex(recordToHighLight, ListView.Center )
+                        }
+
+
+                    },
+                    function(error){
+                        onlineTab.error = true
                     }
+            )
+
+
+        //var scores = []
+//        var http = new XMLHttpRequest()
+//        var url = Config.API_URL;
+//        http.open("GET", url, true);
+
+//        // Send the proper header information along with the request
+//        http.setRequestHeader("Content-type", "application/json");
+//        http.setRequestHeader("TOKEN", Config.API_KEY);
+
+//        http.onreadystatechange = function() { // Call a function when the state changes.
+//            if (http.readyState == 4) {
+//                if (http.status == 200) {
+
+//                   onLineScores.clear()
+//                    var recordToHighLight = 0
+//                    var fetchScores = JSON.parse(http.responseText)
+//                    for(var i = 0; i < fetchScores.length; i++){
+
+//                        var record = fetchScores[i]
+//                        record.selected= (record.name === scorePage.currentName && parseInt(record.score) === scorePage.currentScore)
+//                        onLineScores.append(record)
+
+//                        if (record.selected){
+//                            recordToHighLight = i
+//                        }
+
+//                    }
 
 
 
-                    if (recordToHighLight>0){
-                        onlineList.positionViewAtIndex(recordToHighLight, ListView.Center )
-                    }
+//                    if (recordToHighLight>0){
+//                        onlineList.positionViewAtIndex(recordToHighLight, ListView.Center )
+//                    }
 
-                    //console.log("ok" + scores.length)
-                } else {
-                    onlineTab.error = true
-                    console.log("error: " + http.status)
-                }
-            }
-        }
-        http.send();
+//                    //console.log("ok" + scores.length)
+//                } else {
+//                    onlineTab.error = true
+//                    console.log("error: " + http.status)
+//                }
+//            }
+//        }
+//        http.send();
     }
 
 

@@ -5,9 +5,8 @@ import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 
 
-import "qrc:/js/Configuration.js" as Config
-import  "qrc:/js/Storage.js" as Storage
-
+import  "../../js/LocalStorage.js" as LocalStorage
+import  "../../js/RemoteStorage.js" as RemoteStorage
 
 Item{
 
@@ -23,8 +22,6 @@ Item{
 
     property int level: 0
     property int score:0
-
-    //visible: false
 
 
     signal restartClicked
@@ -42,74 +39,24 @@ Item{
         gameOverItem.level = level
 
 
-        hitLocalHighScore = Storage.canSave(score) //synchronous
-        //Storage.canSaveOnline(score, response)
+        hitLocalHighScore = LocalStorage.canSave(score)
 
-        //check online scores
-        var http = new XMLHttpRequest()
-        http.open("GET", Config.API_URL + "?operation=canSave&score=" +score, true);
+        RemoteStorage.canSave(score,
+                              function(response){
+                                gameOverItem.hitOnlineHighScore = response.canSave
+                                  gameOverItem.isConnected = true
+                              },
+                              function (error){
+                                  if (error==0 || error > 400)
+                                    gameOverItem.onError = true
+                                  else
+                                      gameOverItem.isConnected = true
+                               });
 
-        // Send the proper header information along with the request
-        //http.setRequestHeader("Content-type", "application/json");
-        http.setRequestHeader("TOKEN", Config.API_KEY);
-
-        http.onreadystatechange = function() { // Call a function when the state changes.
-            if (http.readyState == 4) {
-                if (http.status == 200) {
-                    console.log(http.responseText)
-                     gameOverItem.isConnected = true
-                    var response = JSON.parse(http.responseText)
-                    gameOverItem.hitOnlineHighScore = response.canSave
-
-
-                    //OK highscore
-                } else if (http.status == 0 || http.status >400) {
-                    //onlineTab.error = true
-                    gameOverItem.onError = true
-                    console.log("error: " + http.status)
-
-                } else {
-                    gameOverItem.isConnected = true
-                }
-            }
-        }
-        http.send();
 
     }
 
-    function saveOnlineScore(name, score, level){
-        //var scores = []
 
-        var data = {
-            name: name,
-            score:score,
-            level: level,
-            env: settings.envMode
-        }
-
-        var http = new XMLHttpRequest()
-        http.open("POST", Config.API_URL, true);
-
-        // Send the proper header information along with the request
-        http.setRequestHeader("Content-Type", "application/json");
-        http.setRequestHeader("TOKEN", Config.API_KEY);
-
-        http.onreadystatechange = function() { // Call a function when the state changes.
-            if (http.readyState == 4) {
-                if (http.status == 201) {
-
-                    gameOverItem.showHighScorePage()
-
-                    //OK highscore
-                } else {
-                    //onlineTab.error = true
-                    console.log("error: " + http.status + "resp:" + http.responseText)
-
-                }
-            }
-        }
-        http.send(JSON.stringify(data));
-    }
 
 
 
@@ -264,9 +211,31 @@ Item{
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     onClicked: {
-                        Storage.saveHighScore(nameText.text, gameOverItem.score, gameOverItem.level)
+
+                        LocalStorage.saveHighScore(nameText.text, gameOverItem.score, gameOverItem.level)
+
                         if (hitOnlineHighScore && allowSaveOnline.checked){
-                            saveOnlineScore(nameText.text, gameOverItem.score, gameOverItem.level)
+
+                            var data = {
+                                name: nameText.text,
+                                score:gameOverItem.score,
+                                level: gameOverItem.level,
+                                env: settings.envMode
+                            }
+
+
+                            RemoteStorage.save(data, function (){
+                                gameOverItem.showHighScorePage()
+                            },
+                            function(){
+                                gameOverItem.onError = true
+                            }
+                        )
+
+                           // saveOnlineScore(nameText.text, gameOverItem.score, gameOverItem.level)
+
+
+
                         }else{
                             showHighScorePage()
                         }
