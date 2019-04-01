@@ -1,7 +1,6 @@
 import QtQuick 2.0
 
-import "qrc:/js/Configuration.js" as Config
-import  "qrc:/js/Storage.js" as Storage
+import "qrc:/js/LocalStorage.js" as LocalStorage
 
 
 Item {
@@ -21,11 +20,6 @@ Item {
             id: scores
         }
         delegate: ScoreItemDelegate{
-
-//            onHighlighted: {
-//                //localList.currentIndex = index
-//                localList.positionViewAtIndex(index, ListView.Center )
-//            }
         }
 
     }
@@ -33,39 +27,26 @@ Item {
     Component.onCompleted:  {
         //Storage.showHighScore()
 
-        Storage.db.transaction(
-                    function(tx) {
-                        //Only show results for the current grid size
-                        var rs = tx.executeSql('SELECT * FROM Scores ORDER BY score desc LIMIT ' + Config.MAX_LOCAL_SCORES);
-                        scores.clear()
-                        var recordToHighLight = 0;
-                        for(var i = 0; i < rs.rows.length; i++){
-                            var record = {
-                                name: rs.rows.item(i).name,
-                                score: rs.rows.item(i).score,
-                                level: rs.rows.item(i).level,
-                                date: rs.rows.item(i).date,
-                            }
+        var recordToHighLight = 0;
+        var scoresData = LocalStorage.getAll()
+        scores.clear()
+        for(var i = 0; i < scoresData.length; i++){
 
-                            record.selected= (record.name === scorePage.currentName && record.score === scorePage.currentScore)
+            var score = scoresData[i]
 
+            score.selected= (score.name === scorePage.currentName && score.score === scorePage.currentScore)
 
-                            if (record.selected){
+            if (score.selected){
+                recordToHighLight = i
+            }
 
-                                //localList.currentIndex = i
-                                recordToHighLight = i
+            scores.append(score)
 
-                                console.log("kikou :"+ record.name)
-                            }
+        }
 
-                            scores.append(record)
+        if (recordToHighLight>0)
+            localList.positionViewAtIndex(recordToHighLight, ListView.Center )
 
-                        }
-
-                        if (recordToHighLight>0)
-                            localList.positionViewAtIndex(recordToHighLight, ListView.Center )
-                    }
-                    );
 
     }
 
