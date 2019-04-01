@@ -1,9 +1,11 @@
 import QtQuick 2.0
+import Qt.labs.settings 1.0
+
 import "../js/Configuration.js" as Config
 
 MouseArea {
     property point origin
-    property real xStep: parent.width / Config.MAX_COLUMN_DEFAULT
+    property real xStep: parent.width / settings.swipeRatio
     property int currentPos: 0
     property var lastSwipeDownActionDate: Date.now()
     property var lastSwipeHorizontalActionDate: Date.now()

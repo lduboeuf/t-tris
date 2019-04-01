@@ -28,9 +28,11 @@ var figureTypes = Object.keys(Figures)
 var particleComponent = Qt.createComponent("../qml/Cell.qml");
 var bombComponent = Qt.createComponent("../qml/Bomb.qml");
 
+var figureStyle;
 
 
-function initGame(game, gameCanvas, nextFigureBoard) {
+
+function initGame(game, gameCanvas, nextFigureBoard, style) {
 
 
 //    if (particleComponent.status == Component.Error) {
@@ -39,6 +41,7 @@ function initGame(game, gameCanvas, nextFigureBoard) {
     gameBoard.game = game
     gameBoard.gameCanvas = gameCanvas
     gameBoard.nextFigureBoard = nextFigureBoard
+    figureStyle = style
     //init boards
 
     lastScore = 0
@@ -144,6 +147,7 @@ function drawFigure(figure, parentEntity, pBoard, pColumn, pRow){
         var alreadyExist = (particle!=null)
         if (!alreadyExist){
             particle = particleComponent.createObject();
+            particle.style = figureStyle
             figure.particles.push(particle)
         }
 

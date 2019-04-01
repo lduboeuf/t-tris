@@ -37,7 +37,7 @@ Page {
     Keys.enabled: running
 
     function init(){
-        Tetris.initGame(boardGame, gameCanvas, nextFigureBoard)
+        Tetris.initGame(boardGame, gameCanvas, nextFigureBoard, settings.figureStyle)
         running = true
     }
 
@@ -132,6 +132,10 @@ Page {
     PauseOverlay{
         id: pauseOverlay
         anchors.centerIn: parent
+
+        visible: false
+
+
         onResumeClicked: {
             boardGame.state = Config.STATE_RESUMED
         }
