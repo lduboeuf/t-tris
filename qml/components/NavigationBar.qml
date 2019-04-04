@@ -7,6 +7,8 @@ ToolBar {
 
     property color txtColor: "white"
 
+    signal backPressed
+
 
     background: Rectangle{
         anchors.fill: toolBar
@@ -29,6 +31,7 @@ ToolBar {
                 source: "/assets/back.svg"
             }
             onClicked: {
+                toolBar.backPressed()
                 pageStack.pop(null)
             }
 
