@@ -30,7 +30,13 @@ Page {
         fillMode: Image.PreserveAspectCrop
     }
 
-    header: NavigationBar{}
+    header: NavigationBar{
+
+        onBackPressed: {
+            localScores.visible = false //workaround for bug: https://bugreports.qt.io/browse/QTBUG-70335
+        }
+
+    }
 
     TabBar {
         id: bar
@@ -95,6 +101,7 @@ Page {
     SwipeView {
         id: view
         width: parent.width
+        z: -1
 
 
         currentIndex: bar.currentIndex
@@ -110,10 +117,13 @@ Page {
         //currentIndex: bar.currentIndex
 
         onCurrentIndexChanged: {
-            console.log("kikou current index")
+            //console.log("kikou current index")
         }
 
-        LocalScores{}
+        LocalScores{
+            id: localScores
+            //visible: view.currentIndex == 0
+        }
 
         OnlineScores{}
 
