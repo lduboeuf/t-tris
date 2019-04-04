@@ -81,7 +81,7 @@ if ($request_method=='GET'){
 function can_save($current_score){
 
     global $db;
-    $isHigher = TRUE;
+    $isHigher = FALSE;
 
     //echo "kikou2:".$current_score;
 
@@ -91,8 +91,8 @@ function can_save($current_score){
     $result  =  $stmt->get_result();
     $row = $result->fetch_array(MYSQLI_ASSOC);
 
-    if ($row["nb"]>=100) {
-        $isHigher = FALSE;
+    if ($row["nb"]<100) {
+        $isHigher = TRUE;
     } 
 
     
