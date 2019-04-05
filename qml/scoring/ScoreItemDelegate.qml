@@ -5,14 +5,8 @@ import QtQuick.Layouts 1.3
 
 Item{
 
- //   Layout.margins: 4
-//    Layout.leftMargin: 12
-//    Layout.topMargin: 4
-
-
     width: parent.width
     height: scoreTxt.implicitHeight *3
-   // state: (name === scorePage.currentName && score == scorePage.currentScore) ? "highlighted" : ""
 
     signal highlighted
 
@@ -22,7 +16,6 @@ Item{
 
         id: rowRect
         anchors.fill: rowScore
-        //anchors.margins: 4
         color:selected ? "blue": "white"
         radius: 5
         border.color: "white"
@@ -34,12 +27,8 @@ Item{
 
     RowLayout{
         id:rowScore
-        // width: parent.width
         anchors.fill: parent
         anchors.margins: 4
-//        Layout.alignment: Qt.AlignHCenter
-//        Layout.margins: 12
-
 
 
         Text{
@@ -52,10 +41,7 @@ Item{
         }
 
         Text{
-
-            //Layout.alignment: Qt.AlignHCenter
             anchors.left: parent.horizontalCenter
-            //anchors.horizontalCenter: parent.horizontalCenter
             color: scorePage.textColor
             elide: Text.ElideRight
             text: name
@@ -65,12 +51,4 @@ Item{
 
     }
 
-//    states: [
-//        State{
-//            name: "highlighted";
-//            PropertyChanges {target: rowRect; color: "blue"}
-//            StateChangeScript { script: highlighted()}
-//        }
-
-//    ]
 }
