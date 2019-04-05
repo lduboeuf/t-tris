@@ -13,7 +13,6 @@ Board.prototype.clear = function(destroyParticle){
     for (var i = 0; i < this.container.length; i++) {
         if (this.container[i] != null && destroyParticle){
             this.container[i].destroy(); //destroy particle
-            console.log("kikou destroy")
         }
         this.container[i] = null;
     }
