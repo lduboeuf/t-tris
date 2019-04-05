@@ -79,7 +79,7 @@ function nextRound(){
 
 
     //handle bomb component
-    if (nbRound >1 && Math.floor(Math.random()*20)===1){
+    if (nbRound >1 && Math.floor(Math.random()*22)===1){
 
         gameBoard.game.state = Config.STATE_PENDING_BOMB
         var bombColumn =  Math.floor(Math.random()*board.maxColumn);
@@ -94,12 +94,13 @@ function nextRound(){
     }
 
 
-    gameBoard.game.state = Config.STATE_PLAY
-
 
     column = board.maxColumn / 2
     row = 0
+    nextRow = 0
+    nextColumn = 0
     orientation = 0
+    nextOrientation = 0
 
     if (nextFigure!=null){
        //for now, easier to remove particles and create new ones
@@ -116,6 +117,8 @@ function nextRound(){
     miniBoard.clear(false)
     nextFigure = createNextFigure()
     drawFigure(nextFigure,gameBoard.nextFigureBoard, miniBoard, 2,2);
+
+    gameBoard.game.state = Config.STATE_PLAY
 }
 
 
@@ -205,6 +208,26 @@ function moveFigure(){
 }
 
 
+function displayPoints(){
+
+    for (var i = 0; i < figureTypes.length; i++){
+
+        var f = new Figure(figureTypes[i], "blue", Config.ORIENTATION_DEFAULT);
+        console.log(f.type)
+        var tbl = "["
+        for (var j=0; j < f.maxOrientation; j++){
+            var pts = f.getPoints(j)
+            tbl += JSON.stringify(pts) + ","
+        }
+        tbl += "]"
+        console.log(tbl)
+
+    }
+
+
+
+}
+
 
 function createNextFigure(){
 
@@ -226,6 +249,8 @@ function createNextFigure(){
 
 
 function onKeyHandler(key){
+
+    if (gameBoard.game.state !== Config.STATE_PLAY) return
 
         nextColumn = column
         nextRow = row
@@ -302,6 +327,7 @@ function onKeyHandler(key){
 
 function controlGame(){
 
+
     if(canMoveTo(nextColumn, nextRow, nextOrientation)){
 
         moveFigure()
@@ -335,6 +361,7 @@ function canMoveTo(x, y, pOrientation){
     }
 
     var points = currentFigure.getPoints(pOrientation)
+    if (points===undefined) console.log("undefined:" + pOrientation + " figure:" + currentFigure.type)
     for (var i = 0; i < points.length; i++) {
 
         if(!board.availablePosition(x + points[i].x, y + points[i].y)){
@@ -348,15 +375,17 @@ function canMoveTo(x, y, pOrientation){
 }
 
 function fireBomb(pColumn, pRow){
-    gameBoard.game.state = Config.STATE_FIRING_BOMB
-
-    console.log("fire bomb(pColumn, pRow):" + pColumn, pRow)
+    //console.log("fire bomb(pColumn, pRow):" + pColumn, pRow)
 
     removeFullRow(pRow)
     removeFullColumn(pColumn)
     moveDownAllRow2(pRow-1, 1);
 
     if (bomb != null) bomb.destroy()
+
+    gameBoard.game.state = Config.STATE_FIRING_BOMB
+
+
 
 }
 

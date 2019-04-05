@@ -13,15 +13,19 @@ function Figure( type, color, orientation){
 }
 
 Figure.prototype.getPoints = function(orientation){
-    if (orientation===0) return this.points
-    var points = []
-    for (var i=0; i < this.points.length; i++){
-        var point = this.getPoint(i, orientation);
-        points.push(point)
-        //particle.updatePosition(nextColumn, nextRow);
 
-    }
-    return points
+
+    return this.points[orientation]
+
+//    if (orientation===0) return this.points
+//    var points = []
+//    for (var i=0; i < this.points.length; i++){
+//        var point = this.getPoint(i, orientation);
+//        points.push(point)
+//        //particle.updatePosition(nextColumn, nextRow);
+
+//    }
+//    return points
 }
 
 Figure.prototype.clear = function(){
