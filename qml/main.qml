@@ -30,7 +30,7 @@ ApplicationWindow {
             property bool allowNetwork: true
             property int maxColumns: 12
             property int swipeRatio: 12
-            property int figureStyle: 0
+            property int figureStyle: 1
         }
 
 
