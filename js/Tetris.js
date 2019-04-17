@@ -126,11 +126,15 @@ function nextStep()
 {
     gameBoard.game.state = Config.STATE_PLAY
 
+
     nextColumn = column;
     nextRow = row +1
     nextOrientation = orientation
 
     controlGame();
+
+
+
 
 
 }
@@ -384,6 +388,8 @@ function fireBomb(pColumn, pRow){
     if (bomb != null) bomb.destroy()
 
     gameBoard.game.state = Config.STATE_FIRING_BOMB
+
+    nextRound();
 
 
 
