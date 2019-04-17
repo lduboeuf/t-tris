@@ -18,6 +18,9 @@ if (!$db) {
     exit;
 }
 
+// Change character set to utf8
+mysqli_set_charset($db,"utf8");
+
 
 $request_method = filter_input(INPUT_SERVER, 'REQUEST_METHOD');
 if ($request_method=='GET'){
@@ -113,7 +116,7 @@ function get_scores()
     {
         $response[]=$row;
     }
-    header('Content-Type: application/json');
+    header('Content-type:application/json;charset=utf-8');
     echo json_encode($response);
 }
 
