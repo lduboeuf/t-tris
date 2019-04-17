@@ -171,7 +171,7 @@ Page {
             width: parent.width
             Label{
                 anchors.left: parent.left
-                text: qsTr("Figure style:")
+                text: qsTr("Shapes style:")
                 color:textColor
             }
         }
