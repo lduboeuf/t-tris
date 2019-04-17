@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.0
 
 ToolBar {
     id:toolBar
@@ -30,10 +31,18 @@ ToolBar {
                 anchors.horizontalCenter: parent.horizontalCenter
                 source: "/assets/back.svg"
             }
+
+            ColorOverlay{
+                source: navImage
+                anchors.fill: navImage
+                color: "white"
+            }
+
             onClicked: {
                 toolBar.backPressed()
                 pageStack.pop(null)
             }
+
 
         }
 
