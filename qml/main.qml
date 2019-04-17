@@ -23,6 +23,7 @@ ApplicationWindow {
 
     Settings {
             id: settings
+            property bool firstTime: true
             property bool soundOff: false
             property string envMode: (Screen.devicePixelRatio > 2) ? "Mobile": "Desktop"
             property int initialLevel:0
@@ -32,6 +33,12 @@ ApplicationWindow {
             property int swipeRatio: 12
             property int figureStyle: 1
         }
+
+
+    Item{
+        id: menu
+        //anchors.fill: parent
+
 
 
     Column {
@@ -80,16 +87,24 @@ ApplicationWindow {
 //        }
 
     }
+    }
 
 
 
     StackView{
         id: pageStack
         anchors.fill: parent
-        initialItem: Item{}
+        initialItem: menu
         onCurrentItemChanged: {
             if (currentItem!=null)
                 currentItem.forceActiveFocus() //force focus on Page (fix issue with keyboard event on Gameboard)
         }
+    }
+
+    Component.onCompleted: {
+        if (settings.firstTime) {
+            pageStack.push("qrc:/qml/About.qml");
+            settings.firstTime = false
+         }
     }
 }
