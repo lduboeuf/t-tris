@@ -1,4 +1,6 @@
 {
-  "template": "cmake",
-  "kill": "ttris"
+  "template": "qmake",
+  "kill": "ttris",
+  "build_args": "CONFIG+=UBUNTU_TOUCH"
+
 }
