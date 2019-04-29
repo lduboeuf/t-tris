@@ -1,14 +1,8 @@
 QT += quick quickcontrols2 svg multimedia network sql
 CONFIG += c++11
-unix {
-    #PKG_CONFIG = PKG_CONFIG_PATH=/usr/local/ssl/lib/pkgconfig/
-    #PKG_CONFIG = PKG_CONFIG = PKG_CONFIG_PATH=/usr/local/ssl/lib/pkgconfig/
-   ## LIBS += -LC:/home/lionel/dev/tools/openssl/openssl-1.0.2k -lssl -lcrypto
-    #LIBS += -LC:/usr/include/openssl/
-    #CONFIG += link_pkgconfig
-    #PKGCONFIG += openssl
-}
-#LIBS += -LC:/home/lionel/dev/tools/openssl/openssl-1.0.2k -lssl -lcrypto
+
+TARGET = ttris
+
 
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
@@ -39,6 +33,15 @@ lupdate_only{
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+
+UBUNTU_TOUCH {
+    message("building for Ubuntu Touch")
+    target.path = /
+    click_files.path = /
+    click_files.files = manifest.json ttris.apparmor ttris.desktop
+    INSTALLS+=click_files
+}
 
 DISTFILES += \
     qml/qmldir \
