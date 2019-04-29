@@ -40,7 +40,11 @@ UBUNTU_TOUCH {
     target.path = /
     click_files.path = /
     click_files.files = manifest.json ttris.apparmor ttris.desktop
-    INSTALLS+=click_files
+
+    logo.path = /assets
+    logo.files = $$PWD/assets/ttris.png
+
+    INSTALLS+=click_files logo
 }
 
 DISTFILES += \
