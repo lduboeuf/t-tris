@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>Welcome to t-tris High Score</h1>
+<h1>Welcome to <a href="https://github.com/lduboeuf/t-tris">t-tris</a> High Score</h1>
 
 <div id="high-scores">
 
@@ -24,6 +24,9 @@ if (!$db) {
     header("HTTP/1.1 500 Internal Server Error");
     exit;
 }
+
+// Change character set to utf8
+mysqli_set_charset($db,"utf8");
 
 $query="SELECT * FROM score  ORDER BY score.score DESC LIMIT 100";
 $response=array();
