@@ -16,11 +16,11 @@
     <message>
         <location filename="../qml/About.qml" line="58"/>
         <source>Use swipe left/right/bottom to move pieces, tap to rotate or use bottom control buttons. On Desktop you can use arrow keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Glissez votre doigt vers la gauche, la droite ou le bas pour déplacer les pièces, appuyez pour les faire tourner ou utilisez les boutons de contrôle. Sur ordinateur, vous pouvez utilisez les touches directionnelles.</translation>
     </message>
     <message>
         <source>Use swipe, bottom control buttons or keys to play</source>
-        <translation type="vanished">Utilisez vos doigts ou les touches en bas de l&apos;écran pour jouer</translation>
+        <translation>Utilisez vos doigts ou les boutons de contrôles du bas ou les touches pour jouer</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="66"/>
@@ -37,19 +37,19 @@
     <name>GameBoard</name>
     <message>
         <source>Level: </source>
-        <translation type="vanished">Niveau : </translation>
+        <translation>Niveau : </translation>
     </message>
     <message>
         <source>Score: </source>
-        <translation type="vanished">Score : </translation>
+        <translation>Score : </translation>
     </message>
     <message>
         <source>Paused</source>
-        <translation type="vanished">En pause</translation>
+        <translation>En pause</translation>
     </message>
     <message>
         <source>Resumed</source>
-        <translation type="vanished">Reprise</translation>
+        <translation>Reprise</translation>
     </message>
 </context>
 <context>
@@ -69,11 +69,11 @@
     <name>GameOver</name>
     <message>
         <source>GAME OVER</source>
-        <translation type="vanished">FIN DE PARTIE</translation>
+        <translation>FIN DE PARTIE</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="vanished">Réessayer</translation>
+        <translation>Réessayer</translation>
     </message>
 </context>
 <context>
@@ -155,26 +155,26 @@
     <message>
         <location filename="../qml/Options.qml" line="151"/>
         <source>Swipe sensibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensibilité de glissement</translation>
     </message>
     <message>
         <location filename="../qml/Options.qml" line="174"/>
         <source>Figure style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Style de figure :</translation>
     </message>
     <message>
         <location filename="../qml/Options.qml" line="228"/>
         <source>Ball</source>
-        <translation type="unfinished"></translation>
+        <translation>Balle</translation>
     </message>
     <message>
         <location filename="../qml/Options.qml" line="283"/>
         <source>Square</source>
-        <translation type="unfinished"></translation>
+        <translation>Carré</translation>
     </message>
     <message>
         <source>not implemented yet</source>
-        <translation type="vanished">Pas encore implémenté</translation>
+        <translation>Pas encore implémenté</translation>
     </message>
 </context>
 <context>
