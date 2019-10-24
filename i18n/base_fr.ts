@@ -9,26 +9,26 @@
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../qml/About.qml" line="50"/>
+        <location filename="../qml/About.qml" line="69"/>
         <source>Welcome to t-tris!</source>
         <translation>Bienvenue dans T-tris !</translation>
     </message>
     <message>
-        <location filename="../qml/About.qml" line="58"/>
-        <source>Use swipe left/right/bottom to move pieces, tap to rotate or use bottom control buttons. On Desktop you can use arrow keys</source>
+        <location filename="../qml/About.qml" line="77"/>
+        <source>Use swipe left/right/bottom to move pieces, tap to rotate or use bottom control buttons. On Desktop you can use arrow keys.&lt;br&gt; Swipe speed can be managed in option menu</source>
         <translation>Glissez votre doigt vers la gauche, la droite ou le bas pour déplacer les pièces, appuyez pour les faire tourner ou utilisez les boutons de contrôle. Sur ordinateur, vous pouvez utilisez les touches directionnelles.</translation>
     </message>
     <message>
-        <source>Use swipe, bottom control buttons or keys to play</source>
-        <translation>Utilisez vos doigts ou les boutons de contrôles du bas ou les touches pour jouer</translation>
-    </message>
-    <message>
-        <location filename="../qml/About.qml" line="66"/>
-        <source>Please notice that online scores are stored freely on https://lduboeuf.ouvaton.org, we collect only scores and user provided names. See source code for details</source>
+        <location filename="../qml/About.qml" line="85"/>
+        <source>Please notice that online scores are stored freely on http://lduboeuf.ouvaton.org/ttris/, we collect only scores and user provided names. See source code for details</source>
         <translation>Veuillez noter que les scores partagés sont stockés gratuitement sur https://lduboeuf.ouvaton.org. Nous collectons uniquement les scores et les noms fournis par les utilisateurs/trices. Se référer au code source pour plus de détails.</translation>
     </message>
     <message>
-        <location filename="../qml/About.qml" line="72"/>
+        <source>Please notice that online scores are stored freely on https://lduboeuf.ouvaton.org, we collect only scores and user provided names. See source code for details</source>
+        <translation type="vanished">Veuillez noter que les scores partagés sont stockés gratuitement sur https://lduboeuf.ouvaton.org. Nous collectons uniquement les scores et les noms fournis par les utilisateurs/trices. Se référer au code source pour plus de détails.</translation>
+    </message>
+    <message>
+        <location filename="../qml/About.qml" line="91"/>
         <source>source code here</source>
         <translation>Code source disponible ici</translation>
     </message>
@@ -37,19 +37,19 @@
     <name>GameBoard</name>
     <message>
         <source>Level: </source>
-        <translation>Niveau : </translation>
+        <translation type="vanished">Niveau : </translation>
     </message>
     <message>
         <source>Score: </source>
-        <translation>Score : </translation>
+        <translation type="vanished">Score : </translation>
     </message>
     <message>
         <source>Paused</source>
-        <translation>En pause</translation>
+        <translation type="vanished">En pause</translation>
     </message>
     <message>
         <source>Resumed</source>
-        <translation>Reprise</translation>
+        <translation type="vanished">Reprise</translation>
     </message>
 </context>
 <context>
@@ -69,11 +69,11 @@
     <name>GameOver</name>
     <message>
         <source>GAME OVER</source>
-        <translation>FIN DE PARTIE</translation>
+        <translation type="vanished">FIN DE PARTIE</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation>Réessayer</translation>
+        <translation type="vanished">Réessayer</translation>
     </message>
 </context>
 <context>
@@ -159,8 +159,12 @@
     </message>
     <message>
         <location filename="../qml/Options.qml" line="174"/>
+        <source>Shapes style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Figure style:</source>
-        <translation>Style de figure :</translation>
+        <translation type="vanished">Style de figure :</translation>
     </message>
     <message>
         <location filename="../qml/Options.qml" line="228"/>
@@ -174,7 +178,7 @@
     </message>
     <message>
         <source>not implemented yet</source>
-        <translation>Pas encore implémenté</translation>
+        <translation type="vanished">Pas encore implémenté</translation>
     </message>
 </context>
 <context>
@@ -206,27 +210,27 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="43"/>
+        <location filename="../qml/main.qml" line="50"/>
         <source>New Game</source>
         <translation>Nouvelle partie</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="51"/>
+        <location filename="../qml/main.qml" line="58"/>
         <source>Show Scores</source>
         <translation>Afficher les scores</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="57"/>
+        <location filename="../qml/main.qml" line="64"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="63"/>
+        <location filename="../qml/main.qml" line="70"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="70"/>
+        <location filename="../qml/main.qml" line="77"/>
         <source>Quit</source>
         <translation>Quitter</translation>
     </message>

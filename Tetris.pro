@@ -47,6 +47,9 @@ UBUNTU_TOUCH {
     INSTALLS+=click_files logo
 }
 
+
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+
 DISTFILES += \
     qml/qmldir \
     android/AndroidManifest.xml \
@@ -79,8 +82,12 @@ DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew.bat
 
-contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+
+
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
 }
+
+DISTFILES += \
+    manifest.json
 
