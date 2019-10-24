@@ -34,73 +34,6 @@ Page {
         anchors.margins: 12
         spacing:16
 
-
-//        RowLayout{
-//            width: parent.width
-//            Label{
-
-//                anchors.left: parent.left
-//                text: qsTr("Initial level")
-//                color:textColor
-//            }
-
-//            ComboBox{
-//                anchors.right:  parent.right
-//                currentIndex: settings.initialLevel
-//                model: 9
-//                onCurrentIndexChanged:{
-//                    settings.initialLevel = currentIndex
-//                }
-
-//            }
-
-//            //        Switch {
-//            //            id: initialLevelSwitch
-//            //            anchors.right:  parent.right
-//            //            checked: settings.initialLevel
-//            //        }
-
-//        }
-
-//        RowLayout{
-//            width: parent.width
-//            Label{
-//                anchors.left: parent.left
-//                text: qsTr("Max number of columns")
-//                color:textColor
-//            }
-
-
-//            ComboBox{
-//                anchors.right:  parent.right
-//                currentIndex: settings.maxColumns
-//                model: [12,14,16,18,20,22,24,26,28,30]
-//                onCurrentIndexChanged:{
-//                    settings.maxColumns = currentIndex
-//                }
-
-//            }
-//        }
-
-//        RowLayout{
-//            width: parent.width
-//            Label{
-//                anchors.left: parent.left
-//                text: qsTr("Enable random bombs")
-//                color:textColor
-//            }
-
-
-//            Switch {
-//                anchors.right:  parent.right
-//                checked: settings.useBomb
-//                onCheckedChanged: {
-//                    settings.useBomb = checked
-//                }
-//            }
-
-//        }
-
         RowLayout{
             width: parent.width
             Label{
@@ -153,7 +86,14 @@ Page {
             }
 
 
+
+
+        }
+
+        RowLayout{
+            width: parent.width
             Slider{
+                anchors.left: parent.left
                 anchors.right:  parent.right
                 from:6
                 to:60
@@ -163,7 +103,6 @@ Page {
                     settings.swipeRatio = value
                 }
             }
-
         }
 
 

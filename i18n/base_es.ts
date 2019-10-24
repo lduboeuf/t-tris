@@ -9,22 +9,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/About.qml" line="50"/>
+        <location filename="../qml/About.qml" line="69"/>
         <source>Welcome to t-tris!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/About.qml" line="58"/>
-        <source>Use swipe left/right/bottom to move pieces, tap to rotate or use bottom control buttons. On Desktop you can use arrow keys</source>
+        <location filename="../qml/About.qml" line="77"/>
+        <source>Use swipe left/right/bottom to move pieces, tap to rotate or use bottom control buttons. On Desktop you can use arrow keys.&lt;br&gt; Swipe speed can be managed in option menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/About.qml" line="66"/>
-        <source>Please notice that online scores are stored freely on https://lduboeuf.ouvaton.org, we collect only scores and user provided names. See source code for details</source>
+        <location filename="../qml/About.qml" line="85"/>
+        <source>Please notice that online scores are stored freely on http://lduboeuf.ouvaton.org/ttris/, we collect only scores and user provided names. See source code for details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/About.qml" line="72"/>
+        <location filename="../qml/About.qml" line="91"/>
         <source>source code here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -125,7 +125,7 @@
     </message>
     <message>
         <location filename="../qml/Options.qml" line="174"/>
-        <source>Figure style:</source>
+        <source>Shapes style:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -168,27 +168,27 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="43"/>
+        <location filename="../qml/main.qml" line="50"/>
         <source>New Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="51"/>
+        <location filename="../qml/main.qml" line="58"/>
         <source>Show Scores</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="57"/>
+        <location filename="../qml/main.qml" line="64"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="63"/>
+        <location filename="../qml/main.qml" line="70"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="70"/>
+        <location filename="../qml/main.qml" line="77"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>

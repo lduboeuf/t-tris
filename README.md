@@ -23,3 +23,7 @@ source: https://tetris.wiki/Scoring
 ## build and deploy
 
 Import project in QtCreator and that's it!
+
+## For UbuntuTouch
+
+use CLI `clickable`

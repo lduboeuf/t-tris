@@ -6,7 +6,10 @@ import "../js/Configuration.js" as Config
 MouseArea {
     property point origin
     property real xStep: parent.width / settings.swipeRatio
+    property real yStep: parent.height / settings.swipeRatio
     property int currentPos: 0
+    property int currentYPos: 0
+    property bool onAir: false
     property var lastSwipeDownActionDate: Date.now()
     property var lastSwipeHorizontalActionDate: Date.now()
 
@@ -19,9 +22,14 @@ MouseArea {
         drag.axis = Drag.XAndYAxis
         origin = Qt.point(mouse.x, mouse.y)
         currentPos = Math.round(mouse.x / xStep)
+        currentYPos = Math.round(mouse.y / yStep)
+        onAir = true
+        console.log("ok pressed:" + currentYPos)
     }
 
     onPositionChanged: {
+        if (!onAir) return
+
         switch (drag.axis) {
         case Drag.XAndYAxis:
 
@@ -56,11 +64,18 @@ MouseArea {
 //                    lastSwipeUpActionDate = Date.now()
 //                }
             }else{
+                var nbStepsY = Math.round(mouse.y / yStep)
+                if (nbStepsY > currentYPos) {
                 //protect from unintended down actions
-                if (lastSwipeDownActionDate + minActionInterval < Date.now() ){
+                //if (lastSwipeDownActionDate + minActionInterval < Date.now() ){
+                    console.log("kikou STEP DOWN")
                     swipe(Config.KEY_STEP_DOWN)
                     lastSwipeDownActionDate = Date.now()
+                    origin = Qt.point(mouse.x, mouse.y)
+
+                //}
                 }
+                currentYPos = nbStepsY
             }
 
 
@@ -69,8 +84,6 @@ MouseArea {
     }
 
     onClicked: {
-
-
 
         if (drag.axis===Drag.XAndYAxis){
             swipe(Config.KEY_UP)
@@ -84,12 +97,15 @@ MouseArea {
 
         if (drag.axis===Drag.YAxis){
 
-             velocity = (mouse.y - origin.y) / (Date.now() - lastSwipeDownActionDate)
-            //console.log("velocity:" + velocity)
-            if (velocity > 1){
+            velocity = (mouse.y - origin.y) / (Date.now() - lastSwipeDownActionDate)
+            if (velocity > 1.5){
                 swipe(Config.KEY_DOWN)
+                onAir = false
+                console.log("kikou bump")
                 lastSwipeDownActionDate = Date.now()
+                drag.axis = Drag.None
             }
+
 
 
         }else if (drag.axis===Drag.XAxis){
