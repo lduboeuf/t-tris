@@ -1,7 +1,9 @@
 [Desktop Entry]
 Name=t-tris
+Comment=Tetris like game
 Exec=ttris
 Icon=assets/ttris.png
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true
+Keywords=tetris;
