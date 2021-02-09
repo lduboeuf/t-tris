@@ -12,9 +12,6 @@ import "scoring"
 
 import "../js/Configuration.js" as Config;
 import "../js/Tetris.js" as Tetris
-//import "../js/Storage.js" as Storage
-
-
 
 
 Page {
@@ -23,9 +20,7 @@ Page {
     focus: true    // important when set onKey
     padding: 2
 
-
     property color textColor: "white"
-
     property int blockSize: width / Config.MAX_CELL;
     property int cellSize: width < height ? blockSize : height / Config.MAX_CELL
 
@@ -44,21 +39,15 @@ Page {
 
     Component.onCompleted: {
         init()
-        //score =440
-        //state = Config.STATE_GAMEOVER
-
     }
 
     onStateChanged: {
         console.log("state:"+state)
         console.log("timer interval:" + timer.interval)
-
     }
 
-
-
-
     header: GameBoardHeader{
+
         id: gmHeader
     }
 
@@ -73,15 +62,10 @@ Page {
         anchors {top: parent.top; left: parent.left}
     }
 
-
-
     Item {
         id: gameCanvas
         anchors.fill: parent
-
-
     }
-
 
     SwipeArea {
             id: mouseArea
@@ -94,9 +78,6 @@ Page {
 
             }
     }
-
-
-
 
 
     footer: GameBoardFooter{
@@ -126,7 +107,6 @@ Page {
 
        // NumberAnimation { duration: 500 ;easing.type: Easing.SineCurve}
     }
-
 
 
     PauseOverlay{
@@ -179,12 +159,6 @@ Page {
     SoundEffect {
         id: soundStart
         source: "/sound/start.wav"
-//        onPlayingChanged: {
-//            if (playing)
-//                volume = 0.4;
-//            else
-//                volume = 0.0;
-//        }
     }
 
 

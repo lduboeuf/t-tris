@@ -10,50 +10,35 @@ ToolBar {
 
     signal backPressed
 
-
     background: Rectangle{
         anchors.fill: toolBar
         color:toolBar.txtColor
         opacity: 0.2
     }
 
+    height: contentHeight * 1.4
+
     RowLayout {
 
         anchors.fill: parent
-        ToolButton {
-            id: toolButtonLeft
-            contentItem: Image {
-                id:navImage
-                fillMode: Image.Pad
-                sourceSize.width: toolButtonLeft.height  * 0.4
-                sourceSize.height: toolButtonLeft.height  * 0.4
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                source: "/assets/back.svg"
-            }
 
-            ColorOverlay{
-                source: navImage
-                anchors.fill: navImage
-                color: "white"
-            }
-
+        MToolButton {
+            imageSrc: "/assets/back.svg"
             onClicked: {
                 toolBar.backPressed()
                 pageStack.pop(null)
             }
-
-
         }
 
-        Text {
-            id: score
-            anchors { horizontalCenter: parent.horizontalCenter;  verticalCenter: parent.verticalCenter;}
-            color: toolBar.txtColor
+        Label {
             text: title
-
-
+            elide: Label.ElideRight
+            horizontalAlignment: Qt.AlignHCenter
+            verticalAlignment: Qt.AlignVCenter
+            Layout.fillWidth: true
+            color: toolBar.txtColor
         }
+
 
     }
 }

@@ -1,54 +1,41 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.3
-
 
 Item{
-
+    id: root
     width: parent.width
     height: scoreTxt.implicitHeight *3
 
     signal highlighted
 
-    Layout.margins: 12
-
     Rectangle{
-
         id: rowRect
-        anchors.fill: rowScore
+        anchors.fill: parent
+        anchors.margins: 4
         color:selected ? "blue": "white"
         radius: 5
         border.color: "white"
-
         opacity: 0.2
 
     }
 
 
-    RowLayout{
-        id:rowScore
-        anchors.fill: parent
-        anchors.margins: 4
+    Text{
+        id: scoreTxt
+        x: 12
+        anchors.verticalCenter: parent.verticalCenter
+        color: scorePage.textColor
+        text: " " +score //TODO margin doesn't work
+    }
 
-
-        Text{
-
-            id: scoreTxt
-
-            Layout.leftMargin: 12
-            color: scorePage.textColor
-            text: " " +score //TODO margin doesn't work
-        }
-
-        Text{
-            anchors.left: parent.horizontalCenter
-            color: scorePage.textColor
-            elide: Text.ElideRight
-            text: name
-
-        }
-
-
+    Text{
+        //Layout.fillWidth: true
+        x: parent.width / 2
+        anchors.verticalCenter: parent.verticalCenter
+        //anchors.right: parent.right
+        color: scorePage.textColor
+        elide: Text.ElideRight
+        text: name
     }
 
 }

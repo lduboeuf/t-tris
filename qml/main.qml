@@ -39,54 +39,46 @@ ApplicationWindow {
         id: menu
         //anchors.fill: parent
 
+        Column {
+            spacing:16
+            anchors.centerIn: parent
+            width:parent.width * 0.6
 
+            MenuButton {
+                name: qsTr("New Game")
+                highlighted: true
+                focus:true
+                onClicked:{
+                    pageStack.push("qrc:/qml/GameBoard.qml", StackView.Immediate);
+                }
+            }
+            MenuButton {
+                name: qsTr("Show Scores")
+                onClicked:{
+                    pageStack.push("qrc:/qml/scoring/ScorePage.qml");
+                }
+            }
+            MenuButton {
+                name: qsTr("Options")
+                onClicked:{
+                    pageStack.push("qrc:/qml/Options.qml");
+                }
+            }
+            MenuButton {
+                name: qsTr("About")
+                onClicked:{
+                    pageStack.push("qrc:/qml/About.qml");
+                }
+            }
+            MenuButton {
+                id: btnQuit
+                name: qsTr("Quit")
+                onClicked:{
+                    Qt.quit();
+                }
+            }
 
-    Column {
-        spacing:16
-        anchors.centerIn: parent
-        width:parent.width * 0.6
-
-        MenuButton {
-            name: qsTr("New Game")
-            highlighted: true
-            focus:true
-            onClicked:{
-                pageStack.push("qrc:/qml/GameBoard.qml", StackView.Immediate);
-            }
         }
-        MenuButton {
-            name: qsTr("Show Scores")
-            onClicked:{
-                pageStack.push("qrc:/qml/scoring/ScorePage.qml");
-            }
-        }
-        MenuButton {
-            name: qsTr("Options")
-            onClicked:{
-                pageStack.push("qrc:/qml/Options.qml");
-            }
-        }
-        MenuButton {
-            name: qsTr("About")
-            onClicked:{
-                pageStack.push("qrc:/qml/About.qml");
-            }
-        }
-        MenuButton {
-            id: btnQuit
-            name: qsTr("Quit")
-            onClicked:{
-                Qt.quit();
-            }
-        }
-//        MenuButton {
-//            name: qsTr("test")
-//            onClicked:{
-//                pageStack.push("qrc:/qml/scoring/HighScoresOverlay.qml", {score:0, level:5});
-//            }
-//        }
-
-    }
     }
 
 
