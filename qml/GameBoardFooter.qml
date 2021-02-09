@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
+import "components"
 
 
 ToolBar {
@@ -10,6 +11,8 @@ ToolBar {
         signal leftPressed
         signal rightPressed
         signal rotatePressed
+
+        height: contentHeight * 2
 
         background: Rectangle{
             anchors.fill: toolBarBottom
@@ -26,89 +29,45 @@ ToolBar {
         RowLayout{
             anchors.fill: parent
 
-            ToolButton {
+            MToolButton {
                 id: btnLeft
-                anchors.left: parent.left
+
+                imageSrc: "/assets/left.svg"
+                Layout.alignment: Qt.AlignLeft
                 Layout.fillWidth: true
-                contentItem: Image {
-                    id:imgLeft
-                    fillMode: Image.Pad
-                    sourceSize.width: btnLeft.height  * 0.4
-                    sourceSize.height: btnLeft.height  * 0.4
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "/assets/left.svg"
-                }
+                Layout.fillHeight: true
+
                 onClicked: {
                     leftPressed()
                 }
-                ColorOverlay {
-                    anchors.fill: imgLeft
-                    source: imgLeft
-                    color: boardGame.textColor
-                }
-
             }
 
-
-
-            ToolButton {
+            MToolButton {
                 id: btnRotate
-                anchors.horizontalCenter: parent.horizontalCenter
-                Layout.fillWidth: true
 
-                contentItem: Image {
-                    id: imgRotate
-                    fillMode: Image.Pad
-                    sourceSize.width: btnRotate.height  * 0.4
-                    sourceSize.height: btnRotate.height  * 0.4
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "/assets/rotate.svg"
-                }
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillHeight: true
+                imageSrc: "/assets/rotate.svg"
 
                 onClicked: {
                     rotatePressed()
                 }
-
-                ColorOverlay {
-                    anchors.fill: imgRotate
-                    source: imgRotate
-                    color: boardGame.textColor
-                }
-
-
             }
 
-
-
-
-            ToolButton {
+            MToolButton {
                 id: btnRight
+
+                Layout.alignment: Qt.AlignRight
                 Layout.fillWidth: true
-                anchors.right: parent.right
-                contentItem: Image {
-                    id: imgRight
-                    fillMode: Image.Pad
-                    sourceSize.width: btnLeft.height  * 0.4
-                    sourceSize.height: btnLeft.height  * 0.4
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "/assets/right.svg"
-                }
+                Layout.fillHeight: true
+                imageSrc: "/assets/right.svg"
+
                 onClicked: {
                     rightPressed()
                 }
-
-                ColorOverlay {
-                    anchors.fill: imgRight
-                    source: imgRight
-                    color: boardGame.textColor
-                }
-
             }
         }
-
 
 
     }

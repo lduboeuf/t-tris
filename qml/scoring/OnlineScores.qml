@@ -19,7 +19,8 @@ Item {
         model: ListModel{
             id: onLineScores
         }
-        delegate: ScoreItemDelegate{}
+        delegate: ScoreItemDelegate{
+        }
     }
 
     Label {
