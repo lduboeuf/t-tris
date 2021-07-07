@@ -8,8 +8,6 @@
         <file>sound/moving.wav</file>
         <file>sound/game_over.wav</file>
         <file>qml/SwipeArea.qml</file>
-        <file>i18n/base_de.qm</file>
-        <file>i18n/base_fr.qm</file>
         <file>sound/start.wav</file>
         <file>qml/Bomb.qml</file>
         <file>qml/PauseOverlay.qml</file>
@@ -28,7 +26,6 @@
         <file>qml/scoring/HighScoresOverlay.qml</file>
         <file>qml/About.qml</file>
         <file>qml/components/MToolButton.qml</file>
-        <file>i18n/base_nl.qm</file>
         <file>qml/components/CustomSwitch.qml</file>
     </qresource>
 </RCC>

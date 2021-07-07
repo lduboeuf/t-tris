@@ -13,8 +13,7 @@ int main(int argc, char *argv[])
     app.setApplicationName("ttris.lduboeuf");
 
     QTranslator myappTranslator;
-
-    //qDebug()<< myappTranslator.load(QLocale(), QLatin1String("base"), QLatin1String("_"), QLatin1String(":/i18n"));
+    qDebug() << myappTranslator.load(QLocale(), QLatin1String("base"), QLatin1String("_"), QLatin1String(":/i18n"));
     app.installTranslator(&myappTranslator);
 
     QQmlApplicationEngine engine;

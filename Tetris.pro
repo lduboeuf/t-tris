@@ -17,6 +17,8 @@ SOURCES += \
      main.cpp
 
 RESOURCES += qml.qrc \
+    translations.qrc \
+    translations.qrc \
     assets/assets.qrc \
     js/js.qrc
 
