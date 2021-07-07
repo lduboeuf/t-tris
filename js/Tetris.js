@@ -29,19 +29,17 @@ var particleComponent = Qt.createComponent("../qml/Cell.qml");
 var bombComponent = Qt.createComponent("../qml/Bomb.qml");
 
 var figureStyle;
+var tetrisExtra = true;
 
 
 
-function initGame(game, gameCanvas, nextFigureBoard, style) {
+function initGame(game, gameCanvas, nextFigureBoard, style, ptetrisExtra) {
 
-
-//    if (particleComponent.status == Component.Error) {
-//        console.log(particleComponent.errorString());
-//    }
     gameBoard.game = game
     gameBoard.gameCanvas = gameCanvas
     gameBoard.nextFigureBoard = nextFigureBoard
     figureStyle = style
+    tetrisExtra = ptetrisExtra
     //init boards
 
     lastScore = 0
@@ -62,6 +60,17 @@ function initGame(game, gameCanvas, nextFigureBoard, style) {
     board = new Board(blockSize, maxRow, maxColumn);
     miniBoard = new Board(15, 5, 5);
 
+    if (!tetrisExtra) {
+        var index = figureTypes.indexOf("PLUS_FIGURE");
+        if (index > -1) {
+          figureTypes.splice(index, 1);
+        }
+        index = figureTypes.indexOf("CELL_FIGURE");
+        if (index > -1) {
+          figureTypes.splice(index, 1);
+        }
+    }
+
     //start game
     currentFigure = null
     nextFigure = null
@@ -76,10 +85,8 @@ function nextRound(){
 
 
     nbRound++
-
-
     //handle bomb component
-    if (nbRound >1 && Math.floor(Math.random()*22)===1){
+    if (tetrisExtra && nbRound >1 && Math.floor(Math.random()*22)===1){
 
         gameBoard.game.state = Config.STATE_PENDING_BOMB
         var bombColumn =  Math.floor(Math.random()*board.maxColumn);
@@ -92,8 +99,6 @@ function nextRound(){
 
         return
     }
-
-
 
     column = board.maxColumn / 2
     row = 0
@@ -125,22 +130,12 @@ function nextRound(){
 function nextStep()
 {
     gameBoard.game.state = Config.STATE_PLAY
-
-
     nextColumn = column;
     nextRow = row +1
     nextOrientation = orientation
 
     controlGame();
-
-
-
-
-
 }
-
-
-
 
 function drawFigure(figure, parentEntity, pBoard, pColumn, pRow){
     //console.log("draw at:" + pColumn, pRow)
@@ -168,22 +163,11 @@ function drawFigure(figure, parentEntity, pBoard, pColumn, pRow){
 
 
             pBoard.insert(particle);
-
         }
-
-        //console.log("insert at:" + particle.column, particle.row)
-
     }
-
 }
 
-
-
-
-
-
 function moveFigure(){
-
 
     var points = currentFigure.getPoints(nextOrientation)
 
@@ -216,7 +200,7 @@ function displayPoints(){
 
     for (var i = 0; i < figureTypes.length; i++){
 
-        var f = new Figure(figureTypes[i], "blue", Config.ORIENTATION_DEFAULT);
+        var f = new Figure(figureTypes[i], Config.ORIENTATION_DEFAULT);
         console.log(f.type)
         var tbl = "["
         for (var j=0; j < f.maxOrientation; j++){
@@ -225,26 +209,19 @@ function displayPoints(){
         }
         tbl += "]"
         console.log(tbl)
-
     }
-
-
-
 }
 
 
 function createNextFigure(){
 
-    //var type = "LINE_FIGURE";//TODO random
     var typeIdx = Math.floor(Math.random()*figureTypes.length);
     var type = figureTypes[typeIdx]
-    var nextColor = Config.color[Math.floor(Math.random()*4)];
-    return new Figure(type, nextColor, Config.ORIENTATION_DEFAULT);
+    //var nextColor = Config.color[Math.floor(Math.random()*4)];
+    return new Figure(type, Config.ORIENTATION_DEFAULT);
 
     //var nextType= Math.floor(Math.random()*Config.MAX_FIGURE);
-
 }
-
 
 
 /*************************************
@@ -283,20 +260,11 @@ function onKeyHandler(key){
             nextColumn = nextColumn + 1
             break;
         case Config.KEY_UP:
-
-            //if (nextColumn>0 && nextRow>0 && (nextColumn<board.maxColumn-1)){
-
-                if(nextOrientation + 1 >= currentFigure.maxOrientation){
-                    nextOrientation = 0;
-                } else {
-                    nextOrientation++;
-                }
-
-
-            //}
-
-            //currentFigure.rotate()
-
+            if(nextOrientation + 1 >= currentFigure.maxOrientation){
+                nextOrientation = 0;
+            } else {
+                nextOrientation++;
+            }
             break;
         case Config.KEY_DOWN:
             nextRow = nextRow +1
@@ -331,12 +299,9 @@ function onKeyHandler(key){
 
 function controlGame(){
 
-
     if(canMoveTo(nextColumn, nextRow, nextOrientation)){
 
         moveFigure()
-
-
 
     } else if(!canMoveTo(column, row+1, orientation)){
 
@@ -353,8 +318,6 @@ function controlGame(){
             nextRound();
         }
     }
-
-
 }
 
 function canMoveTo(x, y, pOrientation){
@@ -371,9 +334,7 @@ function canMoveTo(x, y, pOrientation){
         if(!board.availablePosition(x + points[i].x, y + points[i].y)){
             return false;
         }
-
     }
-
 
     return true;
 }
@@ -390,9 +351,6 @@ function fireBomb(pColumn, pRow){
     gameBoard.game.state = Config.STATE_FIRING_BOMB
 
     nextRound();
-
-
-
 }
 
 
@@ -412,9 +370,7 @@ function checkFullRow(){
            //console.debug("row not full = " +i)
 
             moveDownAllRow(i, delta);
-
         }
-
     }
 
     //score
@@ -426,21 +382,14 @@ function checkFullRow(){
         }else{
             gameBoard.game.score +=  newScore
         }
-
-
     }
-
-
 
     //check for new Level ?
     if(nbRows /  (gameBoard.game.level +1)  > Config.LEVEL_DELTA){
         lastScore = gameBoard.game.score;
         gameBoard.game.state = Config.STATE_NEW_LEVEL
         gameBoard.game.level++;
-
     }
-
-
 }
 
 
@@ -452,10 +401,7 @@ function removeFullRow(rowNum){
             particle.dying = true
             board.delete(particle)
         }
-
-
     }
-
 }
 
 function removeFullColumn(columnNb){
@@ -467,7 +413,6 @@ function removeFullColumn(columnNb){
             board.delete(particle)
         }
     }
-
 }
 
  function moveDownAllRow2(rowNum, delta){
@@ -481,12 +426,8 @@ function removeFullColumn(columnNb){
                 particle.row = i + delta
 
                 board.insert(particle);
-
             }
-
         }
-
-
     }
 }
 
@@ -500,7 +441,6 @@ function moveDownAllRow(rowNum, delta){
            particle.row = rowNum + delta
 
            board.insert(particle);
-
        }
    }
 }

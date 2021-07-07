@@ -32,7 +32,7 @@ Page {
     Keys.enabled: running
 
     function init(){
-        Tetris.initGame(boardGame, gameCanvas, nextFigureBoard, settings.figureStyle)
+        Tetris.initGame(boardGame, gameCanvas, nextFigureBoard, settings.figureStyle, settings.tetrisExtra)
         running = true
     }
 

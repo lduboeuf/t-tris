@@ -32,6 +32,7 @@ ApplicationWindow {
             property int maxColumns: 12
             property int swipeRatio: 12
             property int figureStyle: 1
+            property bool tetrisExtra: true
         }
 
 

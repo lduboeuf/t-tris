@@ -28,5 +28,7 @@
         <file>qml/scoring/HighScoresOverlay.qml</file>
         <file>qml/About.qml</file>
         <file>qml/components/MToolButton.qml</file>
+        <file>i18n/base_nl.qm</file>
+        <file>qml/components/CustomSwitch.qml</file>
     </qresource>
 </RCC>

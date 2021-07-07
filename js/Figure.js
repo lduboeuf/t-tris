@@ -1,9 +1,9 @@
 Qt.include("./Figures.js")
 
 
-function Figure( type, color, orientation){
+function Figure( type, orientation){
     this.type = type
-    this.color = color
+    this.color = Figures[type].color
     this.orientation = orientation
     this.points = Figures[type].points
     this.maxOrientation = Figures[type].maxOrientation

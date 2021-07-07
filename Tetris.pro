@@ -22,7 +22,7 @@ RESOURCES += qml.qrc \
 
 
 #Translation
-TRANSLATIONS = i18n/base_fr.ts i18n/base_de.ts i18n/base_es.ts
+TRANSLATIONS = i18n/base_fr.ts i18n/base_de.ts i18n/base_es.ts i18n/base_nl.ts
 
 lupdate_only{
     SOURCES = *.qml

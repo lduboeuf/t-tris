@@ -9,7 +9,7 @@
             \"desktop\":  \"ttris.desktop\"
         }
     },
-    \"version\": \"0.9\",
+    \"version\": \"1.1\",
     \"maintainer\": \"lionel <lionel.duboeuf@gmail.com>\",
     \"framework\" : \"ubuntu-sdk-16.04\"
 }

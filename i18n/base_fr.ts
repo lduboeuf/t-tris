@@ -55,12 +55,12 @@
 <context>
     <name>GameBoardHeader</name>
     <message>
-        <location filename="../qml/GameBoardHeader.qml" line="57"/>
+        <location filename="../qml/GameBoardHeader.qml" line="45"/>
         <source>Level: </source>
         <translation>Niveau : </translation>
     </message>
     <message>
-        <location filename="../qml/GameBoardHeader.qml" line="57"/>
+        <location filename="../qml/GameBoardHeader.qml" line="45"/>
         <source>Score: </source>
         <translation>Score : </translation>
     </message>
@@ -135,7 +135,7 @@
 <context>
     <name>OnlineScores</name>
     <message>
-        <location filename="../qml/scoring/OnlineScores.qml" line="29"/>
+        <location filename="../qml/scoring/OnlineScores.qml" line="30"/>
         <source>Network unreachable or service unavailable</source>
         <translation>Réseau injoignable ou service indisponible</translation>
     </message>
@@ -148,18 +148,23 @@
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../qml/Options.qml" line="110"/>
+        <location filename="../qml/Options.qml" line="43"/>
         <source>Allow saving highscores online</source>
         <translation>Autoriser la publication des scores en ligne</translation>
     </message>
     <message>
-        <location filename="../qml/Options.qml" line="151"/>
+        <location filename="../qml/Options.qml" line="63"/>
         <source>Swipe sensibility</source>
         <translation>Sensibilité de glissement</translation>
     </message>
     <message>
-        <location filename="../qml/Options.qml" line="174"/>
+        <location filename="../qml/Options.qml" line="87"/>
         <source>Shapes style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Options.qml" line="212"/>
+        <source>Tetris extra (random bombs, uni-cell and cross figure)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -167,12 +172,12 @@
         <translation type="vanished">Style de figure :</translation>
     </message>
     <message>
-        <location filename="../qml/Options.qml" line="228"/>
+        <location filename="../qml/Options.qml" line="141"/>
         <source>Ball</source>
         <translation>Balle</translation>
     </message>
     <message>
-        <location filename="../qml/Options.qml" line="283"/>
+        <location filename="../qml/Options.qml" line="196"/>
         <source>Square</source>
         <translation>Carré</translation>
     </message>
@@ -192,17 +197,17 @@
 <context>
     <name>ScorePage</name>
     <message>
-        <location filename="../qml/scoring/ScorePage.qml" line="14"/>
+        <location filename="../qml/scoring/ScorePage.qml" line="12"/>
         <source>High scores</source>
         <translation>Records</translation>
     </message>
     <message>
-        <location filename="../qml/scoring/ScorePage.qml" line="68"/>
+        <location filename="../qml/scoring/ScorePage.qml" line="61"/>
         <source>Local</source>
         <translation>Locaux</translation>
     </message>
     <message>
-        <location filename="../qml/scoring/ScorePage.qml" line="88"/>
+        <location filename="../qml/scoring/ScorePage.qml" line="86"/>
         <source>Shared</source>
         <translation>Partagés</translation>
     </message>
@@ -210,27 +215,27 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="50"/>
+        <location filename="../qml/main.qml" line="49"/>
         <source>New Game</source>
         <translation>Nouvelle partie</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="58"/>
+        <location filename="../qml/main.qml" line="57"/>
         <source>Show Scores</source>
         <translation>Afficher les scores</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="64"/>
+        <location filename="../qml/main.qml" line="63"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="70"/>
+        <location filename="../qml/main.qml" line="69"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="77"/>
+        <location filename="../qml/main.qml" line="76"/>
         <source>Quit</source>
         <translation>Quitter</translation>
     </message>

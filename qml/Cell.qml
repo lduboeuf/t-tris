@@ -64,8 +64,16 @@ import "../js/Configuration.js" as Config
              id: img
              visible: block.style === Config.CELL_STYLE_CIRCLE
              anchors.fill: parent
-             source: "/assets/" + cellColor +"Stone.png"
+             //source: "/assets/" + cellColor +"Stone.png"
+             source: "/assets/blueStone.png"
          }
+
+         ColorOverlay {
+             visible: img.visible
+                 anchors.fill: img
+                 source: img
+                 color: cellColor
+             }
 
 
 

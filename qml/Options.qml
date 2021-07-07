@@ -37,7 +37,7 @@ Page {
         RowLayout{
             width: parent.width
             Label{
-                anchors.left: parent.left
+                Layout.alignment: Qt.AlignLeft
                 Layout.fillWidth: true
                 wrapMode: Label.WordWrap
                 text: qsTr("Allow saving highscores online")
@@ -45,29 +45,8 @@ Page {
             }
 
 
-            Switch {
-                id:control
-                anchors.right:  parent.right
-                indicator: Rectangle {
-                        implicitWidth: 48
-                        implicitHeight: 26
-                        x: control.width - width - control.rightPadding
-                        y: parent.height / 2 - height / 2
-                        radius: 13
-                        color: control.checked ? "#17a81a" : "transparent"
-                        border.color: control.checked ? "#17a81a" : "#cccccc"
-
-                        Rectangle {
-                            x: control.checked ? parent.width - width : 0
-                            width: 26
-                            height: 26
-                            radius: 13
-                            color: control.down ? "#cccccc" : "#ffffff"
-                            border.color: control.checked ? (control.down ? "#17a81a" : "#21be2b") : "#999999"
-                        }
-                    }
-
-
+            CustomSwitch {
+                Layout.alignment: Qt.AlignRight
                 checked: settings.allowNetwork
                 onCheckedChanged: {
                     settings.allowNetwork = checked
@@ -80,21 +59,16 @@ Page {
         RowLayout{
             width: parent.width
             Label{
-                anchors.left: parent.left
+                Layout.alignment: Qt.AlignLeft
                 text: qsTr("Swipe sensibility")
                 color:textColor
             }
-
-
-
-
         }
 
         RowLayout{
             width: parent.width
             Slider{
-                anchors.left: parent.left
-                anchors.right:  parent.right
+                //width: parent.width
                 from:6
                 to:60
                 stepSize:6
@@ -109,7 +83,7 @@ Page {
         RowLayout{
             width: parent.width
             Label{
-                anchors.left: parent.left
+                Layout.alignment: Qt.AlignLeft
                 text: qsTr("Shapes style:")
                 color:textColor
             }
@@ -131,8 +105,8 @@ Page {
                 Layout.preferredWidth: parent.width / 2
                 Layout.fillWidth: true
 
-               checkable: true
-               checked: settings.figureStyle === Config.CELL_STYLE_CIRCLE
+                checkable: true
+                checked: settings.figureStyle === Config.CELL_STYLE_CIRCLE
 
                 background: Rectangle{
                     anchors.fill: parent
@@ -141,9 +115,9 @@ Page {
                     color:ballBtn.checked ? "blue": "transparent"
                 }
                 onCheckedChanged: {
-                     if (checked) {
-                         settings.figureStyle = Config.CELL_STYLE_CIRCLE
-                     }
+                    if (checked) {
+                        settings.figureStyle = Config.CELL_STYLE_CIRCLE
+                    }
 
                 }
 
@@ -160,7 +134,7 @@ Page {
                         sourceSize.width: 25
                         sourceSize.height: 25
                         source: "/assets/yellowStone.png"
-                         anchors.verticalCenter: parent.verticalCenter
+                        anchors.verticalCenter: parent.verticalCenter
                     }
                     Label{
                         id: label
@@ -189,9 +163,9 @@ Page {
                 }
 
                 onCheckedChanged: {
-                   if (checked){
-                       settings.figureStyle = Config.CELL_STYLE_SQUARE
-                   }
+                    if (checked){
+                        settings.figureStyle = Config.CELL_STYLE_SQUARE
+                    }
                 }
 
                 contentItem: Row{
@@ -220,7 +194,7 @@ Page {
                         anchors.verticalCenter: parent.verticalCenter
 
                         text: qsTr("Square")
-                         color:textColor
+                        color:textColor
 
                     }
                 }
@@ -229,6 +203,26 @@ Page {
 
         }
 
+        RowLayout{
+            width: parent.width
+            Label{
+                Layout.alignment: Qt.AlignLeft
+                Layout.fillWidth: true
+                wrapMode: Label.WordWrap
+                text: qsTr("Tetris extra (random bombs, uni-cell and cross figure)")
+                color:textColor
+            }
+
+            CustomSwitch {
+                Layout.alignment: Qt.AlignRight
+                checked: settings.tetrisExtra
+                onCheckedChanged: {
+                    settings.tetrisExtra = checked
+                }
+
+            }
+
+        }
 
 
     }
