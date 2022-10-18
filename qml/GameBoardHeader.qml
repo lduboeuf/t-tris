@@ -11,7 +11,7 @@ ToolBar {
     id:toolBar
     readonly property int txtScoreX: stats.x + stats.width
 
-    height: contentHeight * 1.4
+    height: contentHeight * 1.8
 
     background: Rectangle{
         anchors.fill: toolBar

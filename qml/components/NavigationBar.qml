@@ -16,7 +16,7 @@ ToolBar {
         opacity: 0.2
     }
 
-    height: contentHeight * 1.4
+    height: contentHeight * 1.8
 
     RowLayout {
 
