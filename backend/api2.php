@@ -65,7 +65,9 @@ function can_save($current_score){
     global $db;
     $isHigher = FALSE;
 
-    //echo "kikou2:".$current_score;
+    if ($current_score<2000) {
+        return FALSE;
+    }
 
     $stmt = mysqli_prepare($db,"SELECT count(*) as nb FROM score WHERE score > ? AND YEAR(date) = YEAR(CURDATE())");
     $stmt->bind_param("i", $current_score);
@@ -133,8 +135,5 @@ function save_score($data){
 
 
 }
-
-
-
 
 mysqli_close($db);

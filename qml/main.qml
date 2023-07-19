@@ -107,6 +107,6 @@ ApplicationWindow {
         if (settings.firstTime) {
             pageStack.push("qrc:/qml/About.qml");
             settings.firstTime = false
-         }
+        }
     }
 }

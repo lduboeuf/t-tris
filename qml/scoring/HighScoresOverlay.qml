@@ -119,8 +119,6 @@ Item{
                 id: content
                 spacing: 12
                 anchors.fill: parent
-                //anchors.fill: parent
-                //anchors.centerIn: parent
                 padding: 24
 
 
@@ -232,9 +230,6 @@ Item{
                             }
                         )
 
-                           // saveOnlineScore(nameText.text, gameOverItem.score, gameOverItem.level)
-
-
 
                         }else{
                             showHighScorePage()
@@ -257,30 +252,13 @@ Item{
                         color:"white"
                     }
 
-
                 }
-
-
-
-
-
 
             }
 
-
         }
 
-
-
-
-
-
-    //GameOver{}
     onStateChanged: {
         console.log(state)
     }
-
-
-
-
 }
