@@ -1,41 +1,48 @@
 import QtQuick 2.9
+import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 
 Item{
     id: root
     width: parent.width
-    height: scoreTxt.implicitHeight *3
+    height: childrenRect.height
+
+    property bool selected: false
 
     signal highlighted
 
     Rectangle{
         id: rowRect
-        anchors.fill: parent
+        anchors.fill: layout
         anchors.margins: 4
-        color:selected ? "blue": "white"
+        color:root.selected ? "blue": "white"
         radius: 5
         border.color: "white"
         opacity: 0.2
 
     }
 
+    RowLayout {
+        id: layout
+        width: parent.width
+        height: scoreTxt.implicitHeight *3
 
-    Text{
-        id: scoreTxt
-        x: 12
-        anchors.verticalCenter: parent.verticalCenter
-        color: scorePage.textColor
-        text: " " +score //TODO margin doesn't work
+        Text{
+            id: scoreTxt
+            Layout.leftMargin: 12
+            color: scorePage.textColor
+            text: " " +score
+        }
+
+        Text{
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignHCenter
+            color: scorePage.textColor
+            elide: Text.ElideRight
+            text: name
+        }
     }
 
-    Text{
-        //Layout.fillWidth: true
-        x: parent.width / 2
-        anchors.verticalCenter: parent.verticalCenter
-        //anchors.right: parent.right
-        color: scorePage.textColor
-        elide: Text.ElideRight
-        text: name
-    }
+
 
 }

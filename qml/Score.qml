@@ -77,19 +77,5 @@ Item {
             duration: 200
             easing.type: Easing.InOutQuad
         }
-
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
 }

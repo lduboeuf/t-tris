@@ -5,6 +5,7 @@ import QtQuick.Controls 2.2
 Button {
     id: btnStart
     property alias name: btnText.text
+    property bool selected: false
 
     anchors.left: parent.left
     anchors.right: parent.right
@@ -18,8 +19,6 @@ Button {
         btnStart.clicked()
     }
 
-
-
     contentItem: Text{
         id:btnText
         text: text
@@ -29,7 +28,7 @@ Button {
     }
 
     background: Rectangle {
-        color: btnStart.pressed   ? "#214f4d": "transparent"
+        color: selected || btnStart.pressed   ? "#214f4d": "transparent"
         opacity: 0.5
         border.width: 1
         border.color: "#087443"

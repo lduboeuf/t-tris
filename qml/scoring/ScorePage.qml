@@ -31,7 +31,6 @@ Page {
         onBackPressed: {
             localScores.visible = false //workaround for bug: https://bugreports.qt.io/browse/QTBUG-70335
         }
-
     }
 
     TabBar {
@@ -88,28 +87,24 @@ Page {
                     anchors.bottom: parent.bottom
                     color: scorePage.textColor
                     opacity: bar.currentIndex == 1 ? 1 : 0.4
-
                 }
             }
-
         }
-
     }
-
 
     SwipeView {
         id: view
         width: parent.width
         z: -1
 
-
         currentIndex: bar.currentIndex
+        interactive: false
         anchors{
             top: bar.bottom
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            topMargin: 24
+            topMargin: 20
 
         }
 
@@ -118,7 +113,6 @@ Page {
         }
 
         OnlineScores{}
-
     }
 
 }

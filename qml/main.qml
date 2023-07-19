@@ -38,7 +38,6 @@ ApplicationWindow {
 
     Item{
         id: menu
-        //anchors.fill: parent
 
         Column {
             spacing:16

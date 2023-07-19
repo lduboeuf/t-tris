@@ -11,29 +11,6 @@ Page {
     title: qsTr("About")
 
 
-//    background: Image {
-//        source: "/assets/ttris.png"
-//        fillMode: Image.PreserveAspectCrop
-//        //opacity: 0.2
-//    }
-
-//    background:
-//        Image {
-//               id:logo
-//               //fillMode: Image.Pad
-//               fillMode: Image.PreserveAspectCrop
-//               anchors.horizontalCenter: parent.horizontalCenter
-//               //sourceSize.width: parent.width * 0.3
-//               //sourceSize.height: parent.height * 0.3
-//               source: "/assets/ttris.png"
-//               //opacity: 0.1
-////               Rectangle{
-////                       anchors.fill: parent
-////                       color: "#087443"
-////                       opacity: 0.2
-////                 }
-//         }
-
     background: Image {
         source: "/assets/background.jpg"
         fillMode: Image.PreserveAspectCrop
@@ -42,13 +19,11 @@ Page {
 
 
     header:NavigationBar{
-        //txtColor:"black"
     }
 
 
     Image {
            id:logo
-           //fillMode: Image.Pad
            fillMode: Image.PreserveAspectCrop
            anchors.horizontalCenter: parent.horizontalCenter
            opacity: 0.1
@@ -58,11 +33,10 @@ Page {
 
 
     Column {
+        id: content
         anchors.fill: parent
         spacing:24
         padding:24
-
-
 
         Text{
             anchors.horizontalCenter: parent.horizontalCenter
@@ -86,17 +60,24 @@ Page {
             color: textColor
         }
 
-        MenuButton{
-           // anchors.horizontalCenter: parent.horizontalCenter
-            name: qsTr('source code here')
-            onClicked: {
-                Qt.openUrlExternally("https://github.com/lduboeuf/t-tris");
-            }
+        Text{
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr('<a href="https://github.com/lduboeuf/t-tris">source code here</a>')
+            onLinkActivated: Qt.openUrlExternally(link)
+            linkColor: "white"
         }
 
-
-
+        MenuButton{
+            name: qsTr('OK')
+            anchors.topMargin: 24
+            selected: true
+            onClicked: {
+                pageStack.pop(null)
+            }
+        }
     }
+
+
 
 
 }

@@ -3,29 +3,93 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
-
+import "../components"
 import "qrc:/js/RemoteStorage.js" as RemoteStorage
 
 Item {
-    id: onlineTab
+    id: root
     property bool error: false
+    property var yearModel: []
+    property var scores: []
 
+    ListModel {
+        id: scoreList
+    }
 
+    function populateModel(year) {
+        scoreList.clear()
+        let selectedIndex = -1
+        for(let i=0; i < root.scores.length; i++) {
+            const score = root.scores[i]
+            if (score.year === year) {
 
-    ListView{
-        id:onlineList
+                scoreList.append(score)
+
+                if (parseInt(score.score) === scorePage.currentScore && score.name === scorePage.currentName) {
+                    selectedIndex = scoreList.count - 1
+                }
+            }
+        }
+        onlineList.currentIndex = selectedIndex
+
+        if (selectedIndex > -1){
+           onlineList.positionViewAtIndex(selectedIndex, ListView.Center )
+        } else {
+            onlineList.positionViewAtBeginning()
+        }
+    }
+
+    ColumnLayout {
         anchors.fill: parent
 
-        model: ListModel{
-            id: onLineScores
+        ListView {
+            id: yearsListView
+            Layout.fillWidth: true
+            Layout.preferredHeight: 50
+
+            orientation: Qt.Horizontal
+            flickableDirection: Flickable.HorizontalFlick
+            layoutDirection: ListView.RightToLeft
+            onCountChanged: {
+                var newIndex = count - 1 // last index
+                positionViewAtEnd()
+                currentIndex = newIndex
+            }
+
+            model: yearModel
+            delegate: Item {
+                width: root.width / 4
+                MenuButton {
+                    name: modelData
+                    selected: yearsListView.currentIndex === index
+                    onClicked: {
+                        yearsListView.currentIndex = index
+                        root.populateModel(modelData)
+                    }
+                }
+            }
         }
-        delegate: ScoreItemDelegate{
+
+        ListView{
+            id:onlineList
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            boundsBehavior: ListView.StopAtBounds
+            snapMode: ListView.SnapToItem
+            clip: true
+
+            model: scoreList
+
+            delegate: ScoreItemDelegate{
+                selected: onlineList.currentIndex === index
+            }
         }
+
     }
 
     Label {
         anchors.centerIn: parent
-        visible: onlineTab.error
+        visible: root.error
         color:scorePage.textColor
         text: qsTr("Network unreachable or service unavailable")
     }
@@ -33,7 +97,7 @@ Item {
     BusyIndicator{
         id: loading
         anchors.centerIn: parent
-        running: (onLineScores.count == 0 && !onlineTab.error)
+        running: root.scores.length === 0 && !root.error
 
     }
 
@@ -43,83 +107,31 @@ Item {
         color:scorePage.textColor
     }
 
-
     Component.onCompleted:  {
-        // Storage.getOnlineScores()
-
 
         RemoteStorage.getAll(
                     function(scores){
-                        onLineScores.clear()
+
+                        var tmpYearModel = []
                         var recordToHighLight = 0
                         for(var i = 0; i < scores.length; i++){
                             var score = scores[i]
-                            score.selected= (score.name === scorePage.currentName && parseInt(score.score) === scorePage.currentScore)
-                            onLineScores.append(score)
 
-                            if (score.selected){
-                                recordToHighLight = i
+                            if (!tmpYearModel.includes(score.year)) {
+                                tmpYearModel.push(score.year)
                             }
-
                         }
 
-                        if (recordToHighLight>0){
-                            onlineList.positionViewAtIndex(recordToHighLight, ListView.Center )
-                        }
+                        root.scores = scores
 
+                        tmpYearModel.sort()
+                        yearModel = tmpYearModel
 
+                        root.populateModel(new Date().getFullYear().toString())
                     },
                     function(error){
-                        onlineTab.error = true
+                        root.error = true
                     }
-            )
-
-
-        //var scores = []
-//        var http = new XMLHttpRequest()
-//        var url = Config.API_URL;
-//        http.open("GET", url, true);
-
-//        // Send the proper header information along with the request
-//        http.setRequestHeader("Content-type", "application/json");
-//        http.setRequestHeader("TOKEN", Config.API_KEY);
-
-//        http.onreadystatechange = function() { // Call a function when the state changes.
-//            if (http.readyState == 4) {
-//                if (http.status == 200) {
-
-//                   onLineScores.clear()
-//                    var recordToHighLight = 0
-//                    var fetchScores = JSON.parse(http.responseText)
-//                    for(var i = 0; i < fetchScores.length; i++){
-
-//                        var record = fetchScores[i]
-//                        record.selected= (record.name === scorePage.currentName && parseInt(record.score) === scorePage.currentScore)
-//                        onLineScores.append(record)
-
-//                        if (record.selected){
-//                            recordToHighLight = i
-//                        }
-
-//                    }
-
-
-
-//                    if (recordToHighLight>0){
-//                        onlineList.positionViewAtIndex(recordToHighLight, ListView.Center )
-//                    }
-
-//                    //console.log("ok" + scores.length)
-//                } else {
-//                    onlineTab.error = true
-//                    console.log("error: " + http.status)
-//                }
-//            }
-//        }
-//        http.send();
+        )
     }
-
-
-
-
 }

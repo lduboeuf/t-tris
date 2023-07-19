@@ -27,7 +27,7 @@ function getAll(onSucess, onError){
                     scores.push(record)
 
                 }
-
+                console.log('ok onSucess')
                 onSucess(scores)
 
 
