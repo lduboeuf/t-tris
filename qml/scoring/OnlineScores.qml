@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.2
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
@@ -37,6 +37,7 @@ Item {
         } else {
             onlineList.positionViewAtBeginning()
         }
+        console.log('populateModel done', scoreList.count)
     }
 
     ColumnLayout {
@@ -49,23 +50,25 @@ Item {
 
             orientation: Qt.Horizontal
             flickableDirection: Flickable.HorizontalFlick
+            boundsBehavior: ListView.StopAtBounds
             layoutDirection: ListView.RightToLeft
+
+            property real yearItemWidth: root.width / 4
+
             onCountChanged: {
                 var newIndex = count - 1 // last index
                 positionViewAtEnd()
-                currentIndex = newIndex
+                yearsListView.currentIndex = newIndex
             }
 
             model: yearModel
-            delegate: Item {
-                width: root.width / 4
-                MenuButton {
-                    name: modelData
-                    selected: yearsListView.currentIndex === index
-                    onClicked: {
-                        yearsListView.currentIndex = index
-                        root.populateModel(modelData)
-                    }
+            delegate: MenuButton {
+                width: yearsListView.yearItemWidth
+                name: modelData
+                selected: model.index === yearsListView.currentIndex
+                onClicked: {
+                    yearsListView.currentIndex = index
+                    root.populateModel(modelData)
                 }
             }
         }
@@ -77,6 +80,7 @@ Item {
             boundsBehavior: ListView.StopAtBounds
             snapMode: ListView.SnapToItem
             clip: true
+            currentIndex: -1
 
             model: scoreList
 
@@ -114,6 +118,7 @@ Item {
 
                         var tmpYearModel = []
                         var recordToHighLight = 0
+
                         for(var i = 0; i < scores.length; i++){
                             var score = scores[i]
 

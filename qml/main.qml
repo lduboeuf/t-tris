@@ -1,5 +1,5 @@
 import QtQuick 2.7
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.12
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 
@@ -46,6 +46,8 @@ ApplicationWindow {
 
             MenuButton {
                 name: qsTr("New Game")
+                anchors.left: parent.left
+                anchors.right: parent.right
                 highlighted: true
                 focus:true
                 onClicked:{
@@ -54,24 +56,32 @@ ApplicationWindow {
             }
             MenuButton {
                 name: qsTr("Show Scores")
+                anchors.left: parent.left
+                anchors.right: parent.right
                 onClicked:{
                     pageStack.push("qrc:/qml/scoring/ScorePage.qml");
                 }
             }
             MenuButton {
                 name: qsTr("Options")
+                anchors.left: parent.left
+                anchors.right: parent.right
                 onClicked:{
                     pageStack.push("qrc:/qml/Options.qml");
                 }
             }
             MenuButton {
                 name: qsTr("About")
+                anchors.left: parent.left
+                anchors.right: parent.right
                 onClicked:{
                     pageStack.push("qrc:/qml/About.qml");
                 }
             }
             MenuButton {
                 id: btnQuit
+                anchors.left: parent.left
+                anchors.right: parent.right
                 name: qsTr("Quit")
                 onClicked:{
                     Qt.quit();

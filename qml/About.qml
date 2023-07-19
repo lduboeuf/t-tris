@@ -1,5 +1,5 @@
 import QtQuick 2.7
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
 
 import "components"
@@ -69,6 +69,8 @@ Page {
 
         MenuButton{
             name: qsTr('OK')
+            anchors.left: parent.left
+            anchors.right: parent.right
             anchors.topMargin: 24
             selected: true
             onClicked: {

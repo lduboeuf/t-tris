@@ -1,6 +1,6 @@
-import QtQuick 2.9
+import QtQuick 2.12
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.12
 
 Item{
     id: root
@@ -15,7 +15,7 @@ Item{
         id: rowRect
         anchors.fill: layout
         anchors.margins: 4
-        color:root.selected ? "blue": "white"
+        color:selected ? "blue": "white"
         radius: 5
         border.color: "white"
         opacity: 0.2

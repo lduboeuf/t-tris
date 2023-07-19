@@ -1,5 +1,5 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
 
 Button {
@@ -7,10 +7,9 @@ Button {
     property alias name: btnText.text
     property bool selected: false
 
-    anchors.left: parent.left
-    anchors.right: parent.right
     height: btnText.implicitHeight * 2
     antialiasing: true
+    highlighted: true
 
     Accessible.name: text
     Accessible.description: "This button does " + text
@@ -28,7 +27,7 @@ Button {
     }
 
     background: Rectangle {
-        color: selected || btnStart.pressed   ? "#214f4d": "transparent"
+        color: btnStart.selected || btnStart.pressed   ? "#214f4d": "transparent"
         opacity: 0.5
         border.width: 1
         border.color: "#087443"
